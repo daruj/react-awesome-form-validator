@@ -10,17 +10,11 @@ const webpackConfig = {
       'babel-polyfill', // Set up an ES6-ish environment
       'webpack-dev-server/client?http://localhost:9898', // WebpackDevServer host and port
       'webpack/hot/only-dev-server',
-      './app/index.jsx'
+      './example/simple-form/index.jsx'
     ],
-    vendor: './app/vendors/index.js'
+    vendor: './src/vendors/index.js'
   },
   devServer: {
-
-    // Configuration in case you need to proxy calls to an api
-    proxy: {
-      '/api/*': 'http://localhost:5000'
-    },
-    historyApiFallback: true,
     contentBase: './build/dev_build'
   },
   output: {
@@ -71,7 +65,7 @@ const webpackConfig = {
       minChunks: Infinity
     }),
     new HtmlWebpackPlugin({
-      template: './app/assets/index.template.html'
+      template: './example/simple-form/index.template.html'
     }),
     new webpack.DefinePlugin({
       'process.env': {

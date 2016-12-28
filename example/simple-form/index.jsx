@@ -1,6 +1,6 @@
 import React, { Component }    from 'react';
 import ReactDOM                from 'react-dom';
-import Form                    from './form';
+import Form                    from '../../src/form';
 import { isAlpha, isEmail }    from 'validator';
 
 class Root extends Component {

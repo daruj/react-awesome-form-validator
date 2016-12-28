@@ -39,6 +39,7 @@ class Input extends InputBaseComponent {
         <input
           type={type}
           name={name}
+          ref={name}
           placeholder={placeHolder}
           className={
             classnames(
@@ -46,7 +47,6 @@ class Input extends InputBaseComponent {
               className
             )
           }
-          ref={name}
           onKeyUp={(evt) => {
             const validateInput = validate(evt.target.value);
             this.setState({

@@ -22,6 +22,14 @@ class Input extends InputBaseComponent {
     }
   }
 
+  renderLabel() {
+    if (this.props.label) {
+      return (
+        <label>{this.props.label}</label>
+      );
+    }
+  }
+
   render() {
     const {
       fieldClassName = styles.wrapperField,
@@ -36,10 +44,10 @@ class Input extends InputBaseComponent {
       <div
         className={fieldClassName}
       >
+        {this.renderLabel()}
         <input
           type={type}
           name={name}
-          ref={name}
           placeholder={placeHolder}
           className={
             classnames(
@@ -47,6 +55,7 @@ class Input extends InputBaseComponent {
               className
             )
           }
+          ref={name}
           onKeyUp={(evt) => {
             const validateInput = validate(evt.target.value);
             this.setState({
@@ -55,7 +64,14 @@ class Input extends InputBaseComponent {
               errorMessage: validateInput.errorMessage
             });
           }}
-          onBlur={() => this.setState({ dirty: true })}
+          onBlur={(evt) => {
+            const validateInput = validate(evt.target.value);
+            this.setState({
+              valid: validateInput.valid,
+              dirty: true,
+              errorMessage: validateInput.errorMessage
+            });
+          }}
         />
         {this.renderError()}
       </div>
@@ -67,6 +83,7 @@ Input.propTypes = {
   fieldClassName: React.PropTypes.string,
   type: React.PropTypes.string.isRequired,
   placeHolder: React.PropTypes.string,
+  label: React.PropTypes.string,
   name: React.PropTypes.string.isRequired,
   className: React.PropTypes.string,
   invalidClassName: React.PropTypes.string,

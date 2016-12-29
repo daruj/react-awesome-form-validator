@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Input from './input';
 import SubmitButton from './submit-button';
+import Wrapper from './wrapper';
 import { some } from 'lodash';
 
 class Form extends Component {
@@ -16,11 +17,18 @@ class Form extends Component {
     };
   }
 
-  render() {
-    const childrenWithProps = React.Children.map(this.props.children,
+  getComponent(children) {
+    return React.Children.map(children,
       (child) => {
         let component = child;
         switch (child.type.name) {
+          case 'Wrapper':
+            component = (
+              <Wrapper {...child.props}>
+                {this.getComponent(child.props.children)}
+              </Wrapper>
+            );
+            break;
           case 'SubmitButton':
             component = React.cloneElement(child, {
               onClick: (event) => {
@@ -62,14 +70,29 @@ class Form extends Component {
         return component;
       }
     );
-    return (<form>{childrenWithProps}</form>);
+  }
+
+  render() {
+    const childrenWithProps = this.getComponent(this.props.children);
+    return (
+      <form className={this.props.className}>
+        {childrenWithProps}
+      </form>
+    );
   }
 }
+
+Form.propTypes = {
+  className: React.PropTypes.string
+};
 
 Form.Input = Input;
 Form.Input.displayName = 'Input';
 
 Form.SubmitButton = SubmitButton;
 Form.SubmitButton.displayName = 'SubmitButton';
+
+Form.Wrapper = Wrapper;
+Form.Wrapper.displayName = 'Wrapper';
 
 export default Form;

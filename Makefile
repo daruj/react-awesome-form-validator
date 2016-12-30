@@ -1,5 +1,8 @@
 run-simple-form:
-	node ./node_modules/webpack-dev-server/bin/webpack-dev-server --port 3000 --host 0.0.0.0 --config webpack.config.dev.js --hot --progress --inline
+	exampleFolder=simple-form node ./node_modules/webpack-dev-server/bin/webpack-dev-server --port 3000 --host 0.0.0.0 --config webpack.config.dev.js --hot --progress --inline
+
+run-form-with-custom-input:
+	exampleFolder=form-with-custom-input node ./node_modules/webpack-dev-server/bin/webpack-dev-server --port 3000 --host 0.0.0.0 --config webpack.config.dev.js --hot --progress --inline
 
 #
 # Project bundle

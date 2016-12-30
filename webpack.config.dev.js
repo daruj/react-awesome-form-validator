@@ -3,14 +3,15 @@ const WebpackNotifierPlugin = require('webpack-notifier');
 const HtmlWebpackPlugin     = require('html-webpack-plugin');
 //const ExtractTextPlugin     = require('extract-text-webpack-plugin');
 const path                  = require('path');
+const exampleFolder         = process.env.exampleFolder;
 
 const webpackConfig = {
   entry: {
     app: [
       'babel-polyfill', // Set up an ES6-ish environment
-      'webpack-dev-server/client?http://localhost:9898', // WebpackDevServer host and port
+      'webpack-dev-server/client?http://localhost:3000/', // WebpackDevServer host and port
       'webpack/hot/only-dev-server',
-      './example/simple-form/index.jsx'
+      `./example/${exampleFolder}/index.jsx`
     ],
     vendor: './src/vendors/index.js'
   },
@@ -65,7 +66,7 @@ const webpackConfig = {
       minChunks: Infinity
     }),
     new HtmlWebpackPlugin({
-      template: './example/simple-form/index.template.html'
+      template: `./example/${exampleFolder}/index.template.html`
     }),
     new webpack.DefinePlugin({
       'process.env': {

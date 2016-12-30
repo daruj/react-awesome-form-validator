@@ -37,6 +37,9 @@ const webpackConfig = {
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' }
     ]
   },
+  externals: {
+    react: 'react'
+  },
   resolve: {
     // Needed so you can require("a") instead of require("a.jsx")
     extensions: ['', '.js', '.jsx', '.json', '.scss'],

@@ -1,7 +1,8 @@
 import React, { Component }    from 'react';
 import ReactDOM                from 'react-dom';
 import Form                    from '../../src/form';
-import { isAlpha, isEmail }    from 'validator';
+import { isAlpha }             from 'validator';
+import MyCustomInput           from './my-custom-input';
 
 class Root extends Component {
 
@@ -13,57 +14,25 @@ class Root extends Component {
     return (
       <Form>
         <h2>Form with custom input</h2>
-        <Form.Input
-          name='name'
-          placeHolder='Type your name here...'
-          type='text'
-          validate={(value) => {
-            let valid = true;
-            let errorMessage = '';
-            if (!value.length) {
-              valid = false;
-              errorMessage = 'This field is required';
-            } else if (!isAlpha(value.replace(/\s/g, ''))) {
-              valid = false;
-              errorMessage = 'You must enter only characters';
-            }
-            return { valid, errorMessage };
-          }}
-        />
-        <Form.Input
-          name='lastName'
-          placeHolder='Type your lastName here...'
-          type='text'
-          validate={(value) => {
-            let valid = true;
-            let errorMessage = '';
-            if (!value.length) {
-              valid = false;
-              errorMessage = 'This field is required';
-            } else if (!isAlpha(value.replace(/\s/g, ''))) {
-              valid = false;
-              errorMessage = 'You must enter only characters';
-            }
-            return { valid, errorMessage };
-          }}
-        />
-        <Form.Input
-          name='email'
-          placeHolder='Type your email here...'
-          type='email'
-          validate={(value) => {
-            let valid = true;
-            let errorMessage = '';
-            if (!value.length) {
-              valid = false;
-              errorMessage = 'This field is required';
-            } else if (!isEmail(value.replace(/\s/g, ''))) {
-              valid = false;
-              errorMessage = 'You must enter a valid email';
-            }
-            return { valid, errorMessage };
-          }}
-        />
+        <Form.CustomInput>
+          <MyCustomInput
+            name='name'
+            placeHolder='Type your name here...'
+            type='text'
+            validate={(value) => {
+              let valid = true;
+              let errorMessage = '';
+              if (!value.length) {
+                valid = false;
+                errorMessage = 'This field is required';
+              } else if (!isAlpha(value.replace(/\s/g, ''))) {
+                valid = false;
+                errorMessage = 'You must enter only characters';
+              }
+              return { valid, errorMessage };
+            }}
+          />
+        </Form.CustomInput>
         <Form.SubmitButton
           onClick={() => console.log('Submit Form')}
         >Submit Form</Form.SubmitButton>

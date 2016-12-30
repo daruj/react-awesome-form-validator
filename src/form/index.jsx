@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Input from './input';
 import SubmitButton from './submit-button';
 import Wrapper from './wrapper';
+import CustomInput from './custom-input';
 import { some } from 'lodash';
 
 class Form extends Component {
@@ -66,6 +67,32 @@ class Form extends Component {
               }
             });
             break;
+          case 'CustomInput':
+            const customInput = child.props.children;
+            component = React.cloneElement(customInput, {
+              forceDirty: this.state.forceDirty,
+              isValid: (valid) => {
+                const state = { ...this.state };
+                state.validInputs[customInput.props.name] = valid;
+                this.setState(state);
+              },
+              setValidInputToUndefined: () => {
+                const state = { ...this.state };
+                state.validInputs[customInput.props.name] = undefined;
+                this.setState(state);
+              },
+              validate: (value) => {
+                if (customInput.props.validate) {
+                  return customInput.props.validate(value);
+                } else {
+                  return {
+                    valid: true,
+                    errorMessage: ''
+                  };
+                }
+              }
+            });
+            break;
         }
         return component;
       }
@@ -85,6 +112,9 @@ class Form extends Component {
 Form.propTypes = {
   className: React.PropTypes.string
 };
+
+Form.CustomInput = CustomInput;
+Form.CustomInput.displayName = 'CustomInput';
 
 Form.Input = Input;
 Form.Input.displayName = 'Input';

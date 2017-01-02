@@ -22,6 +22,22 @@ class Input extends InputBaseComponent {
     }
   }
 
+  changeValue(value) {
+    const {
+      onChange,
+      validate = () => true
+    } = this.props;
+    const validateInput = validate(value);
+    this.setState({
+      valid: validateInput.valid,
+      dirty: true,
+      errorMessage: validateInput.errorMessage
+    });
+    if (onChange) {
+      onChange(value);
+    }
+  }
+
   renderLabel() {
     if (this.props.label) {
       return (
@@ -37,8 +53,7 @@ class Input extends InputBaseComponent {
       placeHolder = '',
       name,
       className = styles.input,
-      invalidClassName = styles.invalidField,
-      validate = () => true
+      invalidClassName = styles.invalidField
     } = this.props;
     return (
       <div
@@ -56,22 +71,8 @@ class Input extends InputBaseComponent {
             )
           }
           ref={name}
-          onKeyUp={(evt) => {
-            const validateInput = validate(evt.target.value);
-            this.setState({
-              valid: validateInput.valid,
-              dirty: true,
-              errorMessage: validateInput.errorMessage
-            });
-          }}
-          onBlur={(evt) => {
-            const validateInput = validate(evt.target.value);
-            this.setState({
-              valid: validateInput.valid,
-              dirty: true,
-              errorMessage: validateInput.errorMessage
-            });
-          }}
+          onKeyUp={(evt) => this.changeValue(evt.target.value)}
+          onBlur={(evt) => this.changeValue(evt.target.value)}
         />
         {this.renderError()}
       </div>
@@ -88,7 +89,8 @@ Input.propTypes = {
   className: React.PropTypes.string,
   invalidClassName: React.PropTypes.string,
   validate: React.PropTypes.func,
-  setValidInputToUndefined: React.PropTypes.func
+  setValidInputToUndefined: React.PropTypes.func,
+  onChange: React.PropTypes.func
 };
 
 export default Input;

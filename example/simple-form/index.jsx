@@ -65,7 +65,7 @@ class Root extends Component {
           }}
         />
         <Form.SubmitButton
-          onClick={() => console.log('Submit Form')}
+          onClick={(formData) => console.log('Form Data', formData)}
         >Submit Form</Form.SubmitButton>
       </Form>
     );

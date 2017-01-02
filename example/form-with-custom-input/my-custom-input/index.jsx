@@ -63,6 +63,21 @@ class MyCustomInput extends Component {
     }
   }
 
+  changeValue(value) {
+    const {
+      validate = () => true,
+      setInputValue
+    } = this.props;
+    const validateInput = validate(value);
+    this.setState({
+      valid: validateInput.valid,
+      dirty: true,
+      errorMessage: validateInput.errorMessage
+    });
+    // set value to the inputValues form
+    setInputValue(value);
+  }
+
   render() {
     const {
       fieldClassName = styles.wrapperField,
@@ -70,8 +85,7 @@ class MyCustomInput extends Component {
       placeHolder = '',
       name,
       className = styles.input,
-      invalidClassName = styles.invalidField,
-      validate = () => true
+      invalidClassName = styles.invalidField
     } = this.props;
     return (
       <div
@@ -89,22 +103,8 @@ class MyCustomInput extends Component {
             )
           }
           ref={name}
-          onKeyUp={(evt) => {
-            const validateInput = validate(evt.target.value);
-            this.setState({
-              valid: validateInput.valid,
-              dirty: true,
-              errorMessage: validateInput.errorMessage
-            });
-          }}
-          onBlur={(evt) => {
-            const validateInput = validate(evt.target.value);
-            this.setState({
-              valid: validateInput.valid,
-              dirty: true,
-              errorMessage: validateInput.errorMessage
-            });
-          }}
+          onKeyUp={(evt) => this.changeValue(evt.target.value)}
+          onBlur={(evt) => this.changeValue(evt.target.value)}
         />
         {this.renderError()}
       </div>
@@ -123,7 +123,8 @@ MyCustomInput.propTypes = {
   validate: React.PropTypes.func,
   setValidInputToUndefined: React.PropTypes.func,
   forceDirty: React.PropTypes.bool,
-  isValid: React.PropTypes.func
+  isValid: React.PropTypes.func,
+  setInputValue: React.PropTypes.func
 };
 
 export default MyCustomInput;

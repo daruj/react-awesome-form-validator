@@ -25,7 +25,8 @@ class Input extends InputBaseComponent {
   changeValue(value) {
     const {
       onChange,
-      validate = () => true
+      validate = () => true,
+      setInputValue
     } = this.props;
     const validateInput = validate(value);
     this.setState({
@@ -33,6 +34,9 @@ class Input extends InputBaseComponent {
       dirty: true,
       errorMessage: validateInput.errorMessage
     });
+    // set value to the inputValues form
+    setInputValue(value);
+    // if we pass onChange as a prop then use it!
     if (onChange) {
       onChange(value);
     }

@@ -14,7 +14,8 @@ class Form extends Component {
     super(props);
     this.state = {
       forceDirty: false,
-      validInputs: {}
+      validInputs: {},
+      inputValues: {}
     };
   }
 
@@ -35,7 +36,7 @@ class Form extends Component {
               onClick: (event) => {
                 event.preventDefault();
                 if (!some(this.state.validInputs, (x) => !x)) {
-                  child.props.onClick();
+                  child.props.onClick(this.state.inputValues);
                 } else {
                   this.setState({ forceDirty: true });
                 }
@@ -53,6 +54,11 @@ class Form extends Component {
               setValidInputToUndefined: () => {
                 const state = { ...this.state };
                 state.validInputs[child.props.name] = undefined;
+                this.setState(state);
+              },
+              setInputValue: (value) => {
+                const state = { ...this.state };
+                state.inputValues[child.props.name] = value;
                 this.setState(state);
               },
               validate: (value) => {
@@ -79,6 +85,12 @@ class Form extends Component {
               setValidInputToUndefined: () => {
                 const state = { ...this.state };
                 state.validInputs[customInput.props.name] = undefined;
+                state.inputValues[customInput.props.name] = undefined;
+                this.setState(state);
+              },
+              setInputValue: (value) => {
+                const state = { ...this.state };
+                state.inputValues[customInput.props.name] = value;
                 this.setState(state);
               },
               validate: (value) => {

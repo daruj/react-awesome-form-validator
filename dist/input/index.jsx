@@ -10,9 +10,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _InputBaseComponent2 = require('../InputBaseComponent');
+var _inputBaseComponent = require('../inputBaseComponent');
 
-var _InputBaseComponent3 = _interopRequireDefault(_InputBaseComponent2);
+var _inputBaseComponent2 = _interopRequireDefault(_inputBaseComponent);
 
 var _classnames = require('classnames');
 
@@ -137,7 +137,7 @@ var Input = function (_InputBaseComponent) {
   }]);
 
   return Input;
-}(_InputBaseComponent3.default);
+}(_inputBaseComponent2.default);
 
 Input.propTypes = {
   fieldClassName: _react2.default.PropTypes.string,

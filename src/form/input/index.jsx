@@ -1,5 +1,5 @@
 import React from 'react';
-import InputBaseComponent from '../InputBaseComponent';
+import InputBaseComponent from '../inputBaseComponent';
 import classnames from 'classnames';
 import styles from './styles.scss';
 

@@ -48,7 +48,8 @@ var Form = function (_Component) {
 
     _this.state = {
       forceDirty: false,
-      validInputs: {}
+      validInputs: {},
+      inputValues: {}
     };
     return _this;
   }
@@ -77,7 +78,7 @@ var Form = function (_Component) {
                   if (!(0, _lodash.some)(_this2.state.validInputs, function (x) {
                     return !x;
                   })) {
-                    child.props.onClick();
+                    child.props.onClick(_this2.state.inputValues);
                   } else {
                     _this2.setState({ forceDirty: true });
                   }
@@ -95,6 +96,11 @@ var Form = function (_Component) {
                 setValidInputToUndefined: function setValidInputToUndefined() {
                   var state = _extends({}, _this2.state);
                   state.validInputs[child.props.name] = undefined;
+                  _this2.setState(state);
+                },
+                setInputValue: function setInputValue(value) {
+                  var state = _extends({}, _this2.state);
+                  state.inputValues[child.props.name] = value;
                   _this2.setState(state);
                 },
                 validate: function validate(value) {
@@ -121,6 +127,12 @@ var Form = function (_Component) {
                 setValidInputToUndefined: function setValidInputToUndefined() {
                   var state = _extends({}, _this2.state);
                   state.validInputs[customInput.props.name] = undefined;
+                  state.inputValues[customInput.props.name] = undefined;
+                  _this2.setState(state);
+                },
+                setInputValue: function setInputValue(value) {
+                  var state = _extends({}, _this2.state);
+                  state.inputValues[customInput.props.name] = value;
                   _this2.setState(state);
                 },
                 validate: function validate(value) {

@@ -67,7 +67,8 @@ var Input = function (_InputBaseComponent) {
           _props$validate = _props.validate,
           validate = _props$validate === undefined ? function () {
         return true;
-      } : _props$validate;
+      } : _props$validate,
+          setInputValue = _props.setInputValue;
 
       var validateInput = validate(value);
       this.setState({
@@ -75,6 +76,9 @@ var Input = function (_InputBaseComponent) {
         dirty: true,
         errorMessage: validateInput.errorMessage
       });
+      // set value to the inputValues form
+      setInputValue(value);
+      // if we pass onChange as a prop then use it!
       if (onChange) {
         onChange(value);
       }

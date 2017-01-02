@@ -1,0 +1,52 @@
+{
+  "version": 3,
+  "sources": [
+    "index.jsx"
+  ],
+  "names": [
+    "Form",
+    "props",
+    "state",
+    "forceDirty",
+    "validInputs",
+    "children",
+    "Children",
+    "map",
+    "child",
+    "component",
+    "type",
+    "name",
+    "getComponent",
+    "cloneElement",
+    "onClick",
+    "event",
+    "preventDefault",
+    "x",
+    "setState",
+    "isValid",
+    "valid",
+    "setValidInputToUndefined",
+    "undefined",
+    "validate",
+    "value",
+    "errorMessage",
+    "customInput",
+    "childrenWithProps",
+    "className",
+    "propTypes",
+    "node",
+    "PropTypes",
+    "string",
+    "CustomInput",
+    "displayName",
+    "Input",
+    "SubmitButton",
+    "Wrapper"
+  ],
+  "mappings": ";;;;;;;;;;AAAA;;;;AACA;;;;AACA;;;;AACA;;;;AACA;;;;AACA;;;;;;;;;;IAEMA,I;;;AAKJ,gBAAYC,KAAZ,EAAmB;AAAA;;AAAA,4GACXA,KADW;;AAEjB,UAAKC,KAAL,GAAa;AACXC,kBAAY,KADD;AAEXC,mBAAa;AAFF,KAAb;AAFiB;AAMlB;;;;iCAEYC,Q,EAAU;AAAA;;AACrB,aAAO,gBAAMC,QAAN,CAAeC,GAAf,CAAmBF,QAAnB,EACL,UAACG,KAAD,EAAW;AACT,YAAIC,YAAYD,KAAhB;;AADS;AAET,kBAAQA,MAAME,IAAN,CAAWC,IAAnB;AACE,iBAAK,SAAL;AACEF,0BACE;AAAA;AAAaD,sBAAMP,KAAnB;AACG,uBAAKW,YAAL,CAAkBJ,MAAMP,KAAN,CAAYI,QAA9B;AADH,eADF;AAKA;AACF,iBAAK,cAAL;AACEI,0BAAY,gBAAMI,YAAN,CAAmBL,KAAnB,EAA0B;AACpCM,yBAAS,iBAACC,KAAD,EAAW;AAClBA,wBAAMC,cAAN;AACA,sBAAI,CAAC,kBAAK,OAAKd,KAAL,CAAWE,WAAhB,EAA6B,UAACa,CAAD;AAAA,2BAAO,CAACA,CAAR;AAAA,mBAA7B,CAAL,EAA8C;AAC5CT,0BAAMP,KAAN,CAAYa,OAAZ;AACD,mBAFD,MAEO;AACL,2BAAKI,QAAL,CAAc,EAAEf,YAAY,IAAd,EAAd;AACD;AACF;AARmC,eAA1B,CAAZ;AAUA;AACF,iBAAK,OAAL;AACEM,0BAAY,gBAAMI,YAAN,CAAmBL,KAAnB,EAA0B;AACpCL,4BAAY,OAAKD,KAAL,CAAWC,UADa;AAEpCgB,yBAAS,iBAACC,KAAD,EAAW;AAClB,sBAAMlB,qBAAa,OAAKA,KAAlB,CAAN;AACAA,wBAAME,WAAN,CAAkBI,MAAMP,KAAN,CAAYU,IAA9B,IAAsCS,KAAtC;AACA,yBAAKF,QAAL,CAAchB,KAAd;AACD,iBANmC;AAOpCmB,0CAA0B,oCAAM;AAC9B,sBAAMnB,qBAAa,OAAKA,KAAlB,CAAN;AACAA,wBAAME,WAAN,CAAkBI,MAAMP,KAAN,CAAYU,IAA9B,IAAsCW,SAAtC;AACA,yBAAKJ,QAAL,CAAchB,KAAd;AACD,iBAXmC;AAYpCqB,0BAAU,kBAACC,KAAD,EAAW;AACnB,sBAAIhB,MAAMP,KAAN,CAAYsB,QAAhB,EAA0B;AACxB,2BAAOf,MAAMP,KAAN,CAAYsB,QAAZ,CAAqBC,KAArB,CAAP;AACD,mBAFD,MAEO;AACL,2BAAO;AACLJ,6BAAO,IADF;AAELK,oCAAc;AAFT,qBAAP;AAID;AACF;AArBmC,eAA1B,CAAZ;AAuBA;AACF,iBAAK,aAAL;AACE,kBAAMC,cAAclB,MAAMP,KAAN,CAAYI,QAAhC;AACAI,0BAAY,gBAAMI,YAAN,CAAmBa,WAAnB,EAAgC;AAC1CvB,4BAAY,OAAKD,KAAL,CAAWC,UADmB;AAE1CgB,yBAAS,iBAACC,KAAD,EAAW;AAClB,sBAAMlB,qBAAa,OAAKA,KAAlB,CAAN;AACAA,wBAAME,WAAN,CAAkBsB,YAAYzB,KAAZ,CAAkBU,IAApC,IAA4CS,KAA5C;AACA,yBAAKF,QAAL,CAAchB,KAAd;AACD,iBANyC;AAO1CmB,0CAA0B,oCAAM;AAC9B,sBAAMnB,qBAAa,OAAKA,KAAlB,CAAN;AACAA,wBAAME,WAAN,CAAkBsB,YAAYzB,KAAZ,CAAkBU,IAApC,IAA4CW,SAA5C;AACA,yBAAKJ,QAAL,CAAchB,KAAd;AACD,iBAXyC;AAY1CqB,0BAAU,kBAACC,KAAD,EAAW;AACnB,sBAAIE,YAAYzB,KAAZ,CAAkBsB,QAAtB,EAAgC;AAC9B,2BAAOG,YAAYzB,KAAZ,CAAkBsB,QAAlB,CAA2BC,KAA3B,CAAP;AACD,mBAFD,MAEO;AACL,2BAAO;AACLJ,6BAAO,IADF;AAELK,oCAAc;AAFT,qBAAP;AAID;AACF;AArByC,eAAhC,CAAZ;AAuBA;AAtEJ;AAFS;;AA0ET,eAAOhB,SAAP;AACD,OA5EI,CAAP;AA8ED;;;6BAEQ;AACP,UAAMkB,oBAAoB,KAAKf,YAAL,CAAkB,KAAKX,KAAL,CAAWI,QAA7B,CAA1B;AACA,aACE;AAAA;AAAA,UAAM,WAAW,KAAKJ,KAAL,CAAW2B,SAA5B;AACGD;AADH,OADF;AAKD;;;;;;AArGG3B,I,CACG6B,S,GAAY;AACjBxB,YAAU,iBAAUyB;AADH,C;;;AAuGrB9B,KAAK6B,SAAL,GAAiB;AACfD,aAAW,gBAAMG,SAAN,CAAgBC;AADZ,CAAjB;;AAIAhC,KAAKiC,WAAL;AACAjC,KAAKiC,WAAL,CAAiBC,WAAjB,GAA+B,aAA/B;;AAEAlC,KAAKmC,KAAL;AACAnC,KAAKmC,KAAL,CAAWD,WAAX,GAAyB,OAAzB;;AAEAlC,KAAKoC,YAAL;AACApC,KAAKoC,YAAL,CAAkBF,WAAlB,GAAgC,cAAhC;;AAEAlC,KAAKqC,OAAL;AACArC,KAAKqC,OAAL,CAAaH,WAAb,GAA2B,SAA3B;;kBAEelC,I",
+  "file": "index.jsx",
+  "sourceRoot": "../src/form",
+  "sourcesContent": [
+    "import React, { Component, PropTypes } from 'react';\nimport Input from './input';\nimport SubmitButton from './submit-button';\nimport Wrapper from './wrapper';\nimport CustomInput from './custom-input';\nimport { some } from 'lodash';\n\nclass Form extends Component {\n  static propTypes = {\n    children: PropTypes.node\n  }\n\n  constructor(props) {\n    super(props);\n    this.state = {\n      forceDirty: false,\n      validInputs: {}\n    };\n  }\n\n  getComponent(children) {\n    return React.Children.map(children,\n      (child) => {\n        let component = child;\n        switch (child.type.name) {\n          case 'Wrapper':\n            component = (\n              <Wrapper {...child.props}>\n                {this.getComponent(child.props.children)}\n              </Wrapper>\n            );\n            break;\n          case 'SubmitButton':\n            component = React.cloneElement(child, {\n              onClick: (event) => {\n                event.preventDefault();\n                if (!some(this.state.validInputs, (x) => !x)) {\n                  child.props.onClick();\n                } else {\n                  this.setState({ forceDirty: true });\n                }\n              }\n            });\n            break;\n          case 'Input':\n            component = React.cloneElement(child, {\n              forceDirty: this.state.forceDirty,\n              isValid: (valid) => {\n                const state = { ...this.state };\n                state.validInputs[child.props.name] = valid;\n                this.setState(state);\n              },\n              setValidInputToUndefined: () => {\n                const state = { ...this.state };\n                state.validInputs[child.props.name] = undefined;\n                this.setState(state);\n              },\n              validate: (value) => {\n                if (child.props.validate) {\n                  return child.props.validate(value);\n                } else {\n                  return {\n                    valid: true,\n                    errorMessage: ''\n                  };\n                }\n              }\n            });\n            break;\n          case 'CustomInput':\n            const customInput = child.props.children;\n            component = React.cloneElement(customInput, {\n              forceDirty: this.state.forceDirty,\n              isValid: (valid) => {\n                const state = { ...this.state };\n                state.validInputs[customInput.props.name] = valid;\n                this.setState(state);\n              },\n              setValidInputToUndefined: () => {\n                const state = { ...this.state };\n                state.validInputs[customInput.props.name] = undefined;\n                this.setState(state);\n              },\n              validate: (value) => {\n                if (customInput.props.validate) {\n                  return customInput.props.validate(value);\n                } else {\n                  return {\n                    valid: true,\n                    errorMessage: ''\n                  };\n                }\n              }\n            });\n            break;\n        }\n        return component;\n      }\n    );\n  }\n\n  render() {\n    const childrenWithProps = this.getComponent(this.props.children);\n    return (\n      <form className={this.props.className}>\n        {childrenWithProps}\n      </form>\n    );\n  }\n}\n\nForm.propTypes = {\n  className: React.PropTypes.string\n};\n\nForm.CustomInput = CustomInput;\nForm.CustomInput.displayName = 'CustomInput';\n\nForm.Input = Input;\nForm.Input.displayName = 'Input';\n\nForm.SubmitButton = SubmitButton;\nForm.SubmitButton.displayName = 'SubmitButton';\n\nForm.Wrapper = Wrapper;\nForm.Wrapper.displayName = 'Wrapper';\n\nexport default Form;\n"
+  ]
+}

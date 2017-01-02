@@ -9,7 +9,7 @@ run-form-with-custom-input:
 bundle-project:
 	# IMPORTANT --bail will ensure that the process exits with an error code
 	# causing any other command consuming this to fail if there is an error bundling.
-	node ./node_modules/webpack/bin/webpack --config webpack.config.prod.js -p --progress --bail
+	npm run prepublish
 
 lint:
 	./node_modules/.bin/eslint ./app

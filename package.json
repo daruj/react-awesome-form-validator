@@ -2,14 +2,16 @@
   "name": "react-awesome-form-validator",
   "version": "1.0.0",
   "description": "This is a very nice form with validations using ReactJs",
-  "main": "./dist/index.js",
+  "main": "./dist/index.jsx",
   "keywords": [
     "react",
     "form validation",
     "react form validation"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "babel-compile -p es2015 -p react -p stage-0 src/form:dist",
+    "pretest": "npm run compile",
+    "prepublish": "npm run compile"
   },
   "author": "Damian Aruj <aruj.damian@gmail.com>",
   "repository": {
@@ -27,6 +29,7 @@
   },
   "devDependencies": {
     "babel": "^6.5.2",
+    "babel-compile": "^2.0.0",
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.5",

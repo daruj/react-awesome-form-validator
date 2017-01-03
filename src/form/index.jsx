@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Input from './input';
+import Dropdown from './dropdown';
 import SubmitButton from './submit-button';
 import Wrapper from './wrapper';
 import CustomInput from './custom-input';
@@ -44,6 +45,36 @@ class Form extends Component {
             });
             break;
           case 'Input':
+            component = React.cloneElement(child, {
+              forceDirty: this.state.forceDirty,
+              isValid: (valid) => {
+                const state = { ...this.state };
+                state.validInputs[child.props.name] = valid;
+                this.setState(state);
+              },
+              setValidInputToUndefined: () => {
+                const state = { ...this.state };
+                state.validInputs[child.props.name] = undefined;
+                this.setState(state);
+              },
+              setInputValue: (value) => {
+                const state = { ...this.state };
+                state.inputValues[child.props.name] = value;
+                this.setState(state);
+              },
+              validate: (value) => {
+                if (child.props.validate) {
+                  return child.props.validate(value);
+                } else {
+                  return {
+                    valid: true,
+                    errorMessage: ''
+                  };
+                }
+              }
+            });
+            break;
+          case 'Dropdown':
             component = React.cloneElement(child, {
               forceDirty: this.state.forceDirty,
               isValid: (valid) => {
@@ -130,6 +161,9 @@ Form.CustomInput.displayName = 'CustomInput';
 
 Form.Input = Input;
 Form.Input.displayName = 'Input';
+
+Form.Dropdown = Dropdown;
+Form.Dropdown.displayName = 'Dropdown';
 
 Form.SubmitButton = SubmitButton;
 Form.SubmitButton.displayName = 'SubmitButton';

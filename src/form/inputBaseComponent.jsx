@@ -39,13 +39,32 @@ class InputBaseComponent extends Component {
     return !this.state.dirty;
   }
 
+  renderLabel() {
+    if (this.props.label) {
+      return (
+        <label>{this.props.label}</label>
+      );
+    }
+  }
+
+  renderError() {
+    if (this.state.errorMessage && !this.isPristine() && !this.state.valid) {
+      return (
+        <p>
+          <span>{this.state.errorMessage}</span>
+        </p>
+      );
+    }
+  }
+
 }
 
 InputBaseComponent.propTypes = {
   forceDirty: React.PropTypes.bool.isRequired,
   isValid: React.PropTypes.func.isRequired,
   name: React.PropTypes.string.isRequired,
-  validate: React.PropTypes.func
+  validate: React.PropTypes.func,
+  label: React.PropTypes.string
 };
 
 export default InputBaseComponent;

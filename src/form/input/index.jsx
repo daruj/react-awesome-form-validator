@@ -12,16 +12,6 @@ class Input extends InputBaseComponent {
     this.props.setValidInputToUndefined();
   }
 
-  renderError() {
-    if (this.state.errorMessage && !this.isPristine() && !this.state.valid) {
-      return (
-        <p>
-          <span>{this.state.errorMessage}</span>
-        </p>
-      );
-    }
-  }
-
   changeValue(value) {
     const {
       onChange,
@@ -42,14 +32,6 @@ class Input extends InputBaseComponent {
     }
   }
 
-  renderLabel() {
-    if (this.props.label) {
-      return (
-        <label>{this.props.label}</label>
-      );
-    }
-  }
-
   render() {
     const {
       fieldClassName = styles.wrapperField,
@@ -60,9 +42,7 @@ class Input extends InputBaseComponent {
       invalidClassName = styles.invalidField
     } = this.props;
     return (
-      <div
-        className={fieldClassName}
-      >
+      <div className={fieldClassName}>
         {this.renderLabel()}
         <input
           type={type}

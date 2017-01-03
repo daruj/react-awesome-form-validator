@@ -64,6 +64,24 @@ class Root extends Component {
             return { valid, errorMessage };
           }}
         />
+        <Form.Dropdown
+          name='fruit'
+          placeHolder='Choose a fruit...'
+          options={[
+            { value: 'banana', text: 'Banana' },
+            { value: 'apple', text: 'Apple' },
+            { value: 'pinaple', text: 'Pinaple' }
+          ]}
+          validate={(value) => {
+            let valid = true;
+            let errorMessage = '';
+            if (!value.length) {
+              valid = false;
+              errorMessage = 'This field is required';
+            }
+            return { valid, errorMessage };
+          }}
+        />
         <Form.SubmitButton
           onClick={(formData) => console.log('Form Data', formData)}
         >Submit Form</Form.SubmitButton>

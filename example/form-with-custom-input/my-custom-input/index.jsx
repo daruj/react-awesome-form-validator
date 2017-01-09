@@ -95,6 +95,7 @@ class MyCustomInput extends Component {
         <input
           type={type}
           name={name}
+          autoComplete='off'
           placeholder={placeHolder}
           className={
             classnames(

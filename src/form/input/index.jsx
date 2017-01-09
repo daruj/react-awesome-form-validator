@@ -47,6 +47,7 @@ class Input extends InputBaseComponent {
         <input
           type={type}
           name={name}
+          autoComplete='off'
           placeholder={placeHolder}
           className={
             classnames(

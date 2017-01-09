@@ -11,7 +11,7 @@ Form with custom Input:
 
 Then open a browser and type: `http://localhost:3000`
 
-Input Props:
+### Input Props:
 
 |       Name       |   Type   | Default |                                                                                                                                                                                       Description                                                                                                                                                                                       | Required |
 |:----------------:|:--------:|:-------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|----------|
@@ -25,5 +25,14 @@ Input Props:
 |     onChange     | function |    -    | We store internally on this library every input value and when you click on the SubmitButton and you pass all the validations it will call the method provided on the SubmitButton and it will pass an object with all the input values. Let's say you need to do something with the input value before the user clicks on SubmitButton, then you can get the its value with this prop. | false    |
 |     validate     | function |    -    |                                                                                                                        You have to return an object with the following structure: { valid, errorMessage } where valid is a boolean and errorMessage is a string.                                                                                                                        | false    |
 
+
+### SubmitButton Props:
+
+|      Name      |     Type    | Default |                                                                                   Description                                                                                   | Required |
+|:--------------:|:-----------:|:-------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|----------|
+|    children    | node/string |    -    |                                                                                   Button text                                                                                   | true     |
+|    className   |    string   |    ''   |                                                                                 Button className                                                                                | false    |
+| fieldClassName |    string   |    ''   |                                                         This Button comes wrapped with a div. This is the div className                                                         | false    |
+|     onClick    |   function  |    -    | When the user clicks on the SubmitButton and all the validations pass, it will call the onClick function provided and it will pass an object with all the form's inputs values. | true     |
 
 Hope you enjoy it!

@@ -45,6 +45,21 @@ class MyCustomInput extends Component {
     return !this.state.dirty;
   }
 
+  changeValue(value) {
+    const {
+      validate = () => true,
+      setInputValue
+    } = this.props;
+    const validateInput = validate(value);
+    this.setState({
+      valid: validateInput.valid,
+      dirty: true,
+      errorMessage: validateInput.errorMessage
+    });
+    // set value to the inputValues form
+    setInputValue(value);
+  }
+
   renderError() {
     if (this.state.errorMessage && !this.isPristine() && !this.state.valid) {
       return (
@@ -61,21 +76,6 @@ class MyCustomInput extends Component {
         <label>{this.props.label}</label>
       );
     }
-  }
-
-  changeValue(value) {
-    const {
-      validate = () => true,
-      setInputValue
-    } = this.props;
-    const validateInput = validate(value);
-    this.setState({
-      valid: validateInput.valid,
-      dirty: true,
-      errorMessage: validateInput.errorMessage
-    });
-    // set value to the inputValues form
-    setInputValue(value);
   }
 
   render() {

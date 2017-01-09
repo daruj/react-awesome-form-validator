@@ -1,0 +1,51 @@
+{
+  "version": 3,
+  "sources": [
+    "index.jsx"
+  ],
+  "names": [
+    "Dropdown",
+    "props",
+    "value",
+    "onChange",
+    "validate",
+    "setInputValue",
+    "validateInput",
+    "setState",
+    "valid",
+    "dirty",
+    "errorMessage",
+    "options",
+    "fieldClassName",
+    "wrapperField",
+    "defaultOptionVisible",
+    "defaultOptionText",
+    "name",
+    "invalidClassName",
+    "invalidField",
+    "className",
+    "dropdown",
+    "renderLabel",
+    "event",
+    "_onChange",
+    "target",
+    "inputIsValid",
+    "renderError",
+    "propTypes",
+    "PropTypes",
+    "string",
+    "arrayOf",
+    "shape",
+    "isRequired",
+    "text",
+    "bool",
+    "func",
+    "setValidInputToUndefined"
+  ],
+  "mappings": ";;;;;;;;AAAA;;;;AACA;;;;AACA;;;;AACA;;;;AACA;;;;;;;;;;;;AAEA;;;;;;;;IAQMA,Q;;;AACJ,oBAAYC,KAAZ,EAAmB;AAAA;;AAAA,+GACXA,KADW;AAElB;;;;8BAESC,K,EAAO;AAAA,mBAKX,KAAKD,KALM;AAAA,UAEbE,QAFa,UAEbA,QAFa;AAAA,mCAGbC,QAHa;AAAA,UAGbA,QAHa,mCAGF;AAAA,eAAM,IAAN;AAAA,OAHE;AAAA,UAIbC,aAJa,UAIbA,aAJa;;AAMf,UAAMC,gBAAgBF,SAASF,KAAT,CAAtB;AACA,WAAKK,QAAL,CAAc;AACZC,eAAOF,cAAcE,KADT;AAEZC,eAAO,IAFK;AAGZC,sBAAcJ,cAAcI;AAHhB,OAAd;AAKA;AACAL,oBAAcH,KAAd;AACA;AACA,UAAIC,QAAJ,EAAc;AACZA,iBAASD,KAAT;AACD;AACF;;;6BAEQ;AAAA;;AAAA,oBAUH,KAAKD,KAVF;AAAA,UAELU,OAFK,WAELA,OAFK;AAAA,UAGLT,KAHK,WAGLA,KAHK;AAAA,0CAILU,cAJK;AAAA,UAILA,cAJK,yCAIY,iBAAOC,YAJnB;AAAA,UAKLC,oBALK,WAKLA,oBALK;AAAA,UAMLC,iBANK,WAMLA,iBANK;AAAA,UAOLC,IAPK,WAOLA,IAPK;AAAA,0CAQLC,gBARK;AAAA,UAQLA,gBARK,yCAQc,iBAAOC,YARrB;AAAA,sCASLC,SATK;AAAA,UASLA,SATK,qCASO,iBAAOC,QATd;;;AAYP,aACE;AAAA;AAAA,UAAK,WAAWR,cAAhB;AACG,aAAKS,WAAL,EADH;AAEE;AACE,oBAAU,kBAACC,KAAD;AAAA,mBAAW,OAAKC,SAAL,CAAeD,MAAME,MAAN,CAAatB,KAA5B,CAAX;AAAA,WADZ;AAEE,iBAAOA,KAFT;AAGE,mBAASS,OAHX;AAIE,gCAAsBG,oBAJxB;AAKE,6BAAmBC,iBALrB;AAME,kBAAQC,IANV;AAOE,gBAAMA,IAPR;AAQE,qBACE,0BACE,CAAC,KAAKS,YAAL,EAAD,GAAuBR,gBAAvB,GAA0C,EAD5C,EAEEE,SAFF;AATJ,UAFF;AAiBG,aAAKO,WAAL;AAjBH,OADF;AAqBD;;;;;;AAGH1B,SAAS2B,SAAT,GAAqB;AACnBf,kBAAgB,gBAAMgB,SAAN,CAAgBC,MADb;AAEnBlB,WAAS,gBAAMiB,SAAN,CAAgBE,OAAhB,CAAwB,gBAAMF,SAAN,CAAgBG,KAAhB,CAAsB;AACrD7B,WAAO,gBAAM0B,SAAN,CAAgBC,MAAhB,CAAuBG,UADuB;AAErDC,UAAM,gBAAML,SAAN,CAAgBC,MAAhB,CAAuBG;AAFwB,GAAtB,CAAxB,EAGLA,UALe;AAMnBhB,QAAM,gBAAMY,SAAN,CAAgBC,MAAhB,CAAuBG,UANV;AAOnBb,aAAW,gBAAMS,SAAN,CAAgBC,MAPR;AAQnBZ,oBAAkB,gBAAMW,SAAN,CAAgBC,MARf;AASnB3B,SAAO,gBAAM0B,SAAN,CAAgBC,MATJ;AAUnBf,wBAAsB,gBAAMc,SAAN,CAAgBM,IAVnB;AAWnBnB,qBAAmB,gBAAMa,SAAN,CAAgBC,MAXhB;AAYnB1B,YAAU,gBAAMyB,SAAN,CAAgBO,IAZP;AAanB/B,YAAU,gBAAMwB,SAAN,CAAgBO,IAbP;AAcnBC,4BAA0B,gBAAMR,SAAN,CAAgBO,IAdvB;AAenB9B,iBAAe,gBAAMuB,SAAN,CAAgBO;AAfZ,CAArB;;kBAkBenC,Q",
+  "file": "index.jsx",
+  "sourceRoot": "../../src/form/dropdown",
+  "sourcesContent": [
+    "import React from 'react';\nimport InputBaseComponent from '../inputBaseComponent';\nimport classnames from 'classnames';\nimport ReactAwesomeDropdown from 'react-awesome-dropdown';\nimport styles from './styles.scss';\n\n/**\n * Dropdown - params:\n * options: Array of { value: string, text: string }\n * selectedOption: value of selected option (string)\n * defaultOptionVisible: if true it will render a default option as the first option of the dropdown.\n * defaultOptionText: text of default option\n * onChange: function to be called when the user selects a new option of the dropdown.\n*/\nclass Dropdown extends InputBaseComponent {\n  constructor(props) {\n    super(props);\n  }\n\n  _onChange(value) {\n    const {\n      onChange,\n      validate = () => true,\n      setInputValue\n    } = this.props;\n    const validateInput = validate(value);\n    this.setState({\n      valid: validateInput.valid,\n      dirty: true,\n      errorMessage: validateInput.errorMessage\n    });\n    // set value to the inputValues form\n    setInputValue(value);\n    // if we pass onChange as a prop then use it!\n    if (onChange) {\n      onChange(value);\n    }\n  }\n\n  render() {\n    const {\n      options,\n      value,\n      fieldClassName = styles.wrapperField,\n      defaultOptionVisible,\n      defaultOptionText,\n      name,\n      invalidClassName = styles.invalidField,\n      className = styles.dropdown\n    } = this.props;\n\n    return (\n      <div className={fieldClassName}>\n        {this.renderLabel()}\n        <ReactAwesomeDropdown\n          onChange={(event) => this._onChange(event.target.value)}\n          value={value}\n          options={options}\n          defaultOptionVisible={defaultOptionVisible}\n          defaultOptionText={defaultOptionText}\n          domRef={name}\n          name={name}\n          className={\n            classnames(\n              !this.inputIsValid() ? invalidClassName : '',\n              className\n            )\n          }\n        />\n        {this.renderError()}\n      </div>\n    );\n  }\n}\n\nDropdown.propTypes = {\n  fieldClassName: React.PropTypes.string,\n  options: React.PropTypes.arrayOf(React.PropTypes.shape({\n    value: React.PropTypes.string.isRequired,\n    text: React.PropTypes.string.isRequired\n  })).isRequired,\n  name: React.PropTypes.string.isRequired,\n  className: React.PropTypes.string,\n  invalidClassName: React.PropTypes.string,\n  value: React.PropTypes.string,\n  defaultOptionVisible: React.PropTypes.bool,\n  defaultOptionText: React.PropTypes.string,\n  onChange: React.PropTypes.func,\n  validate: React.PropTypes.func,\n  setValidInputToUndefined: React.PropTypes.func,\n  setInputValue: React.PropTypes.func\n};\n\nexport default Dropdown;\n"
+  ]
+}

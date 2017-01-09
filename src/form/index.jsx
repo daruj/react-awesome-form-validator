@@ -20,6 +20,39 @@ class Form extends Component {
     };
   }
 
+  getCommonMethods(props) {
+    const { name, validate } = props;
+    return {
+      forceDirty: this.state.forceDirty,
+      isValid: (valid) => {
+        const state = { ...this.state };
+        state.validInputs[name] = valid;
+        this.setState(state);
+      },
+      setValidInputToUndefined: () => {
+        const state = { ...this.state };
+        state.validInputs[name] = undefined;
+        state.inputValues[name] = undefined;
+        this.setState(state);
+      },
+      setInputValue: (value) => {
+        const state = { ...this.state };
+        state.inputValues[name] = value;
+        this.setState(state);
+      },
+      validate: (value) => {
+        if (validate) {
+          return validate(value);
+        } else {
+          return {
+            valid: true,
+            errorMessage: ''
+          };
+        }
+      }
+    };
+  }
+
   getComponent(children) {
     return React.Children.map(children,
       (child) => {
@@ -45,96 +78,12 @@ class Form extends Component {
             });
             break;
           case 'Input':
-            component = React.cloneElement(child, {
-              forceDirty: this.state.forceDirty,
-              isValid: (valid) => {
-                const state = { ...this.state };
-                state.validInputs[child.props.name] = valid;
-                this.setState(state);
-              },
-              setValidInputToUndefined: () => {
-                const state = { ...this.state };
-                state.validInputs[child.props.name] = undefined;
-                this.setState(state);
-              },
-              setInputValue: (value) => {
-                const state = { ...this.state };
-                state.inputValues[child.props.name] = value;
-                this.setState(state);
-              },
-              validate: (value) => {
-                if (child.props.validate) {
-                  return child.props.validate(value);
-                } else {
-                  return {
-                    valid: true,
-                    errorMessage: ''
-                  };
-                }
-              }
-            });
-            break;
           case 'Dropdown':
-            component = React.cloneElement(child, {
-              forceDirty: this.state.forceDirty,
-              isValid: (valid) => {
-                const state = { ...this.state };
-                state.validInputs[child.props.name] = valid;
-                this.setState(state);
-              },
-              setValidInputToUndefined: () => {
-                const state = { ...this.state };
-                state.validInputs[child.props.name] = undefined;
-                this.setState(state);
-              },
-              setInputValue: (value) => {
-                const state = { ...this.state };
-                state.inputValues[child.props.name] = value;
-                this.setState(state);
-              },
-              validate: (value) => {
-                if (child.props.validate) {
-                  return child.props.validate(value);
-                } else {
-                  return {
-                    valid: true,
-                    errorMessage: ''
-                  };
-                }
-              }
-            });
+            component = React.cloneElement(child, this.getCommonMethods(child.props));
             break;
           case 'CustomInput':
             const customInput = child.props.children;
-            component = React.cloneElement(customInput, {
-              forceDirty: this.state.forceDirty,
-              isValid: (valid) => {
-                const state = { ...this.state };
-                state.validInputs[customInput.props.name] = valid;
-                this.setState(state);
-              },
-              setValidInputToUndefined: () => {
-                const state = { ...this.state };
-                state.validInputs[customInput.props.name] = undefined;
-                state.inputValues[customInput.props.name] = undefined;
-                this.setState(state);
-              },
-              setInputValue: (value) => {
-                const state = { ...this.state };
-                state.inputValues[customInput.props.name] = value;
-                this.setState(state);
-              },
-              validate: (value) => {
-                if (customInput.props.validate) {
-                  return customInput.props.validate(value);
-                } else {
-                  return {
-                    valid: true,
-                    errorMessage: ''
-                  };
-                }
-              }
-            });
+            component = React.cloneElement(customInput, this.getCommonMethods(customInput.props));
             break;
         }
         return component;

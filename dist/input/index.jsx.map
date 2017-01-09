@@ -1,0 +1,47 @@
+{
+  "version": 3,
+  "sources": [
+    "index.jsx"
+  ],
+  "names": [
+    "Input",
+    "props",
+    "setValidInputToUndefined",
+    "value",
+    "onChange",
+    "validate",
+    "setInputValue",
+    "validateInput",
+    "setState",
+    "valid",
+    "dirty",
+    "errorMessage",
+    "fieldClassName",
+    "wrapperField",
+    "type",
+    "placeHolder",
+    "name",
+    "className",
+    "input",
+    "invalidClassName",
+    "invalidField",
+    "renderLabel",
+    "inputIsValid",
+    "evt",
+    "changeValue",
+    "target",
+    "renderError",
+    "propTypes",
+    "PropTypes",
+    "string",
+    "isRequired",
+    "label",
+    "func"
+  ],
+  "mappings": ";;;;;;;;AAAA;;;;AACA;;;;AACA;;;;AACA;;;;;;;;;;;;IAEMA,K;;;AACJ,iBAAYC,KAAZ,EAAmB;AAAA;;AAAA,yGACXA,KADW;AAElB;;;;wCAEmB;AAClB,WAAKA,KAAL,CAAWC,wBAAX;AACD;;;gCAEWC,K,EAAO;AAAA,mBAKb,KAAKF,KALQ;AAAA,UAEfG,QAFe,UAEfA,QAFe;AAAA,mCAGfC,QAHe;AAAA,UAGfA,QAHe,mCAGJ;AAAA,eAAM,IAAN;AAAA,OAHI;AAAA,UAIfC,aAJe,UAIfA,aAJe;;AAMjB,UAAMC,gBAAgBF,SAASF,KAAT,CAAtB;AACA,WAAKK,QAAL,CAAc;AACZC,eAAOF,cAAcE,KADT;AAEZC,eAAO,IAFK;AAGZC,sBAAcJ,cAAcI;AAHhB,OAAd;AAKA;AACAL,oBAAcH,KAAd;AACA;AACA,UAAIC,QAAJ,EAAc;AACZA,iBAASD,KAAT;AACD;AACF;;;6BAEQ;AAAA;;AAAA,oBAQH,KAAKF,KARF;AAAA,0CAELW,cAFK;AAAA,UAELA,cAFK,yCAEY,iBAAOC,YAFnB;AAAA,iCAGLC,IAHK;AAAA,UAGLA,IAHK,gCAGE,MAHF;AAAA,wCAILC,WAJK;AAAA,UAILA,WAJK,uCAIS,EAJT;AAAA,UAKLC,IALK,WAKLA,IALK;AAAA,sCAMLC,SANK;AAAA,UAMLA,SANK,qCAMO,iBAAOC,KANd;AAAA,0CAOLC,gBAPK;AAAA,UAOLA,gBAPK,yCAOc,iBAAOC,YAPrB;;AASP,aACE;AAAA;AAAA,UAAK,WAAWR,cAAhB;AACG,aAAKS,WAAL,EADH;AAEE;AACE,gBAAMP,IADR;AAEE,gBAAME,IAFR;AAGE,wBAAa,KAHf;AAIE,uBAAaD,WAJf;AAKE,qBACE,0BACE,CAAC,KAAKO,YAAL,EAAD,GAAuBH,gBAAvB,GAA0C,EAD5C,EAEEF,SAFF,CANJ;AAWE,eAAKD,IAXP;AAYE,mBAAS,iBAACO,GAAD;AAAA,mBAAS,OAAKC,WAAL,CAAiBD,IAAIE,MAAJ,CAAWtB,KAA5B,CAAT;AAAA,WAZX;AAaE,kBAAQ,gBAACoB,GAAD;AAAA,mBAAS,OAAKC,WAAL,CAAiBD,IAAIE,MAAJ,CAAWtB,KAA5B,CAAT;AAAA;AAbV,UAFF;AAiBG,aAAKuB,WAAL;AAjBH,OADF;AAqBD;;;;;;AAGH1B,MAAM2B,SAAN,GAAkB;AAChBf,kBAAgB,gBAAMgB,SAAN,CAAgBC,MADhB;AAEhBf,QAAM,gBAAMc,SAAN,CAAgBC,MAAhB,CAAuBC,UAFb;AAGhBf,eAAa,gBAAMa,SAAN,CAAgBC,MAHb;AAIhBE,SAAO,gBAAMH,SAAN,CAAgBC,MAJP;AAKhBb,QAAM,gBAAMY,SAAN,CAAgBC,MAAhB,CAAuBC,UALb;AAMhBb,aAAW,gBAAMW,SAAN,CAAgBC,MANX;AAOhBV,oBAAkB,gBAAMS,SAAN,CAAgBC,MAPlB;AAQhBxB,YAAU,gBAAMuB,SAAN,CAAgBI,IARV;AAShB9B,4BAA0B,gBAAM0B,SAAN,CAAgBI,IAT1B;AAUhB5B,YAAU,gBAAMwB,SAAN,CAAgBI;AAVV,CAAlB;;kBAaehC,K",
+  "file": "index.jsx",
+  "sourceRoot": "../../src/form/input",
+  "sourcesContent": [
+    "import React from 'react';\nimport InputBaseComponent from '../inputBaseComponent';\nimport classnames from 'classnames';\nimport styles from './styles.scss';\n\nclass Input extends InputBaseComponent {\n  constructor(props) {\n    super(props);\n  }\n\n  componentDidMount() {\n    this.props.setValidInputToUndefined();\n  }\n\n  changeValue(value) {\n    const {\n      onChange,\n      validate = () => true,\n      setInputValue\n    } = this.props;\n    const validateInput = validate(value);\n    this.setState({\n      valid: validateInput.valid,\n      dirty: true,\n      errorMessage: validateInput.errorMessage\n    });\n    // set value to the inputValues form\n    setInputValue(value);\n    // if we pass onChange as a prop then use it!\n    if (onChange) {\n      onChange(value);\n    }\n  }\n\n  render() {\n    const {\n      fieldClassName = styles.wrapperField,\n      type = 'text',\n      placeHolder = '',\n      name,\n      className = styles.input,\n      invalidClassName = styles.invalidField\n    } = this.props;\n    return (\n      <div className={fieldClassName}>\n        {this.renderLabel()}\n        <input\n          type={type}\n          name={name}\n          autoComplete='off'\n          placeholder={placeHolder}\n          className={\n            classnames(\n              !this.inputIsValid() ? invalidClassName : '',\n              className\n            )\n          }\n          ref={name}\n          onKeyUp={(evt) => this.changeValue(evt.target.value)}\n          onBlur={(evt) => this.changeValue(evt.target.value)}\n        />\n        {this.renderError()}\n      </div>\n    );\n  }\n}\n\nInput.propTypes = {\n  fieldClassName: React.PropTypes.string,\n  type: React.PropTypes.string.isRequired,\n  placeHolder: React.PropTypes.string,\n  label: React.PropTypes.string,\n  name: React.PropTypes.string.isRequired,\n  className: React.PropTypes.string,\n  invalidClassName: React.PropTypes.string,\n  validate: React.PropTypes.func,\n  setValidInputToUndefined: React.PropTypes.func,\n  onChange: React.PropTypes.func\n};\n\nexport default Input;\n"
+  ]
+}

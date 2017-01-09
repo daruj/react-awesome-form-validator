@@ -1,0 +1,21 @@
+{
+  "version": 3,
+  "sources": [
+    "index.jsx"
+  ],
+  "names": [
+    "CustomInput",
+    "props",
+    "children",
+    "propTypes",
+    "PropTypes",
+    "node",
+    "isRequired"
+  ],
+  "mappings": ";;;;;;;;AAAA;;;;;;;;;;;;IAEMA,W;;;AACJ,uBAAYC,KAAZ,EAAmB;AAAA;;AAAA,qHACXA,KADW;AAElB;;;;6BAEQ;AACP,aAAO,KAAKA,KAAL,CAAWC,QAAlB;AACD;;;;;;AAGHF,YAAYG,SAAZ,GAAwB;AACtBD,YAAU,gBAAME,SAAN,CAAgBC,IAAhB,CAAqBC;AADT,CAAxB;;kBAIeN,W",
+  "file": "index.jsx",
+  "sourceRoot": "../../src/form/custom-input",
+  "sourcesContent": [
+    "import React, { Component } from 'react';\n\nclass CustomInput extends Component {\n  constructor(props) {\n    super(props);\n  }\n\n  render() {\n    return this.props.children;\n  }\n}\n\nCustomInput.propTypes = {\n  children: React.PropTypes.node.isRequired\n};\n\nexport default CustomInput;\n"
+  ]
+}

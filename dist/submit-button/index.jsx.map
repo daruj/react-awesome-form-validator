@@ -1,0 +1,27 @@
+{
+  "version": 3,
+  "sources": [
+    "index.jsx"
+  ],
+  "names": [
+    "SubmitButton",
+    "props",
+    "children",
+    "fieldClassName",
+    "wrapperField",
+    "className",
+    "button",
+    "onClick",
+    "propTypes",
+    "PropTypes",
+    "string",
+    "isRequired",
+    "func"
+  ],
+  "mappings": ";;;;;;;;AAAA;;;;AACA;;;;;;;;;;;;IAEMA,Y;;;AACJ,wBAAYC,KAAZ,EAAmB;AAAA;;AAAA,uHACXA,KADW;AAElB;;;;6BAEQ;AAAA,mBAMH,KAAKA,KANF;AAAA,mCAELC,QAFK;AAAA,UAELA,QAFK,mCAEM,QAFN;AAAA,yCAGLC,cAHK;AAAA,UAGLA,cAHK,yCAGY,iBAAOC,YAHnB;AAAA,oCAILC,SAJK;AAAA,UAILA,SAJK,oCAIO,iBAAOC,MAJd;AAAA,UAKLC,OALK,UAKLA,OALK;;AAOP,aACE;AAAA;AAAA;AACE,qBAAWJ;AADb;AAGE;AAAA;AAAA;AACE,uBAAWE,SADb;AAEE,qBAASE;AAFX;AAGEL;AAHF;AAHF,OADF;AAUD;;;;;;AAGHF,aAAaQ,SAAb,GAAyB;AACvBN,YAAU,gBAAMO,SAAN,CAAgBC,MAAhB,CAAuBC,UADV;AAEvBR,kBAAgB,gBAAMM,SAAN,CAAgBC,MAFT;AAGvBL,aAAW,gBAAMI,SAAN,CAAgBC,MAHJ;AAIvBH,WAAS,gBAAME,SAAN,CAAgBG,IAAhB,CAAqBD;AAJP,CAAzB;;kBAOeX,Y",
+  "file": "index.jsx",
+  "sourceRoot": "../../src/form/submit-button",
+  "sourcesContent": [
+    "import React, { Component } from 'react';\nimport styles from './styles.scss';\n\nclass SubmitButton extends Component {\n  constructor(props) {\n    super(props);\n  }\n\n  render() {\n    const {\n      children = 'Submit',\n      fieldClassName = styles.wrapperField,\n      className = styles.button,\n      onClick\n    } = this.props;\n    return (\n      <div\n        className={fieldClassName}\n      >\n        <button\n          className={className}\n          onClick={onClick}\n        >{children}</button>\n      </div>\n    );\n  }\n}\n\nSubmitButton.propTypes = {\n  children: React.PropTypes.string.isRequired,\n  fieldClassName: React.PropTypes.string,\n  className: React.PropTypes.string,\n  onClick: React.PropTypes.func.isRequired\n};\n\nexport default SubmitButton;\n"
+  ]
+}

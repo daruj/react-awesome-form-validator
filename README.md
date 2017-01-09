@@ -3,10 +3,10 @@
 This library is a simple solution of a common issue with forms with custom validations using ReactJs. It lets you use a pre-defined Input or even create your custom one with all it needs to be part of the same form.
 
 ### Examples
-Simple Form:
+Simple Form: [Code Here](https://github.com/daruj/react-awesome-form-validator/blob/master/example/simple-form/index.jsx)
     - run: `make run-simple-form`
 
-Form with custom Input:
+Form with custom Input: [Code Here](https://github.com/daruj/react-awesome-form-validator/blob/master/example/form-with-custom-input/index.jsx), [Custom Input](https://github.com/daruj/react-awesome-form-validator/blob/master/example/form-with-custom-input/my-custom-input/index.jsx)
     - run: `run-form-with-custom-input`
 
 Then open a browser and type: `http://localhost:3000`

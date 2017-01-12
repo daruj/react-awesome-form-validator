@@ -56,6 +56,26 @@ class Form extends Component {
     };
   }
 
+  componentWillReceiveProps({ resetForm }) {
+    if (this.props.resetForm != resetForm && resetForm) {
+      this.setState({ resetForm: true });
+      this.resetForm();
+      this.props.formWasResetted();
+    }
+  }
+
+  resetForm() {
+    const validInputs = {};
+    const inputValues = {};
+    const defaultValues = { ...this.state.defaultValues };
+
+    for (const input in this.state.inputValues) {
+      inputValues[input] = defaultValues.inputValues[input] || '';
+      validInputs[input] = defaultValues.validInputs[input] || false;
+    }
+    this.setState({ ...this.state, resetForm: true, validInputs, inputValues });
+  }
+
   getCommonMethods(props) {
     const { name, validate } = props;
     const { validInputs, inputValues, resetForm } = this.state;
@@ -114,15 +134,7 @@ class Form extends Component {
             component = React.cloneElement(child, {
               onClick: (event) => {
                 event.preventDefault();
-                const validInputs = {};
-                const inputValues = {};
-                const defaultValues = { ...this.state.defaultValues };
-
-                for (const input in this.state.inputValues) {
-                  inputValues[input] = defaultValues.inputValues[input] || '';
-                  validInputs[input] = defaultValues.validInputs[input] || false;
-                }
-                this.setState({ ...this.state, resetForm: true, validInputs, inputValues });
+                this.resetForm();
                 if (child.props.onClick) {
                   child.props.onClick();
                 }
@@ -157,7 +169,8 @@ class Form extends Component {
 
 Form.propTypes = {
   className: React.PropTypes.string,
-  resetForm: React.PropTypes.bool
+  resetForm: React.PropTypes.bool,
+  formWasResetted: React.PropTypes.func
 };
 
 Form.CustomInput = CustomInput;

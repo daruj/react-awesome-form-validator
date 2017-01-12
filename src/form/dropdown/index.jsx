@@ -6,7 +6,7 @@ import styles from './styles.scss';
 /**
  * Dropdown - params:
  * options: Array of { value: string, text: string }
- * selectedOption: value of selected option (string)
+ * value: value of selected option (string)
  * defaultOptionVisible: if true it will render a default option as the first option of the dropdown.
  * defaultOptionText: text of default option
  * onChange: function to be called when the user selects a new option of the dropdown.
@@ -15,16 +15,41 @@ class Dropdown extends InputBaseComponent {
   constructor(props) {
     super(props);
 
-    const { selectedOption, defaultOptionVisible } = this.props;
+    const { value, defaultOptionVisible } = this.props;
 
     const defaultOption =
       (defaultOptionVisible == undefined || defaultOptionVisible) &&
-      (!selectedOption || selectedOption == '');
+      (!value || value == '');
 
 
     this.state = {
       defaultOptionVisible: defaultOption
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { forceDirty, resetValue } = nextProps;
+    if (this.props.forceDirty != forceDirty && forceDirty) {
+      const value = this.refs[this.props.name].value;
+      const validateInput = this.props.validate(value);
+      this.setState({
+        dirty: true,
+        valid: validateInput.valid,
+        errorMessage: validateInput.errorMessage
+      });
+    }
+
+    if (this.props.resetValue != resetValue && resetValue) {
+      const { value, defaultOptionVisible } = nextProps;
+      const defaultOption =
+        (defaultOptionVisible == undefined || defaultOptionVisible) &&
+        (!value || value == '');
+      this.setState({
+        defaultOptionVisible: defaultOption,
+        dirty: false
+      });
+      this.props.valueWasResetted();
+    }
   }
 
   _onChange(value) {
@@ -58,7 +83,7 @@ class Dropdown extends InputBaseComponent {
   render() {
     const {
       options,
-      selectedOption,
+      value,
       fieldClassName = styles.wrapperField,
       name,
       invalidClassName = styles.invalidField,
@@ -70,7 +95,7 @@ class Dropdown extends InputBaseComponent {
         {this.renderLabel()}
         <select
           onChange={(event) => this._onChange(event.target.value)}
-          value={selectedOption}
+          value={value}
           ref={name}
           name={name}
           className={
@@ -102,7 +127,7 @@ Dropdown.propTypes = {
   name: React.PropTypes.string.isRequired,
   className: React.PropTypes.string,
   invalidClassName: React.PropTypes.string,
-  selectedOption: React.PropTypes.string,
+  value: React.PropTypes.string,
   defaultOptionVisible: React.PropTypes.bool,
   defaultOptionText: React.PropTypes.string,
   onChange: React.PropTypes.func,

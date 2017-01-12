@@ -85,6 +85,9 @@ class Root extends Component {
         <Form.SubmitButton
           onClick={(formData) => console.log('Form Data', formData)}
         >Submit Form</Form.SubmitButton>
+        <Form.ResetButton
+          onClick={() => console.log('Reset')}
+        >Reset Form</Form.ResetButton>
       </Form>
     );
   }

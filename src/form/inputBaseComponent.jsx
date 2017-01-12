@@ -4,12 +4,12 @@ class InputBaseComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      valid: false,
+      valid: this.props.valid,
       dirty: false
     };
   }
 
-  componentWillReceiveProps({ forceDirty }) {
+  componentWillReceiveProps({ forceDirty, resetValue, valueWasResetted }) {
     if (this.props.forceDirty != forceDirty && forceDirty) {
       const value = this.refs[this.props.name].value;
       const validateInput = this.props.validate(value);
@@ -19,13 +19,13 @@ class InputBaseComponent extends Component {
         errorMessage: validateInput.errorMessage
       });
     }
-  }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (this.state.valid != nextState.valid) {
-      this.props.isValid(nextState.valid);
+    if (this.props.resetValue != resetValue && resetValue) {
+      this.setState({ dirty: false });
+      valueWasResetted();
     }
   }
+
 
   inputIsValid() {
     return this.state.valid || this.isPristine();
@@ -61,10 +61,12 @@ class InputBaseComponent extends Component {
 
 InputBaseComponent.propTypes = {
   forceDirty: React.PropTypes.bool.isRequired,
-  isValid: React.PropTypes.func.isRequired,
+  setValidInputToUndefined: React.PropTypes.func,
   name: React.PropTypes.string.isRequired,
   validate: React.PropTypes.func,
-  label: React.PropTypes.string
+  label: React.PropTypes.string,
+  valid: React.PropTypes.bool,
+  resetValue: React.PropTypes.bool
 };
 
 export default InputBaseComponent;

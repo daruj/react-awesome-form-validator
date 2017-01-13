@@ -38,4 +38,14 @@ Then open a browser and type: `http://localhost:3000`
 |     onClick    |   function  |    -    | When the user clicks on the SubmitButton and all the validations pass, it will call the onClick function provided and it will pass an object with all the form's inputs values. | true     |
 |     disabledUntilFormIsValidated    |   boolean  |    false    | It will disable the button until all fields are valid | false     |
 
+
+### ResetButton Props:
+
+|      Name      |     Type    | Default |                                                                                   Description                                                                                   | Required |
+|:--------------:|:-----------:|:-------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|----------|
+|    children    | node/string |    -    |                                                                                   Button text                                                                                   | true     |
+|    className   |    string   |    ''   |                                                                                 Button className                                                                                | false    |
+| fieldClassName |    string   |    ''   |                                                         This Button comes wrapped with a div. This is the div className                                                         | false    |
+|     onClick    |   function  |    -    | If this prop is set it will call it immediately after the form is reset | false     |
+
 Hope you enjoy it!

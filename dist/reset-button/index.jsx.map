@@ -1,0 +1,29 @@
+{
+  "version": 3,
+  "sources": [
+    "index.jsx"
+  ],
+  "names": [
+    "ResetButton",
+    "props",
+    "children",
+    "disabled",
+    "fieldClassName",
+    "wrapperField",
+    "className",
+    "button",
+    "onClick",
+    "propTypes",
+    "PropTypes",
+    "string",
+    "isRequired",
+    "func",
+    "bool"
+  ],
+  "mappings": ";;;;;;;;AAAA;;;;AACA;;;;;;;;;;;;IAEMA,W;;;AACJ,uBAAYC,KAAZ,EAAmB;AAAA;;AAAA,qHACXA,KADW;AAElB;;;;6BAEQ;AAAA,mBAOH,KAAKA,KAPF;AAAA,mCAELC,QAFK;AAAA,UAELA,QAFK,mCAEM,YAFN;AAAA,mCAGLC,QAHK;AAAA,UAGLA,QAHK,mCAGM,KAHN;AAAA,yCAILC,cAJK;AAAA,UAILA,cAJK,yCAIY,iBAAOC,YAJnB;AAAA,oCAKLC,SALK;AAAA,UAKLA,SALK,oCAKO,iBAAOC,MALd;AAAA,UAMLC,OANK,UAMLA,OANK;;AAQP,aACE;AAAA;AAAA;AACE,qBAAWJ;AADb;AAGE;AAAA;AAAA;AACE,sBAAUD,QADZ;AAEE,uBAAWG,SAFb;AAGE,qBAASE;AAHX;AAIEN;AAJF;AAHF,OADF;AAWD;;;;;;AAGHF,YAAYS,SAAZ,GAAwB;AACtBP,YAAU,gBAAMQ,SAAN,CAAgBC,MAAhB,CAAuBC,UADX;AAEtBR,kBAAgB,gBAAMM,SAAN,CAAgBC,MAFV;AAGtBL,aAAW,gBAAMI,SAAN,CAAgBC,MAHL;AAItBH,WAAS,gBAAME,SAAN,CAAgBG,IAJH;AAKtBV,YAAU,gBAAMO,SAAN,CAAgBI;AALJ,CAAxB;;kBAQed,W",
+  "file": "index.jsx",
+  "sourceRoot": "../../src/form/reset-button",
+  "sourcesContent": [
+    "import React, { Component } from 'react';\nimport styles from './styles.scss';\n\nclass ResetButton extends Component {\n  constructor(props) {\n    super(props);\n  }\n\n  render() {\n    const {\n      children = 'Reset Form',\n      disabled = false,\n      fieldClassName = styles.wrapperField,\n      className = styles.button,\n      onClick\n    } = this.props;\n    return (\n      <div\n        className={fieldClassName}\n      >\n        <button\n          disabled={disabled}\n          className={className}\n          onClick={onClick}\n        >{children}</button>\n      </div>\n    );\n  }\n}\n\nResetButton.propTypes = {\n  children: React.PropTypes.string.isRequired,\n  fieldClassName: React.PropTypes.string,\n  className: React.PropTypes.string,\n  onClick: React.PropTypes.func,\n  disabled: React.PropTypes.bool\n};\n\nexport default ResetButton;\n"
+  ]
+}

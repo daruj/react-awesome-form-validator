@@ -30,7 +30,8 @@ class MyCustomInput extends MyCustomInputBaseComponent {
       name,
       className = styles.input,
       invalidClassName = styles.invalidField,
-      value
+      value,
+      startValidatingWhenIsPristine = false
     } = this.props;
     return (
       <div className={fieldClassName}>
@@ -50,8 +51,12 @@ class MyCustomInput extends MyCustomInputBaseComponent {
           ref={name}
           onChange={(evt) => {
             this.changeValue(evt.target.value);
-            if (!this.isPristine()) {
+            if (startValidatingWhenIsPristine) {
               this.validate(evt.target.value);
+            } else {
+              if (!this.isPristine()) {
+                this.validate(evt.target.value);
+              }
             }
           }}
           onBlur={(evt) => {
@@ -75,7 +80,8 @@ MyCustomInput.propTypes = {
   className: React.PropTypes.string,
   invalidClassName: React.PropTypes.string,
   validate: React.PropTypes.func,
-  onChange: React.PropTypes.func
+  onChange: React.PropTypes.func,
+  startValidatingWhenIsPristine: React.PropTypes.bool
 };
 
 export default MyCustomInput;

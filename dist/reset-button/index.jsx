@@ -22,21 +22,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var SubmitButton = function (_Component) {
-  _inherits(SubmitButton, _Component);
+var ResetButton = function (_Component) {
+  _inherits(ResetButton, _Component);
 
-  function SubmitButton(props) {
-    _classCallCheck(this, SubmitButton);
+  function ResetButton(props) {
+    _classCallCheck(this, ResetButton);
 
-    return _possibleConstructorReturn(this, (SubmitButton.__proto__ || Object.getPrototypeOf(SubmitButton)).call(this, props));
+    return _possibleConstructorReturn(this, (ResetButton.__proto__ || Object.getPrototypeOf(ResetButton)).call(this, props));
   }
 
-  _createClass(SubmitButton, [{
+  _createClass(ResetButton, [{
     key: 'render',
     value: function render() {
       var _props = this.props,
           _props$children = _props.children,
-          children = _props$children === undefined ? 'Submit' : _props$children,
+          children = _props$children === undefined ? 'Reset Form' : _props$children,
           _props$disabled = _props.disabled,
           disabled = _props$disabled === undefined ? false : _props$disabled,
           _props$fieldClassName = _props.fieldClassName,
@@ -63,16 +63,16 @@ var SubmitButton = function (_Component) {
     }
   }]);
 
-  return SubmitButton;
+  return ResetButton;
 }(_react.Component);
 
-SubmitButton.propTypes = {
+ResetButton.propTypes = {
   children: _react2.default.PropTypes.string.isRequired,
   fieldClassName: _react2.default.PropTypes.string,
   className: _react2.default.PropTypes.string,
-  onClick: _react2.default.PropTypes.func.isRequired,
+  onClick: _react2.default.PropTypes.func,
   disabled: _react2.default.PropTypes.bool
 };
 
-exports.default = SubmitButton;
+exports.default = ResetButton;
 //# sourceMappingURL=index.jsx.map

@@ -40,20 +40,17 @@ var Input = function (_InputBaseComponent) {
   }
 
   _createClass(Input, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.setValidInputToUndefined();
-    }
-  }, {
     key: 'changeValue',
     value: function changeValue(value) {
-      var _props = this.props,
-          onChange = _props.onChange,
-          _props$validate = _props.validate,
+      this.props.onChange(value);
+    }
+  }, {
+    key: 'validate',
+    value: function validate(value) {
+      var _props$validate = this.props.validate,
           validate = _props$validate === undefined ? function () {
         return true;
-      } : _props$validate,
-          setInputValue = _props.setInputValue;
+      } : _props$validate;
 
       var validateInput = validate(value);
       this.setState({
@@ -61,30 +58,25 @@ var Input = function (_InputBaseComponent) {
         dirty: true,
         errorMessage: validateInput.errorMessage
       });
-      // set value to the inputValues form
-      setInputValue(value);
-      // if we pass onChange as a prop then use it!
-      if (onChange) {
-        onChange(value);
-      }
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      var _props2 = this.props,
-          _props2$fieldClassNam = _props2.fieldClassName,
-          fieldClassName = _props2$fieldClassNam === undefined ? _styles2.default.wrapperField : _props2$fieldClassNam,
-          _props2$type = _props2.type,
-          type = _props2$type === undefined ? 'text' : _props2$type,
-          _props2$placeHolder = _props2.placeHolder,
-          placeHolder = _props2$placeHolder === undefined ? '' : _props2$placeHolder,
-          name = _props2.name,
-          _props2$className = _props2.className,
-          className = _props2$className === undefined ? _styles2.default.input : _props2$className,
-          _props2$invalidClassN = _props2.invalidClassName,
-          invalidClassName = _props2$invalidClassN === undefined ? _styles2.default.invalidField : _props2$invalidClassN;
+      var _props = this.props,
+          _props$fieldClassName = _props.fieldClassName,
+          fieldClassName = _props$fieldClassName === undefined ? _styles2.default.wrapperField : _props$fieldClassName,
+          _props$type = _props.type,
+          type = _props$type === undefined ? 'text' : _props$type,
+          _props$placeHolder = _props.placeHolder,
+          placeHolder = _props$placeHolder === undefined ? '' : _props$placeHolder,
+          name = _props.name,
+          _props$className = _props.className,
+          className = _props$className === undefined ? _styles2.default.input : _props$className,
+          _props$invalidClassNa = _props.invalidClassName,
+          invalidClassName = _props$invalidClassNa === undefined ? _styles2.default.invalidField : _props$invalidClassNa,
+          value = _props.value;
 
       return _react2.default.createElement(
         'div',
@@ -93,15 +85,20 @@ var Input = function (_InputBaseComponent) {
         _react2.default.createElement('input', {
           type: type,
           name: name,
+          value: value,
           autoComplete: 'off',
           placeholder: placeHolder,
           className: (0, _classnames2.default)(!this.inputIsValid() ? invalidClassName : '', className),
           ref: name,
-          onKeyUp: function onKeyUp(evt) {
-            return _this2.changeValue(evt.target.value);
+          onChange: function onChange(evt) {
+            _this2.changeValue(evt.target.value);
+            if (!_this2.isPristine()) {
+              _this2.validate(evt.target.value);
+            }
           },
           onBlur: function onBlur(evt) {
-            return _this2.changeValue(evt.target.value);
+            _this2.changeValue(evt.target.value);
+            _this2.validate(evt.target.value);
           }
         }),
         this.renderError()
@@ -118,10 +115,10 @@ Input.propTypes = {
   placeHolder: _react2.default.PropTypes.string,
   label: _react2.default.PropTypes.string,
   name: _react2.default.PropTypes.string.isRequired,
+  value: _react2.default.PropTypes.string,
   className: _react2.default.PropTypes.string,
   invalidClassName: _react2.default.PropTypes.string,
   validate: _react2.default.PropTypes.func,
-  setValidInputToUndefined: _react2.default.PropTypes.func,
   onChange: _react2.default.PropTypes.func
 };
 

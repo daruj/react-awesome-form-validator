@@ -127,9 +127,7 @@ Dropdown.propTypes = {
   defaultOptionVisible: React.PropTypes.bool,
   defaultOptionText: React.PropTypes.string,
   onChange: React.PropTypes.func,
-  validate: React.PropTypes.func,
-  setValidInputToUndefined: React.PropTypes.func,
-  setInputValue: React.PropTypes.func
+  validate: React.PropTypes.func
 };
 
 export default Dropdown;

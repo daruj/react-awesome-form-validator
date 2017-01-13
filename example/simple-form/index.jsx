@@ -2,6 +2,7 @@ import React, { Component }    from 'react';
 import ReactDOM                from 'react-dom';
 import Form                    from '../../src/form';
 import { isAlpha, isEmail }    from 'validator';
+import styles                  from './styles.scss';
 
 class Root extends Component {
 
@@ -32,6 +33,8 @@ class Root extends Component {
           name='name'
           placeHolder='Type your name here...'
           type='text'
+          label='Name * (this field will will start beeing validated from the moment you start typing)'
+          startValidatingWhenIsPristine
           validate={(value) => {
             let valid = true;
             let errorMessage = '';
@@ -44,10 +47,12 @@ class Root extends Component {
             }
             return { valid, errorMessage };
           }}
+          fieldClassName={styles.inputField}
         />
         <Form.Input
           name='lastName'
           placeHolder='Type your lastName here...'
+          label='Last Name * (this field will will start beeing validated when the user leaves the input (onBlur))'
           type='text'
           validate={(value) => {
             let valid = true;
@@ -61,10 +66,12 @@ class Root extends Component {
             }
             return { valid, errorMessage };
           }}
+          fieldClassName={styles.inputField}
         />
         <Form.Input
           name='email'
           placeHolder='Type your email here...'
+          label='Email *'
           type='email'
           validate={(value) => {
             let valid = true;
@@ -78,10 +85,12 @@ class Root extends Component {
             }
             return { valid, errorMessage };
           }}
+          fieldClassName={styles.inputField}
         />
         <Form.Dropdown
           name='fruit'
           placeHolder='Choose a fruit...'
+          label='Choose a fruit *'
           options={[
             { value: 'banana', text: 'Banana' },
             { value: 'apple', text: 'Apple' },
@@ -96,14 +105,21 @@ class Root extends Component {
             }
             return { valid, errorMessage };
           }}
+          fieldClassName={styles.inputField}
         />
         <Form.SubmitButton
           onClick={(formData) => this._onSubmit(formData)}
           disabledUntilFormIsValidated
+          fieldClassName={styles.buttonField}
+          className={styles.button}
         >
           Submit Form
         </Form.SubmitButton>
-        <Form.ResetButton onClick={() => this._onReset()}>
+        <Form.ResetButton
+          onClick={() => this._onReset()}
+          fieldClassName={styles.buttonField}
+          className={styles.button}
+        >
           Reset Form
         </Form.ResetButton>
       </Form>

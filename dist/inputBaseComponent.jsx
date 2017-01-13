@@ -27,7 +27,7 @@ var InputBaseComponent = function (_Component) {
     var _this = _possibleConstructorReturn(this, (InputBaseComponent.__proto__ || Object.getPrototypeOf(InputBaseComponent)).call(this, props));
 
     _this.state = {
-      valid: false,
+      valid: _this.props.valid,
       dirty: false
     };
     return _this;
@@ -36,7 +36,9 @@ var InputBaseComponent = function (_Component) {
   _createClass(InputBaseComponent, [{
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(_ref) {
-      var forceDirty = _ref.forceDirty;
+      var forceDirty = _ref.forceDirty,
+          resetValue = _ref.resetValue,
+          valueWasResetted = _ref.valueWasResetted;
 
       if (this.props.forceDirty != forceDirty && forceDirty) {
         var value = this.refs[this.props.name].value;
@@ -47,12 +49,10 @@ var InputBaseComponent = function (_Component) {
           errorMessage: validateInput.errorMessage
         });
       }
-    }
-  }, {
-    key: 'componentWillUpdate',
-    value: function componentWillUpdate(nextProps, nextState) {
-      if (this.state.valid != nextState.valid) {
-        this.props.isValid(nextState.valid);
+
+      if (this.props.resetValue != resetValue && resetValue) {
+        this.setState({ dirty: false });
+        valueWasResetted();
       }
     }
   }, {
@@ -103,10 +103,12 @@ var InputBaseComponent = function (_Component) {
 
 InputBaseComponent.propTypes = {
   forceDirty: _react2.default.PropTypes.bool.isRequired,
-  isValid: _react2.default.PropTypes.func.isRequired,
+  setValidInputToUndefined: _react2.default.PropTypes.func,
   name: _react2.default.PropTypes.string.isRequired,
   validate: _react2.default.PropTypes.func,
-  label: _react2.default.PropTypes.string
+  label: _react2.default.PropTypes.string,
+  valid: _react2.default.PropTypes.bool,
+  resetValue: _react2.default.PropTypes.bool
 };
 
 exports.default = InputBaseComponent;

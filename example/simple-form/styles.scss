@@ -1,0 +1,35 @@
+.inputField {
+  margin-bottom: 10px;
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  input {
+    width: 400px;
+    padding: 6px;
+  }
+  p {
+    margin: 5px 0;
+    span {
+      color: red;
+    }
+  }
+  select {
+    width: 414px;
+    height: 30px;
+  }
+}
+
+.buttonField {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.button {
+  padding: 8px;
+  cursor: pointer;
+  &:disabled {
+    cursor: default;
+  }
+}

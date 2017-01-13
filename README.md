@@ -13,6 +13,16 @@ Form with custom Input: [Code Here](https://github.com/daruj/react-awesome-form-
 
 Then open a browser and type: `http://localhost:3000`
 
+### Form Props:
+
+|      Name      |     Type    | Default |                                                                                   Description                                                                                   | Required |
+|:--------------:|:-----------:|:-------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|----------|
+|    children    | node/string |    -    |                                                                                   Form inputs or other html tags or strings                                                                                   | -     |
+|    className   |    string   |    ''   |                                                                                 Form className                                                                                | false    |
+|    resetForm   |    boolean   |    -   |                                                                                 if true will reset the form of default values. In order to use this prop you need to add formWasResetted too.                                                                                | false    |
+|    formWasResetted   |    function   |    -   |                                                                                 Function to be called right after we reset the form. The idea of this prop is to change the 'resetForm' prop to false again. example: formWasResetted={() => this.setState({ resetForm: false })}                                                                                | false    |
+
+
 ### Input Props:
 
 |       Name       |   Type   | Default |                                                                                                                                                                                       Description                                                                                                                                                                                       | Required |

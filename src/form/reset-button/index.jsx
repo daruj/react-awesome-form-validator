@@ -32,7 +32,7 @@ ResetButton.propTypes = {
   children: React.PropTypes.string.isRequired,
   fieldClassName: React.PropTypes.string,
   className: React.PropTypes.string,
-  onClick: React.PropTypes.func.isRequired,
+  onClick: React.PropTypes.func,
   disabled: React.PropTypes.bool
 };
 

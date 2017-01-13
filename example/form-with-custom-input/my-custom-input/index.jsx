@@ -1,52 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import styles from './styles.scss';
+import InputBaseComponent from './inputBaseComponent';
 
-class MyCustomInput extends Component {
+class MyCustomInput extends InputBaseComponent {
+
   constructor(props) {
     super(props);
-    this.state = {
-      valid: false,
-      dirty: false
-    };
-  }
-
-  componentDidMount() {
-    this.props.setValidInputToUndefined();
-  }
-
-  componentWillReceiveProps({ forceDirty }) {
-    if (this.props.forceDirty != forceDirty && forceDirty) {
-      const value = this.refs[this.props.name].value;
-      const validateInput = this.props.validate(value);
-      this.setState({
-        dirty: true,
-        valid: validateInput.valid,
-        errorMessage: validateInput.errorMessage
-      });
-    }
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    if (this.state.valid != nextState.valid) {
-      this.props.isValid(nextState.valid);
-    }
-  }
-
-  inputIsValid() {
-    return this.state.valid || this.isPristine();
-  }
-
-  isDirty() {
-    return this.state.dirty;
-  }
-
-  isPristine() {
-    return !this.state.dirty;
   }
 
   changeValue(value) {
     const {
+      onChange,
       validate = () => true,
       setInputValue
     } = this.props;
@@ -58,23 +23,9 @@ class MyCustomInput extends Component {
     });
     // set value to the inputValues form
     setInputValue(value);
-  }
-
-  renderError() {
-    if (this.state.errorMessage && !this.isPristine() && !this.state.valid) {
-      return (
-        <p>
-          <span>{this.state.errorMessage}</span>
-        </p>
-      );
-    }
-  }
-
-  renderLabel() {
-    if (this.props.label) {
-      return (
-        <label>{this.props.label}</label>
-      );
+    // if we pass onChange as a prop then use it!
+    if (onChange) {
+      onChange(value);
     }
   }
 
@@ -85,16 +36,16 @@ class MyCustomInput extends Component {
       placeHolder = '',
       name,
       className = styles.input,
-      invalidClassName = styles.invalidField
+      invalidClassName = styles.invalidField,
+      value
     } = this.props;
     return (
-      <div
-        className={fieldClassName}
-      >
+      <div className={fieldClassName}>
         {this.renderLabel()}
         <input
           type={type}
           name={name}
+          value={value}
           autoComplete='off'
           placeholder={placeHolder}
           className={
@@ -104,7 +55,7 @@ class MyCustomInput extends Component {
             )
           }
           ref={name}
-          onKeyUp={(evt) => this.changeValue(evt.target.value)}
+          onChange={(evt) => this.changeValue(evt.target.value)}
           onBlur={(evt) => this.changeValue(evt.target.value)}
         />
         {this.renderError()}
@@ -119,13 +70,11 @@ MyCustomInput.propTypes = {
   placeHolder: React.PropTypes.string,
   label: React.PropTypes.string,
   name: React.PropTypes.string.isRequired,
+  value: React.PropTypes.string,
   className: React.PropTypes.string,
   invalidClassName: React.PropTypes.string,
   validate: React.PropTypes.func,
-  setValidInputToUndefined: React.PropTypes.func,
-  forceDirty: React.PropTypes.bool,
-  isValid: React.PropTypes.func,
-  setInputValue: React.PropTypes.func
+  onChange: React.PropTypes.func
 };
 
 export default MyCustomInput;

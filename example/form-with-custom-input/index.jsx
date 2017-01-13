@@ -33,9 +33,12 @@ class Root extends Component {
             }}
           />
         </Form.CustomInput>
-        <Form.SubmitButton
-          onClick={(formData) => console.log('Form Data', formData)}
-        >Submit Form</Form.SubmitButton>
+        <Form.SubmitButton onClick={(formData) => console.log('Form Data', formData)}>
+          Submit Form
+        </Form.SubmitButton>
+        <Form.ResetButton>
+          Reset Form
+        </Form.ResetButton>
       </Form>
     );
   }

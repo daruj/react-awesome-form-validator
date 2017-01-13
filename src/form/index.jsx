@@ -77,7 +77,7 @@ class Form extends Component {
   }
 
   getCommonMethods(props) {
-    const { name, validate } = props;
+    const { name, validate, onChange } = props;
     const { validInputs, inputValues, resetForm } = this.state;
     return {
       resetValue: resetForm,
@@ -85,10 +85,13 @@ class Form extends Component {
       value: inputValues[name],
       valid: validInputs[name],
       forceDirty: this.state.forceDirty,
-      setInputValue: (value) => {
+      onChange: (value) => {
         const state = { ...this.state };
         state.inputValues[name] = value;
         this.setState(state);
+        if (onChange) {
+          onChange(value);
+        }
       },
       validate: (value) => {
         if (validate) {

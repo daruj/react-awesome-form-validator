@@ -1,32 +1,25 @@
 import React from 'react';
+import MyCustomInputBaseComponent from './inputBaseComponent';
 import classnames from 'classnames';
 import styles from './styles.scss';
-import InputBaseComponent from './inputBaseComponent';
 
-class MyCustomInput extends InputBaseComponent {
-
+class MyCustomInput extends MyCustomInputBaseComponent {
   constructor(props) {
     super(props);
   }
 
   changeValue(value) {
-    const {
-      onChange,
-      validate = () => true,
-      setInputValue
-    } = this.props;
-    const validateInput = validate(value);
+    this.props.onChange(value);
+  }
+
+  validate(value) {
+    const { validate = () => true } = this.props;
+    const validateMyCustomInput = validate(value);
     this.setState({
-      valid: validateInput.valid,
+      valid: validateMyCustomInput.valid,
       dirty: true,
-      errorMessage: validateInput.errorMessage
+      errorMessage: validateMyCustomInput.errorMessage
     });
-    // set value to the inputValues form
-    setInputValue(value);
-    // if we pass onChange as a prop then use it!
-    if (onChange) {
-      onChange(value);
-    }
   }
 
   render() {
@@ -55,8 +48,16 @@ class MyCustomInput extends InputBaseComponent {
             )
           }
           ref={name}
-          onChange={(evt) => this.changeValue(evt.target.value)}
-          onBlur={(evt) => this.changeValue(evt.target.value)}
+          onChange={(evt) => {
+            this.changeValue(evt.target.value);
+            if (!this.isPristine()) {
+              this.validate(evt.target.value);
+            }
+          }}
+          onBlur={(evt) => {
+            this.changeValue(evt.target.value);
+            this.validate(evt.target.value);
+          }}
         />
         {this.renderError()}
       </div>

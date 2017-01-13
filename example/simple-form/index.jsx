@@ -97,7 +97,10 @@ class Root extends Component {
             return { valid, errorMessage };
           }}
         />
-        <Form.SubmitButton onClick={(formData) => this._onSubmit(formData)}>
+        <Form.SubmitButton
+          onClick={(formData) => this._onSubmit(formData)}
+          disabledUntilFormIsValidated
+        >
           Submit Form
         </Form.SubmitButton>
         <Form.ResetButton onClick={() => this._onReset()}>

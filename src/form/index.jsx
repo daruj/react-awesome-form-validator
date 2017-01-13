@@ -123,6 +123,9 @@ class Form extends Component {
             break;
           case 'SubmitButton':
             component = React.cloneElement(child, {
+              disabled: child.props.disabledUntilFormIsValidated
+                ? some(this.state.validInputs, (x) => !x)
+                : false,
               onClick: (event) => {
                 event.preventDefault();
                 if (!some(this.state.validInputs, (x) => !x)) {

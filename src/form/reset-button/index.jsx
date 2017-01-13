@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import styles from './styles.scss';
 
-class SubmitButton extends Component {
+class ResetButton extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     const {
-      children = 'Submit',
+      children = 'Reset Form',
       disabled = false,
       fieldClassName = styles.wrapperField,
       className = styles.button,
@@ -28,12 +28,12 @@ class SubmitButton extends Component {
   }
 }
 
-SubmitButton.propTypes = {
+ResetButton.propTypes = {
   children: React.PropTypes.string.isRequired,
   fieldClassName: React.PropTypes.string,
   className: React.PropTypes.string,
-  onClick: React.PropTypes.func.isRequired,
+  onClick: React.PropTypes.func,
   disabled: React.PropTypes.bool
 };
 
-export default SubmitButton;
+export default ResetButton;

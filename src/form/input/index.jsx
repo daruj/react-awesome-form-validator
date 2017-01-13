@@ -8,28 +8,18 @@ class Input extends InputBaseComponent {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.setValidInputToUndefined();
+  changeValue(value) {
+    this.props.onChange(value);
   }
 
-  changeValue(value) {
-    const {
-      onChange,
-      validate = () => true,
-      setInputValue
-    } = this.props;
+  validate(value) {
+    const { validate = () => true } = this.props;
     const validateInput = validate(value);
     this.setState({
       valid: validateInput.valid,
       dirty: true,
       errorMessage: validateInput.errorMessage
     });
-    // set value to the inputValues form
-    setInputValue(value);
-    // if we pass onChange as a prop then use it!
-    if (onChange) {
-      onChange(value);
-    }
   }
 
   render() {
@@ -39,7 +29,8 @@ class Input extends InputBaseComponent {
       placeHolder = '',
       name,
       className = styles.input,
-      invalidClassName = styles.invalidField
+      invalidClassName = styles.invalidField,
+      value
     } = this.props;
     return (
       <div className={fieldClassName}>
@@ -47,6 +38,7 @@ class Input extends InputBaseComponent {
         <input
           type={type}
           name={name}
+          value={value}
           autoComplete='off'
           placeholder={placeHolder}
           className={
@@ -56,8 +48,16 @@ class Input extends InputBaseComponent {
             )
           }
           ref={name}
-          onKeyUp={(evt) => this.changeValue(evt.target.value)}
-          onBlur={(evt) => this.changeValue(evt.target.value)}
+          onChange={(evt) => {
+            this.changeValue(evt.target.value);
+            if (!this.isPristine()) {
+              this.validate(evt.target.value);
+            }
+          }}
+          onBlur={(evt) => {
+            this.changeValue(evt.target.value);
+            this.validate(evt.target.value);
+          }}
         />
         {this.renderError()}
       </div>
@@ -71,10 +71,10 @@ Input.propTypes = {
   placeHolder: React.PropTypes.string,
   label: React.PropTypes.string,
   name: React.PropTypes.string.isRequired,
+  value: React.PropTypes.string,
   className: React.PropTypes.string,
   invalidClassName: React.PropTypes.string,
   validate: React.PropTypes.func,
-  setValidInputToUndefined: React.PropTypes.func,
   onChange: React.PropTypes.func
 };
 

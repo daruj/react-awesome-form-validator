@@ -7,11 +7,26 @@ class Root extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      resetForm: false
+    };
+  }
+
+  _onSubmit(formData) {
+    console.log('Form ready to be submitted', formData);
+    this.setState({ resetForm: true });
+  }
+
+  _onReset() {
+    alert('The form was resetted');
   }
 
   render() {
     return (
-      <Form>
+      <Form
+        resetForm={this.state.resetForm}
+        formWasResetted={() => this.setState({ resetForm: false })}
+      >
         <h2>Basic Form</h2>
         <Form.Input
           name='name'
@@ -83,8 +98,14 @@ class Root extends Component {
           }}
         />
         <Form.SubmitButton
-          onClick={(formData) => console.log('Form Data', formData)}
-        >Submit Form</Form.SubmitButton>
+          onClick={(formData) => this._onSubmit(formData)}
+          disabledUntilFormIsValidated
+        >
+          Submit Form
+        </Form.SubmitButton>
+        <Form.ResetButton onClick={() => this._onReset()}>
+          Reset Form
+        </Form.ResetButton>
       </Form>
     );
   }

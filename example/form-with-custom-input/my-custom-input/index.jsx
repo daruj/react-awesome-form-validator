@@ -1,81 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
+import MyCustomInputBaseComponent from './inputBaseComponent';
 import classnames from 'classnames';
 import styles from './styles.scss';
 
-class MyCustomInput extends Component {
+class MyCustomInput extends MyCustomInputBaseComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      valid: false,
-      dirty: false
-    };
-  }
-
-  componentDidMount() {
-    this.props.setValidInputToUndefined();
-  }
-
-  componentWillReceiveProps({ forceDirty }) {
-    if (this.props.forceDirty != forceDirty && forceDirty) {
-      const value = this.refs[this.props.name].value;
-      const validateInput = this.props.validate(value);
-      this.setState({
-        dirty: true,
-        valid: validateInput.valid,
-        errorMessage: validateInput.errorMessage
-      });
-    }
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    if (this.state.valid != nextState.valid) {
-      this.props.isValid(nextState.valid);
-    }
-  }
-
-  inputIsValid() {
-    return this.state.valid || this.isPristine();
-  }
-
-  isDirty() {
-    return this.state.dirty;
-  }
-
-  isPristine() {
-    return !this.state.dirty;
   }
 
   changeValue(value) {
-    const {
-      validate = () => true,
-      setInputValue
-    } = this.props;
-    const validateInput = validate(value);
+    this.props.onChange(value);
+  }
+
+  validate(value) {
+    const { validate = () => true } = this.props;
+    const validateMyCustomInput = validate(value);
     this.setState({
-      valid: validateInput.valid,
+      valid: validateMyCustomInput.valid,
       dirty: true,
-      errorMessage: validateInput.errorMessage
+      errorMessage: validateMyCustomInput.errorMessage
     });
-    // set value to the inputValues form
-    setInputValue(value);
-  }
-
-  renderError() {
-    if (this.state.errorMessage && !this.isPristine() && !this.state.valid) {
-      return (
-        <p>
-          <span>{this.state.errorMessage}</span>
-        </p>
-      );
-    }
-  }
-
-  renderLabel() {
-    if (this.props.label) {
-      return (
-        <label>{this.props.label}</label>
-      );
-    }
   }
 
   render() {
@@ -85,16 +29,16 @@ class MyCustomInput extends Component {
       placeHolder = '',
       name,
       className = styles.input,
-      invalidClassName = styles.invalidField
+      invalidClassName = styles.invalidField,
+      value
     } = this.props;
     return (
-      <div
-        className={fieldClassName}
-      >
+      <div className={fieldClassName}>
         {this.renderLabel()}
         <input
           type={type}
           name={name}
+          value={value}
           autoComplete='off'
           placeholder={placeHolder}
           className={
@@ -104,8 +48,16 @@ class MyCustomInput extends Component {
             )
           }
           ref={name}
-          onKeyUp={(evt) => this.changeValue(evt.target.value)}
-          onBlur={(evt) => this.changeValue(evt.target.value)}
+          onChange={(evt) => {
+            this.changeValue(evt.target.value);
+            if (!this.isPristine()) {
+              this.validate(evt.target.value);
+            }
+          }}
+          onBlur={(evt) => {
+            this.changeValue(evt.target.value);
+            this.validate(evt.target.value);
+          }}
         />
         {this.renderError()}
       </div>
@@ -119,13 +71,11 @@ MyCustomInput.propTypes = {
   placeHolder: React.PropTypes.string,
   label: React.PropTypes.string,
   name: React.PropTypes.string.isRequired,
+  value: React.PropTypes.string,
   className: React.PropTypes.string,
   invalidClassName: React.PropTypes.string,
   validate: React.PropTypes.func,
-  setValidInputToUndefined: React.PropTypes.func,
-  forceDirty: React.PropTypes.bool,
-  isValid: React.PropTypes.func,
-  setInputValue: React.PropTypes.func
+  onChange: React.PropTypes.func
 };
 
 export default MyCustomInput;

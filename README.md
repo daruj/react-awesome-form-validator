@@ -36,5 +36,6 @@ Then open a browser and type: `http://localhost:3000`
 |    className   |    string   |    ''   |                                                                                 Button className                                                                                | false    |
 | fieldClassName |    string   |    ''   |                                                         This Button comes wrapped with a div. This is the div className                                                         | false    |
 |     onClick    |   function  |    -    | When the user clicks on the SubmitButton and all the validations pass, it will call the onClick function provided and it will pass an object with all the form's inputs values. | true     |
+|     disabledUntilFormIsValidated    |   boolean  |    false    | It will disable the button until all fields are valid | false     |
 
 Hope you enjoy it!

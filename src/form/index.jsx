@@ -93,9 +93,9 @@ class Form extends Component {
           onChange(value);
         }
       },
-      validate: (value) => {
+      validate: (value, extra = {}) => {
         if (validate) {
-          const validateObj = validate(value);
+          const validateObj = validate(value, extra);
           const state = { ...this.state };
           state.validInputs[name] = validateObj.valid;
           return validateObj;

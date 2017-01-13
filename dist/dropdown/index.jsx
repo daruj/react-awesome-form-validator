@@ -181,9 +181,7 @@ Dropdown.propTypes = {
   defaultOptionVisible: _react2.default.PropTypes.bool,
   defaultOptionText: _react2.default.PropTypes.string,
   onChange: _react2.default.PropTypes.func,
-  validate: _react2.default.PropTypes.func,
-  setValidInputToUndefined: _react2.default.PropTypes.func,
-  setInputValue: _react2.default.PropTypes.func
+  validate: _react2.default.PropTypes.func
 };
 
 exports.default = Dropdown;

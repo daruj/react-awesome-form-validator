@@ -76,7 +76,9 @@ var Input = function (_InputBaseComponent) {
           className = _props$className === undefined ? _styles2.default.input : _props$className,
           _props$invalidClassNa = _props.invalidClassName,
           invalidClassName = _props$invalidClassNa === undefined ? _styles2.default.invalidField : _props$invalidClassNa,
-          value = _props.value;
+          value = _props.value,
+          _props$startValidatin = _props.startValidatingWhenIsPristine,
+          startValidatingWhenIsPristine = _props$startValidatin === undefined ? false : _props$startValidatin;
 
       return _react2.default.createElement(
         'div',
@@ -92,8 +94,12 @@ var Input = function (_InputBaseComponent) {
           ref: name,
           onChange: function onChange(evt) {
             _this2.changeValue(evt.target.value);
-            if (!_this2.isPristine()) {
+            if (startValidatingWhenIsPristine) {
               _this2.validate(evt.target.value);
+            } else {
+              if (!_this2.isPristine()) {
+                _this2.validate(evt.target.value);
+              }
             }
           },
           onBlur: function onBlur(evt) {
@@ -119,7 +125,8 @@ Input.propTypes = {
   className: _react2.default.PropTypes.string,
   invalidClassName: _react2.default.PropTypes.string,
   validate: _react2.default.PropTypes.func,
-  onChange: _react2.default.PropTypes.func
+  onChange: _react2.default.PropTypes.func,
+  startValidatingWhenIsPristine: _react2.default.PropTypes.bool
 };
 
 exports.default = Input;

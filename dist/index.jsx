@@ -150,8 +150,10 @@ var Form = function (_Component) {
           }
         },
         validate: function validate(value) {
+          var extra = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
           if (_validate) {
-            var validateObj = _validate(value);
+            var validateObj = _validate(value, extra);
             var state = _extends({}, _this2.state);
             state.validInputs[name] = validateObj.valid;
             return validateObj;

@@ -24,7 +24,9 @@ class Form extends Component {
     const getInput = (child) => {
       switch (child.type.name) {
         case 'Wrapper':
-          getInput(child.props.children);
+          for (const x in child.props.children) {
+            getInput(child.props.children[x]);
+          }
           break;
         case 'Input':
         case 'Dropdown':

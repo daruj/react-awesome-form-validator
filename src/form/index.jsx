@@ -137,7 +137,7 @@ class Form extends Component {
               onClick: (event) => {
                 event.preventDefault();
                 if (!some(this.state.validInputs, (x) => !x)) {
-                  child.props.onClick(this.state.inputValues);
+                  child.props.onClick({ ...this.state.inputValues });
                 } else {
                   this.setState({ forceDirty: true });
                 }

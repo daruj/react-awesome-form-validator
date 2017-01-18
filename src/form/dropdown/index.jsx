@@ -91,6 +91,7 @@ class Dropdown extends InputBaseComponent {
         {this.renderLabel()}
         <select
           onChange={(event) => this._onChange(event.target.value)}
+          onBlur={() => console.log('chau')}
           value={value}
           ref={name}
           name={name}

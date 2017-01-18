@@ -46,7 +46,7 @@ var Wrapper = function (_Component) {
 }(_react.Component);
 
 Wrapper.propTypes = {
-  children: _react2.default.PropTypes.node.isRequired,
+  children: _react2.default.PropTypes.node,
   className: _react2.default.PropTypes.string
 };
 

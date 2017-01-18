@@ -17,7 +17,7 @@ class Wrapper extends Component {
 }
 
 Wrapper.propTypes = {
-  children: React.PropTypes.node.isRequired,
+  children: React.PropTypes.node,
   className: React.PropTypes.string
 };
 

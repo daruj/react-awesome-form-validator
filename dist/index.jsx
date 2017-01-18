@@ -63,7 +63,15 @@ var Form = function (_Component) {
     var getInput = function getInput(child) {
       switch (child.type.name) {
         case 'Wrapper':
-          getInput(child.props.children);
+          if (child.props.children) {
+            if (child.props.children.length) {
+              for (var x in child.props.children) {
+                getInput(child.props.children[x]);
+              }
+            } else {
+              getInput(child.props.children);
+            }
+          }
           break;
         case 'Input':
         case 'Dropdown':

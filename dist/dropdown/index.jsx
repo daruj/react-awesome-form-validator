@@ -146,6 +146,9 @@ var Dropdown = function (_InputBaseComponent) {
             onChange: function onChange(event) {
               return _this2._onChange(event.target.value);
             },
+            onBlur: function onBlur() {
+              return console.log('chau');
+            },
             value: value,
             ref: name,
             name: name,

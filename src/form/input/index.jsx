@@ -9,7 +9,7 @@ class Input extends InputBaseComponent {
   }
 
   changeValue(value) {
-    this.props.onChange(value);
+    this.props.onComponentChange(value);
   }
 
   validate(value) {

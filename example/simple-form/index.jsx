@@ -51,6 +51,26 @@ class Root extends Component {
             }}
             fieldClassName={styles.inputField}
           />
+          <Form.Dropdown
+            name='color'
+            placeHolder='Choose a color...'
+            label='Choose a fruit *'
+            options={[
+              { value: 'blue', text: 'Blue' },
+              { value: 'orange', text: 'Orange' },
+              { value: 'red', text: 'Red' }
+            ]}
+            validate={(value) => {
+              let valid = true;
+              let errorMessage = '';
+              if (!value.length) {
+                valid = false;
+                errorMessage = 'This field is required';
+              }
+              return { valid, errorMessage };
+            }}
+            fieldClassName={styles.inputField}
+          />
           <Form.Input
             name='lastName'
             placeHolder='Type your lastName here...'
@@ -73,25 +93,6 @@ class Root extends Component {
         </Form.Wrapper>
         <Form.Wrapper className={styles.wrapper}>
           <h3>Group 2</h3>
-          <Form.Input
-            name='email'
-            placeHolder='Type your email here...'
-            label='Email *'
-            type='email'
-            validate={(value) => {
-              let valid = true;
-              let errorMessage = '';
-              if (!value.length) {
-                valid = false;
-                errorMessage = 'This field is required';
-              } else if (!isEmail(value.replace(/\s/g, ''))) {
-                valid = false;
-                errorMessage = 'You must enter a valid email';
-              }
-              return { valid, errorMessage };
-            }}
-            fieldClassName={styles.inputField}
-          />
           <Form.Dropdown
             name='fruit'
             placeHolder='Choose a fruit...'
@@ -112,10 +113,28 @@ class Root extends Component {
             }}
             fieldClassName={styles.inputField}
           />
+          <Form.Input
+            name='email'
+            placeHolder='Type your email here...'
+            label='Email *'
+            type='email'
+            validate={(value) => {
+              let valid = true;
+              let errorMessage = '';
+              if (!value.length) {
+                valid = false;
+                errorMessage = 'This field is required';
+              } else if (!isEmail(value.replace(/\s/g, ''))) {
+                valid = false;
+                errorMessage = 'You must enter a valid email';
+              }
+              return { valid, errorMessage };
+            }}
+            fieldClassName={styles.inputField}
+          />
         </Form.Wrapper>
         <Form.SubmitButton
           onClick={(formData) => this._onSubmit(formData)}
-          disabledUntilFormIsValidated
           fieldClassName={styles.buttonField}
           className={styles.button}
         >

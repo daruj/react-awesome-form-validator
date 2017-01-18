@@ -24,8 +24,9 @@
   "license": "ISC",
   "dependencies": {
     "classnames": "^2.2.5",
-    "validator": "^6.2.0",
-    "lodash": "^4.16.4"
+    "lodash": "^4.16.4",
+    "react-click-outside": "^2.2.0",
+    "validator": "^6.2.0"
   },
   "devDependencies": {
     "babel": "^6.5.2",

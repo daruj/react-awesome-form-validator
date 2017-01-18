@@ -93,7 +93,7 @@ class Form extends Component {
       value: inputValues[name],
       valid: validInputs[name],
       forceDirty: this.state.forceDirty,
-      onChange: (value) => {
+      onComponentChange: (value) => {
         const state = { ...this.state };
         state.inputValues[name] = value;
         this.setState(state);
@@ -156,7 +156,7 @@ class Form extends Component {
             });
             break;
           case 'Input':
-          case 'Dropdown':
+          case 'DropdownWrapper':
             component = React.cloneElement(child, this.getCommonMethods(child.props));
             break;
           case 'CustomInput':

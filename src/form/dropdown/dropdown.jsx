@@ -62,6 +62,10 @@ class Dropdown extends Component {
     }
   }
 
+  clickInsideOfTheDropdown() {
+    this.setState({ isOpened: true });
+  }
+
   render() {
     const {
       options,
@@ -75,13 +79,14 @@ class Dropdown extends Component {
     return (
       <select
         onChange={(event) => this._onChange(event.target.value)}
-        onClick={() => this.setState({ isOpened: true })}
+        onClick={() => this.clickInsideOfTheDropdown()}
         onKeyDown={(event) => {
+          // if the user press the tab key
           if (event.which == 9) {
             this._onChange(event.target.value);
           }
         }}
-        onFocus={() => this.setState({ isOpened: true })}
+        onFocus={() => this.clickInsideOfTheDropdown()}
         value={value}
         ref={name}
         name={name}

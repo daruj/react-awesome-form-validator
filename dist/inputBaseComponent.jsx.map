@@ -6,33 +6,27 @@
   "names": [
     "InputBaseComponent",
     "props",
-    "state",
-    "valid",
-    "dirty",
     "forceDirty",
-    "resetValue",
-    "valueWasResetted",
     "value",
     "refs",
     "name",
-    "validateInput",
     "validate",
-    "setState",
-    "errorMessage",
+    "valid",
     "isPristine",
+    "dirty",
     "label",
+    "errorMessage",
     "propTypes",
     "PropTypes",
     "bool",
     "isRequired",
-    "setValidInputToUndefined",
-    "func",
-    "string"
+    "string",
+    "func"
   ],
-  "mappings": ";;;;;;;;AAAA;;;;;;;;;;;;IAEMA,kB;;;AACJ,8BAAYC,KAAZ,EAAmB;AAAA;;AAAA,wIACXA,KADW;;AAEjB,UAAKC,KAAL,GAAa;AACXC,aAAO,MAAKF,KAAL,CAAWE,KADP;AAEXC,aAAO;AAFI,KAAb;AAFiB;AAMlB;;;;oDAEuE;AAAA,UAA5CC,UAA4C,QAA5CA,UAA4C;AAAA,UAAhCC,UAAgC,QAAhCA,UAAgC;AAAA,UAApBC,gBAAoB,QAApBA,gBAAoB;;AACtE,UAAI,KAAKN,KAAL,CAAWI,UAAX,IAAyBA,UAAzB,IAAuCA,UAA3C,EAAuD;AACrD,YAAMG,QAAQ,KAAKC,IAAL,CAAU,KAAKR,KAAL,CAAWS,IAArB,EAA2BF,KAAzC;AACA,YAAMG,gBAAgB,KAAKV,KAAL,CAAWW,QAAX,CAAoBJ,KAApB,CAAtB;AACA,aAAKK,QAAL,CAAc;AACZT,iBAAO,IADK;AAEZD,iBAAOQ,cAAcR,KAFT;AAGZW,wBAAcH,cAAcG;AAHhB,SAAd;AAKD;;AAED,UAAI,KAAKb,KAAL,CAAWK,UAAX,IAAyBA,UAAzB,IAAuCA,UAA3C,EAAuD;AACrD,aAAKO,QAAL,CAAc,EAAET,OAAO,KAAT,EAAd;AACAG;AACD;AACF;;;mCAGc;AACb,aAAO,KAAKL,KAAL,CAAWC,KAAX,IAAoB,KAAKY,UAAL,EAA3B;AACD;;;8BAES;AACR,aAAO,KAAKb,KAAL,CAAWE,KAAlB;AACD;;;iCAEY;AACX,aAAO,CAAC,KAAKF,KAAL,CAAWE,KAAnB;AACD;;;kCAEa;AACZ,UAAI,KAAKH,KAAL,CAAWe,KAAf,EAAsB;AACpB,eACE;AAAA;AAAA;AAAQ,eAAKf,KAAL,CAAWe;AAAnB,SADF;AAGD;AACF;;;kCAEa;AACZ,UAAI,KAAKd,KAAL,CAAWY,YAAX,IAA2B,CAAC,KAAKC,UAAL,EAA5B,IAAiD,CAAC,KAAKb,KAAL,CAAWC,KAAjE,EAAwE;AACtE,eACE;AAAA;AAAA;AACE;AAAA;AAAA;AAAO,iBAAKD,KAAL,CAAWY;AAAlB;AADF,SADF;AAKD;AACF;;;;;;AAIHd,mBAAmBiB,SAAnB,GAA+B;AAC7BZ,cAAY,gBAAMa,SAAN,CAAgBC,IAAhB,CAAqBC,UADJ;AAE7BC,4BAA0B,gBAAMH,SAAN,CAAgBI,IAFb;AAG7BZ,QAAM,gBAAMQ,SAAN,CAAgBK,MAAhB,CAAuBH,UAHA;AAI7BR,YAAU,gBAAMM,SAAN,CAAgBI,IAJG;AAK7BN,SAAO,gBAAME,SAAN,CAAgBK,MALM;AAM7BpB,SAAO,gBAAMe,SAAN,CAAgBC,IANM;AAO7Bb,cAAY,gBAAMY,SAAN,CAAgBC;AAPC,CAA/B;;kBAUenB,kB",
+  "mappings": ";;;;;;;;AAAA;;;;;;;;;;;;IAEMA,kB;;;AACJ,8BAAYC,KAAZ,EAAmB;AAAA;;AAAA,mIACXA,KADW;AAElB;;;;oDAEyC;AAAA,UAAdC,UAAc,QAAdA,UAAc;;AACxC,UAAI,KAAKD,KAAL,CAAWC,UAAX,IAAyBA,UAAzB,IAAuCA,UAA3C,EAAuD;AACrD,YAAMC,QAAQ,KAAKC,IAAL,CAAU,KAAKH,KAAL,CAAWI,IAArB,EAA2BF,KAAzC;AACA,aAAKF,KAAL,CAAWK,QAAX,CAAoBH,KAApB;AACD;AACF;;;mCAGc;AACb,aAAO,KAAKF,KAAL,CAAWM,KAAX,IAAoB,KAAKC,UAAL,EAA3B;AACD;;;8BAES;AACR,aAAO,KAAKP,KAAL,CAAWQ,KAAlB;AACD;;;iCAEY;AACX,aAAO,CAAC,KAAKR,KAAL,CAAWQ,KAAnB;AACD;;;kCAEa;AACZ,UAAI,KAAKR,KAAL,CAAWS,KAAf,EAAsB;AACpB,eAAQ;AAAA;AAAA;AAAQ,eAAKT,KAAL,CAAWS;AAAnB,SAAR;AACD;AACF;;;kCAEa;AACZ,UAAI,KAAKT,KAAL,CAAWU,YAAX,IAA2B,CAAC,KAAKH,UAAL,EAA5B,IAAiD,CAAC,KAAKP,KAAL,CAAWM,KAAjE,EAAwE;AACtE,eAAQ;AAAA;AAAA;AAAG;AAAA;AAAA;AAAO,iBAAKN,KAAL,CAAWU;AAAlB;AAAH,SAAR;AACD;AACF;;;;;;AAIHX,mBAAmBY,SAAnB,GAA+B;AAC7BV,cAAY,gBAAMW,SAAN,CAAgBC,IAAhB,CAAqBC,UADJ;AAE7BV,QAAM,gBAAMQ,SAAN,CAAgBG,MAAhB,CAAuBD,UAFA;AAG7BT,YAAU,gBAAMO,SAAN,CAAgBI,IAHG;AAI7BP,SAAO,gBAAMG,SAAN,CAAgBG,MAJM;AAK7BT,SAAO,gBAAMM,SAAN,CAAgBC,IALM;AAM7BL,SAAO,gBAAMI,SAAN,CAAgBC,IANM;AAO7BH,gBAAc,gBAAME,SAAN,CAAgBG;AAPD,CAA/B;;kBAUehB,kB",
   "file": "inputBaseComponent.jsx",
   "sourceRoot": "../src/form",
   "sourcesContent": [
-    "import React, { Component } from 'react';\n\nclass InputBaseComponent extends Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      valid: this.props.valid,\n      dirty: false\n    };\n  }\n\n  componentWillReceiveProps({ forceDirty, resetValue, valueWasResetted }) {\n    if (this.props.forceDirty != forceDirty && forceDirty) {\n      const value = this.refs[this.props.name].value;\n      const validateInput = this.props.validate(value);\n      this.setState({\n        dirty: true,\n        valid: validateInput.valid,\n        errorMessage: validateInput.errorMessage\n      });\n    }\n\n    if (this.props.resetValue != resetValue && resetValue) {\n      this.setState({ dirty: false });\n      valueWasResetted();\n    }\n  }\n\n\n  inputIsValid() {\n    return this.state.valid || this.isPristine();\n  }\n\n  isDirty() {\n    return this.state.dirty;\n  }\n\n  isPristine() {\n    return !this.state.dirty;\n  }\n\n  renderLabel() {\n    if (this.props.label) {\n      return (\n        <label>{this.props.label}</label>\n      );\n    }\n  }\n\n  renderError() {\n    if (this.state.errorMessage && !this.isPristine() && !this.state.valid) {\n      return (\n        <p>\n          <span>{this.state.errorMessage}</span>\n        </p>\n      );\n    }\n  }\n\n}\n\nInputBaseComponent.propTypes = {\n  forceDirty: React.PropTypes.bool.isRequired,\n  setValidInputToUndefined: React.PropTypes.func,\n  name: React.PropTypes.string.isRequired,\n  validate: React.PropTypes.func,\n  label: React.PropTypes.string,\n  valid: React.PropTypes.bool,\n  resetValue: React.PropTypes.bool\n};\n\nexport default InputBaseComponent;\n"
+    "import React, { Component } from 'react';\n\nclass InputBaseComponent extends Component {\n  constructor(props) {\n    super(props);\n  }\n\n  componentWillReceiveProps({ forceDirty }) {\n    if (this.props.forceDirty != forceDirty && forceDirty) {\n      const value = this.refs[this.props.name].value;\n      this.props.validate(value);\n    }\n  }\n\n\n  inputIsValid() {\n    return this.props.valid || this.isPristine();\n  }\n\n  isDirty() {\n    return this.props.dirty;\n  }\n\n  isPristine() {\n    return !this.props.dirty;\n  }\n\n  renderLabel() {\n    if (this.props.label) {\n      return (<label>{this.props.label}</label>);\n    }\n  }\n\n  renderError() {\n    if (this.props.errorMessage && !this.isPristine() && !this.props.valid) {\n      return (<p><span>{this.props.errorMessage}</span></p>);\n    }\n  }\n\n}\n\nInputBaseComponent.propTypes = {\n  forceDirty: React.PropTypes.bool.isRequired,\n  name: React.PropTypes.string.isRequired,\n  validate: React.PropTypes.func,\n  label: React.PropTypes.string,\n  valid: React.PropTypes.bool,\n  dirty: React.PropTypes.bool,\n  errorMessage: React.PropTypes.string\n};\n\nexport default InputBaseComponent;\n"
   ]
 }

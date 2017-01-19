@@ -8,20 +8,6 @@ class Input extends InputBaseComponent {
     super(props);
   }
 
-  changeValue(value) {
-    this.props.onComponentChange(value);
-  }
-
-  validate(value) {
-    const { validate = () => true } = this.props;
-    const validateInput = validate(value);
-    this.setState({
-      valid: validateInput.valid,
-      dirty: true,
-      errorMessage: validateInput.errorMessage
-    });
-  }
-
   render() {
     const {
       fieldClassName = styles.wrapperField,
@@ -50,18 +36,20 @@ class Input extends InputBaseComponent {
           }
           ref={name}
           onChange={(evt) => {
-            this.changeValue(evt.target.value);
+            const value = evt.target.value;
+            this.props.onChange(value);
             if (startValidatingWhenIsPristine) {
-              this.validate(evt.target.value);
+              this.props.validate(value);
             } else {
               if (!this.isPristine()) {
-                this.validate(evt.target.value);
+                this.props.validate(value);
               }
             }
           }}
           onBlur={(evt) => {
-            this.changeValue(evt.target.value);
-            this.validate(evt.target.value);
+            const value = evt.target.value;
+            this.props.onChange(value);
+            this.props.validate(value);
           }}
         />
         {this.renderError()}

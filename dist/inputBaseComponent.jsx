@@ -24,51 +24,33 @@ var InputBaseComponent = function (_Component) {
   function InputBaseComponent(props) {
     _classCallCheck(this, InputBaseComponent);
 
-    var _this = _possibleConstructorReturn(this, (InputBaseComponent.__proto__ || Object.getPrototypeOf(InputBaseComponent)).call(this, props));
-
-    _this.state = {
-      valid: _this.props.valid,
-      dirty: false
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (InputBaseComponent.__proto__ || Object.getPrototypeOf(InputBaseComponent)).call(this, props));
   }
 
   _createClass(InputBaseComponent, [{
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(_ref) {
-      var forceDirty = _ref.forceDirty,
-          resetValue = _ref.resetValue,
-          valueWasResetted = _ref.valueWasResetted;
+      var forceDirty = _ref.forceDirty;
 
       if (this.props.forceDirty != forceDirty && forceDirty) {
         var value = this.refs[this.props.name].value;
-        var validateInput = this.props.validate(value);
-        this.setState({
-          dirty: true,
-          valid: validateInput.valid,
-          errorMessage: validateInput.errorMessage
-        });
-      }
-
-      if (this.props.resetValue != resetValue && resetValue) {
-        this.setState({ dirty: false });
-        valueWasResetted();
+        this.props.validate(value);
       }
     }
   }, {
     key: 'inputIsValid',
     value: function inputIsValid() {
-      return this.state.valid || this.isPristine();
+      return this.props.valid || this.isPristine();
     }
   }, {
     key: 'isDirty',
     value: function isDirty() {
-      return this.state.dirty;
+      return this.props.dirty;
     }
   }, {
     key: 'isPristine',
     value: function isPristine() {
-      return !this.state.dirty;
+      return !this.props.dirty;
     }
   }, {
     key: 'renderLabel',
@@ -84,14 +66,14 @@ var InputBaseComponent = function (_Component) {
   }, {
     key: 'renderError',
     value: function renderError() {
-      if (this.state.errorMessage && !this.isPristine() && !this.state.valid) {
+      if (this.props.errorMessage && !this.isPristine() && !this.props.valid) {
         return _react2.default.createElement(
           'p',
           null,
           _react2.default.createElement(
             'span',
             null,
-            this.state.errorMessage
+            this.props.errorMessage
           )
         );
       }
@@ -103,12 +85,12 @@ var InputBaseComponent = function (_Component) {
 
 InputBaseComponent.propTypes = {
   forceDirty: _react2.default.PropTypes.bool.isRequired,
-  setValidInputToUndefined: _react2.default.PropTypes.func,
   name: _react2.default.PropTypes.string.isRequired,
   validate: _react2.default.PropTypes.func,
   label: _react2.default.PropTypes.string,
   valid: _react2.default.PropTypes.bool,
-  resetValue: _react2.default.PropTypes.bool
+  dirty: _react2.default.PropTypes.bool,
+  errorMessage: _react2.default.PropTypes.string
 };
 
 exports.default = InputBaseComponent;

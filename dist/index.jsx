@@ -12,9 +12,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _input = require('./input');
+var _input2 = require('./input');
 
-var _input2 = _interopRequireDefault(_input);
+var _input3 = _interopRequireDefault(_input2);
 
 var _dropdown = require('./dropdown');
 
@@ -54,13 +54,21 @@ var Form = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
 
-    var validInputs = {};
-    var inputValues = {};
-    var defaultValues = {
-      validInputs: {},
-      inputValues: {}
-    };
+    var inputs = {};
+
     var getInput = function getInput(child) {
+      var getDefaultValues = function getDefaultValues(_ref) {
+        var valid = _ref.valid,
+            value = _ref.value;
+
+        var defaults = {
+          valid: valid || false,
+          value: value || '',
+          dirty: false,
+          errorMessage: ''
+        };
+        return _extends({}, defaults, { defaults: defaults });
+      };
       switch (child.type.name) {
         case 'Wrapper':
           if (child.props.children) {
@@ -74,18 +82,11 @@ var Form = function (_Component) {
           }
           break;
         case 'Input':
-        case 'Dropdown':
-          validInputs[child.props.name] = child.props.valid || false;
-          inputValues[child.props.name] = child.props.value || '';
-          defaultValues.validInputs[child.props.name] = child.props.valid || false;
-          defaultValues.inputValues[child.props.name] = child.props.value || '';
-          break;
+        case 'DropdownWrapper':
+          inputs[child.props.name] = getDefaultValues(child.props);break;
         case 'CustomInput':
           var customInput = child.props.children;
-          validInputs[customInput.props.name] = customInput.props.valid || false;
-          inputValues[customInput.props.name] = customInput.props.value || '';
-          defaultValues.validInputs[customInput.props.name] = customInput.props.valid || false;
-          defaultValues.inputValues[customInput.props.name] = customInput.props.value || '';
+          inputs[customInput.props.name] = getDefaultValues(customInput.props);
           break;
       }
     };
@@ -94,23 +95,16 @@ var Form = function (_Component) {
       getInput(_this.props.children[x]);
     }
 
-    _this.state = {
-      forceDirty: false,
-      resetForm: false,
-      validInputs: validInputs,
-      inputValues: inputValues,
-      defaultValues: defaultValues
-    };
+    _this.state = { forceDirty: false, inputs: inputs };
     return _this;
   }
 
   _createClass(Form, [{
     key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(_ref) {
-      var resetForm = _ref.resetForm;
+    value: function componentWillReceiveProps(_ref2) {
+      var resetForm = _ref2.resetForm;
 
       if (this.props.resetForm != resetForm && resetForm) {
-        this.setState({ resetForm: true });
         this.resetForm();
         this.props.formWasResetted();
       }
@@ -118,15 +112,17 @@ var Form = function (_Component) {
   }, {
     key: 'resetForm',
     value: function resetForm() {
-      var validInputs = {};
-      var inputValues = {};
-      var defaultValues = _extends({}, this.state.defaultValues);
+      var state = _extends({}, this.state);
+      var inputs = state.inputs;
+      for (var input in state.inputs) {
+        var _state$inputs$input$d = this.state.inputs[input].defaults,
+            valid = _state$inputs$input$d.valid,
+            value = _state$inputs$input$d.value,
+            dirty = _state$inputs$input$d.dirty;
 
-      for (var input in this.state.inputValues) {
-        inputValues[input] = defaultValues.inputValues[input] || '';
-        validInputs[input] = defaultValues.validInputs[input] || false;
+        inputs[input] = _extends({}, this.state.inputs[input], { valid: valid, value: value, dirty: dirty });
       }
-      this.setState(_extends({}, this.state, { resetForm: true, validInputs: validInputs, inputValues: inputValues }));
+      this.setState({ state: state, forceDirty: false });
     }
   }, {
     key: 'getCommonMethods',
@@ -137,21 +133,19 @@ var Form = function (_Component) {
           _validate = props.validate,
           _onChange = props.onChange;
       var _state = this.state,
-          validInputs = _state.validInputs,
-          inputValues = _state.inputValues,
-          resetForm = _state.resetForm;
+          inputs = _state.inputs,
+          forceDirty = _state.forceDirty;
+      var _inputs$name = inputs[name],
+          value = _inputs$name.value,
+          valid = _inputs$name.valid,
+          dirty = _inputs$name.dirty,
+          errorMessage = _inputs$name.errorMessage;
 
       return {
-        resetValue: resetForm,
-        valueWasResetted: function valueWasResetted() {
-          return _this2.setState({ resetForm: false });
-        },
-        value: inputValues[name],
-        valid: validInputs[name],
-        forceDirty: this.state.forceDirty,
+        value: value, valid: valid, dirty: dirty, errorMessage: errorMessage, forceDirty: forceDirty,
         onChange: function onChange(value) {
           var state = _extends({}, _this2.state);
-          state.inputValues[name] = value;
+          state.inputs[name].value = value;
           _this2.setState(state);
           if (_onChange) {
             _onChange(value);
@@ -163,13 +157,15 @@ var Form = function (_Component) {
           if (_validate) {
             var validateObj = _validate(value, extra);
             var state = _extends({}, _this2.state);
-            state.validInputs[name] = validateObj.valid;
+            state.inputs[name] = _extends({}, state.inputs[name], {
+              valid: validateObj.valid,
+              errorMessage: validateObj.errorMessage,
+              dirty: true
+            });
+            _this2.setState({ state: state });
             return validateObj;
           } else {
-            return {
-              valid: true,
-              errorMessage: ''
-            };
+            return { valid: true, errorMessage: '' };
           }
         }
       };
@@ -191,17 +187,28 @@ var Form = function (_Component) {
             break;
           case 'SubmitButton':
             component = _react2.default.cloneElement(child, {
-              disabled: child.props.disabledUntilFormIsValidated ? (0, _lodash.some)(_this3.state.validInputs, function (x) {
-                return !x;
+              disabled: child.props.disabledUntilFormIsValidated ? (0, _lodash.some)(_this3.state.inputs, function (input) {
+                return !input.valid;
               }) : false,
               onClick: function onClick(event) {
                 event.preventDefault();
-                if (!(0, _lodash.some)(_this3.state.validInputs, function (x) {
-                  return !x;
+                var state = _extends({}, _this3.state);
+                //check if all the inputs are valid
+                if (!(0, _lodash.some)(state.inputs, function (input) {
+                  return !input.valid;
                 })) {
-                  child.props.onClick(_this3.state.inputValues);
+                  var inputs = {};
+                  for (var input in state.inputs) {
+                    inputs[input] = state.inputs[input].value;
+                  }
+                  // proceed with the flow
+                  child.props.onClick(inputs);
                 } else {
-                  _this3.setState({ forceDirty: true });
+                  var _inputs = state.inputs;
+                  for (var _input in _inputs) {
+                    _inputs[_input] = _extends({}, _inputs[_input], { dirty: true });
+                  }
+                  _this3.setState(_extends({}, state, { forceDirty: true }));
                 }
               }
             });
@@ -218,7 +225,7 @@ var Form = function (_Component) {
             });
             break;
           case 'Input':
-          case 'Dropdown':
+          case 'DropdownWrapper':
             component = _react2.default.cloneElement(child, _this3.getCommonMethods(child.props));
             break;
           case 'CustomInput':
@@ -235,9 +242,7 @@ var Form = function (_Component) {
       var childrenWithProps = this.getComponent(this.props.children);
       return _react2.default.createElement(
         'form',
-        {
-          className: this.props.className
-        },
+        { className: this.props.className },
         childrenWithProps
       );
     }
@@ -260,7 +265,7 @@ Form.propTypes = {
 Form.CustomInput = _customInput2.default;
 Form.CustomInput.displayName = 'CustomInput';
 
-Form.Input = _input2.default;
+Form.Input = _input3.default;
 Form.Input.displayName = 'Input';
 
 Form.Dropdown = _dropdown2.default;

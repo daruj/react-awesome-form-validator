@@ -15,9 +15,7 @@ class ResetButton extends Component {
       onClick
     } = this.props;
     return (
-      <div
-        className={fieldClassName}
-      >
+      <div className={fieldClassName}>
         <button
           disabled={disabled}
           className={className}

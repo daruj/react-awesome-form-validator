@@ -15,13 +15,18 @@ class Form extends Component {
   constructor(props) {
     super(props);
 
-    const validInputs = {};
-    const inputValues = {};
-    const defaultValues = {
-      validInputs: {},
-      inputValues: {}
-    };
+    const inputs = {};
+
     const getInput = (child) => {
+      const getDefaultValues = ({ valid, value }) => {
+        const defaults = {
+          valid: valid || false,
+          value: value || '',
+          dirty: false,
+          errorMessage: ''
+        };
+        return { ...defaults, defaults };
+      };
       switch (child.type.name) {
         case 'Wrapper':
           if (child.props.children) {
@@ -35,18 +40,10 @@ class Form extends Component {
           }
           break;
         case 'Input':
-        case 'Dropdown':
-          validInputs[child.props.name] = child.props.valid || false;
-          inputValues[child.props.name] = child.props.value || '';
-          defaultValues.validInputs[child.props.name] = child.props.valid || false;
-          defaultValues.inputValues[child.props.name] = child.props.value || '';
-          break;
+        case 'DropdownWrapper': inputs[child.props.name] = getDefaultValues(child.props); break;
         case 'CustomInput':
           const customInput = child.props.children;
-          validInputs[customInput.props.name] = customInput.props.valid || false;
-          inputValues[customInput.props.name] = customInput.props.value || '';
-          defaultValues.validInputs[customInput.props.name] = customInput.props.valid || false;
-          defaultValues.inputValues[customInput.props.name] = customInput.props.value || '';
+          inputs[customInput.props.name] = getDefaultValues(customInput.props);
           break;
       }
     };
@@ -55,47 +52,35 @@ class Form extends Component {
       getInput(this.props.children[x]);
     }
 
-    this.state = {
-      forceDirty: false,
-      resetForm: false,
-      validInputs,
-      inputValues,
-      defaultValues
-    };
+    this.state = { forceDirty: false, inputs };
   }
 
   componentWillReceiveProps({ resetForm }) {
     if (this.props.resetForm != resetForm && resetForm) {
-      this.setState({ resetForm: true });
       this.resetForm();
       this.props.formWasResetted();
     }
   }
 
   resetForm() {
-    const validInputs = {};
-    const inputValues = {};
-    const defaultValues = { ...this.state.defaultValues };
-
-    for (const input in this.state.inputValues) {
-      inputValues[input] = defaultValues.inputValues[input] || '';
-      validInputs[input] = defaultValues.validInputs[input] || false;
+    const state = { ...this.state };
+    const inputs = state.inputs;
+    for (const input in state.inputs) {
+      const { valid, value, dirty } = this.state.inputs[input].defaults;
+      inputs[input] = { ...this.state.inputs[input], valid, value, dirty };
     }
-    this.setState({ ...this.state, resetForm: true, validInputs, inputValues });
+    this.setState({ state, forceDirty: false });
   }
 
   getCommonMethods(props) {
     const { name, validate, onChange } = props;
-    const { validInputs, inputValues, resetForm } = this.state;
+    const { inputs, forceDirty } = this.state;
+    const { value, valid, dirty, errorMessage } = inputs[name];
     return {
-      resetValue: resetForm,
-      valueWasResetted: () => this.setState({ resetForm: false }),
-      value: inputValues[name],
-      valid: validInputs[name],
-      forceDirty: this.state.forceDirty,
-      onComponentChange: (value) => {
+      value, valid, dirty, errorMessage, forceDirty,
+      onChange: (value) => {
         const state = { ...this.state };
-        state.inputValues[name] = value;
+        state.inputs[name].value = value;
         this.setState(state);
         if (onChange) {
           onChange(value);
@@ -105,13 +90,16 @@ class Form extends Component {
         if (validate) {
           const validateObj = validate(value, extra);
           const state = { ...this.state };
-          state.validInputs[name] = validateObj.valid;
+          state.inputs[name] = {
+            ...state.inputs[name],
+            valid: validateObj.valid,
+            errorMessage: validateObj.errorMessage,
+            dirty: true
+          };
+          this.setState({ state });
           return validateObj;
         } else {
-          return {
-            valid: true,
-            errorMessage: ''
-          };
+          return { valid: true, errorMessage: '' };
         }
       }
     };
@@ -132,14 +120,25 @@ class Form extends Component {
           case 'SubmitButton':
             component = React.cloneElement(child, {
               disabled: child.props.disabledUntilFormIsValidated
-                ? some(this.state.validInputs, (x) => !x)
+                ? some(this.state.inputs, (input) => !input.valid)
                 : false,
               onClick: (event) => {
                 event.preventDefault();
-                if (!some(this.state.validInputs, (x) => !x)) {
-                  child.props.onClick({ ...this.state.inputValues });
+                const state = { ...this.state };
+                //check if all the inputs are valid
+                if (!some(state.inputs, (input) => !input.valid)) {
+                  const inputs = {};
+                  for (const input in state.inputs) {
+                    inputs[input] = state.inputs[input].value;
+                  }
+                  // proceed with the flow
+                  child.props.onClick(inputs);
                 } else {
-                  this.setState({ forceDirty: true });
+                  const inputs = state.inputs;
+                  for (const input in inputs) {
+                    inputs[input] = { ...inputs[input], dirty: true };
+                  }
+                  this.setState({ ...state, forceDirty: true });
                 }
               }
             });
@@ -172,9 +171,7 @@ class Form extends Component {
   render() {
     const childrenWithProps = this.getComponent(this.props.children);
     return (
-      <form
-        className={this.props.className}
-      >
+      <form className={this.props.className}>
         {childrenWithProps}
       </form>
     );

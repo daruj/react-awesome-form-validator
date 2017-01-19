@@ -47,9 +47,7 @@ var SubmitButton = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        {
-          className: fieldClassName
-        },
+        { className: fieldClassName },
         _react2.default.createElement(
           'button',
           {

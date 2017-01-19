@@ -28,11 +28,8 @@ class Dropdown extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { resetValue } = nextProps;
-
-    if (this.props.resetValue != resetValue && resetValue) {
-      const { value, defaultOptionVisible } = nextProps;
+  componentWillReceiveProps({ value, defaultOptionVisible }) {
+    if (this.props.value != value && value === '') {
       const defaultOption =
         (defaultOptionVisible == undefined || defaultOptionVisible) &&
         (!value || value == '');
@@ -45,6 +42,10 @@ class Dropdown extends Component {
       this.setState({ defaultOptionVisible: false });
     }
     this.props.onChange(value);
+  }
+
+  clickInsideOfTheDropdown() {
+    this.setState({ isOpened: true });
   }
 
   handleClickOutside() {
@@ -60,10 +61,6 @@ class Dropdown extends Component {
         <option value=''>{this.props.defaultOptionText || 'Select'}</option>
       );
     }
-  }
-
-  clickInsideOfTheDropdown() {
-    this.setState({ isOpened: true });
   }
 
   render() {

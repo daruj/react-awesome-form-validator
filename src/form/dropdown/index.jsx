@@ -18,37 +18,16 @@ class DropdownWrapper extends InputBaseComponent {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { forceDirty, resetValue } = nextProps;
+  componentWillReceiveProps({ forceDirty }) {
     if (this.props.forceDirty != forceDirty && forceDirty) {
-      const value = this.state.value;
-      const validateInput = this.props.validate(value);
-      this.setState({
-        dirty: true,
-        valid: validateInput.valid,
-        errorMessage: validateInput.errorMessage
-      });
-    }
-
-    if (this.props.resetValue != resetValue && resetValue) {
-      this.setState({ dirty: false });
-      this.props.valueWasResetted();
+      this.props.validate(this.props.value);
     }
   }
 
   _onChange(value) {
-    const {
-      onComponentChange,
-      validate = () => true
-    } = this.props;
-    const validateInput = validate(value);
-    this.setState({
-      valid: validateInput.valid,
-      dirty: true,
-      errorMessage: validateInput.errorMessage,
-      value
-    });
-    onComponentChange(value);
+    this.props.validate(value);
+    this.setState({ value });
+    this.props.onChange(value);
   }
 
   render() {

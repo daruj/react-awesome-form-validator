@@ -40,26 +40,6 @@ var Input = function (_InputBaseComponent) {
   }
 
   _createClass(Input, [{
-    key: 'changeValue',
-    value: function changeValue(value) {
-      this.props.onChange(value);
-    }
-  }, {
-    key: 'validate',
-    value: function validate(value) {
-      var _props$validate = this.props.validate,
-          validate = _props$validate === undefined ? function () {
-        return true;
-      } : _props$validate;
-
-      var validateInput = validate(value);
-      this.setState({
-        valid: validateInput.valid,
-        dirty: true,
-        errorMessage: validateInput.errorMessage
-      });
-    }
-  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -93,18 +73,20 @@ var Input = function (_InputBaseComponent) {
           className: (0, _classnames2.default)(!this.inputIsValid() ? invalidClassName : '', className),
           ref: name,
           onChange: function onChange(evt) {
-            _this2.changeValue(evt.target.value);
+            var value = evt.target.value;
+            _this2.props.onChange(value);
             if (startValidatingWhenIsPristine) {
-              _this2.validate(evt.target.value);
+              _this2.props.validate(value);
             } else {
               if (!_this2.isPristine()) {
-                _this2.validate(evt.target.value);
+                _this2.props.validate(value);
               }
             }
           },
           onBlur: function onBlur(evt) {
-            _this2.changeValue(evt.target.value);
-            _this2.validate(evt.target.value);
+            var value = evt.target.value;
+            _this2.props.onChange(value);
+            _this2.props.validate(value);
           }
         }),
         this.renderError()

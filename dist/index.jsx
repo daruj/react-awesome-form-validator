@@ -202,7 +202,7 @@ var Form = function (_Component) {
                     inputs[input] = state.inputs[input].value;
                   }
                   // proceed with the flow
-                  child.props.onClick(inputs);
+                  child.props.onClick(_extends({}, inputs));
                 } else {
                   var _inputs = state.inputs;
                   for (var _input in _inputs) {

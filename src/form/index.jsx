@@ -18,9 +18,9 @@ class Form extends Component {
     const inputs = {};
 
     const getInput = (child) => {
-      const getDefaultValues = ({ valid, value }) => {
+      const getDefaultValues = ({ valid, value, validate }) => {
         const defaults = {
-          valid: valid || false,
+          valid: valid || !validate,
           value: value || '',
           dirty: false,
           errorMessage: ''
@@ -87,20 +87,24 @@ class Form extends Component {
         }
       },
       validate: (value, extra = {}) => {
+        const state = { ...this.state };
         if (validate) {
           const validateObj = validate(value, extra);
-          const state = { ...this.state };
           state.inputs[name] = {
             ...state.inputs[name],
             valid: validateObj.valid,
             errorMessage: validateObj.errorMessage,
             dirty: true
           };
-          this.setState({ state });
-          return validateObj;
         } else {
-          return { valid: true, errorMessage: '' };
+          state.inputs[name] = {
+            ...state.inputs[name],
+            valid: true,
+            errorMessage: '',
+            dirty: true
+          };
         }
+        this.setState({ state });
       }
     };
   }

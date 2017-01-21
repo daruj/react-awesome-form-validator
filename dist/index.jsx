@@ -59,10 +59,11 @@ var Form = function (_Component) {
     var getInput = function getInput(child) {
       var getDefaultValues = function getDefaultValues(_ref) {
         var valid = _ref.valid,
-            value = _ref.value;
+            value = _ref.value,
+            validate = _ref.validate;
 
         var defaults = {
-          valid: valid || false,
+          valid: valid || !validate,
           value: value || '',
           dirty: false,
           errorMessage: ''
@@ -154,19 +155,22 @@ var Form = function (_Component) {
         validate: function validate(value) {
           var extra = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
+          var state = _extends({}, _this2.state);
           if (_validate) {
             var validateObj = _validate(value, extra);
-            var state = _extends({}, _this2.state);
             state.inputs[name] = _extends({}, state.inputs[name], {
               valid: validateObj.valid,
               errorMessage: validateObj.errorMessage,
               dirty: true
             });
-            _this2.setState({ state: state });
-            return validateObj;
           } else {
-            return { valid: true, errorMessage: '' };
+            state.inputs[name] = _extends({}, state.inputs[name], {
+              valid: true,
+              errorMessage: '',
+              dirty: true
+            });
           }
+          _this2.setState({ state: state });
         }
       };
     }

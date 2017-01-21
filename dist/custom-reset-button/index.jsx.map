@@ -1,0 +1,21 @@
+{
+  "version": 3,
+  "sources": [
+    "index.jsx"
+  ],
+  "names": [
+    "CustomResetButton",
+    "props",
+    "children",
+    "propTypes",
+    "PropTypes",
+    "node",
+    "isRequired"
+  ],
+  "mappings": ";;;;;;;;AAAA;;;;;;;;;;;;IAEMA,iB;;;AACJ,6BAAYC,KAAZ,EAAmB;AAAA;;AAAA,iIACXA,KADW;AAElB;;;;6BAEQ;AACP,aAAO,KAAKA,KAAL,CAAWC,QAAlB;AACD;;;;;;AAGHF,kBAAkBG,SAAlB,GAA8B;AAC5BD,YAAU,gBAAME,SAAN,CAAgBC,IAAhB,CAAqBC;AADH,CAA9B;;kBAIeN,iB",
+  "file": "index.jsx",
+  "sourceRoot": "../../src/form/custom-reset-button",
+  "sourcesContent": [
+    "import React, { Component } from 'react';\n\nclass CustomResetButton extends Component {\n  constructor(props) {\n    super(props);\n  }\n\n  render() {\n    return this.props.children;\n  }\n}\n\nCustomResetButton.propTypes = {\n  children: React.PropTypes.node.isRequired\n};\n\nexport default CustomResetButton;\n"
+  ]
+}

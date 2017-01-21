@@ -36,6 +36,14 @@ var _customInput = require('./custom-input');
 
 var _customInput2 = _interopRequireDefault(_customInput);
 
+var _customResetButton = require('./custom-reset-button');
+
+var _customResetButton2 = _interopRequireDefault(_customResetButton);
+
+var _customSubmitButton = require('./custom-submit-button');
+
+var _customSubmitButton2 = _interopRequireDefault(_customSubmitButton);
+
 var _lodash = require('lodash');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -129,9 +137,56 @@ var Form = function (_Component) {
       this.setState({ state: state, forceDirty: false });
     }
   }, {
-    key: 'getCommonMethods',
-    value: function getCommonMethods(props) {
+    key: 'getResetButtonProps',
+    value: function getResetButtonProps(props) {
       var _this2 = this;
+
+      return {
+        onClick: function onClick(event) {
+          event.preventDefault();
+          _this2.resetForm();
+          if (props.onClick) {
+            props.onClick();
+          }
+        }
+      };
+    }
+  }, {
+    key: 'getSubmitButtonProps',
+    value: function getSubmitButtonProps(props) {
+      var _this3 = this;
+
+      return {
+        disabled: props.disabledUntilFormIsValidated ? (0, _lodash.some)(this.state.inputs, function (input) {
+          return !input.valid;
+        }) : false,
+        onClick: function onClick(event) {
+          event.preventDefault();
+          var state = _extends({}, _this3.state);
+          //check if all the inputs are valid
+          if (!(0, _lodash.some)(state.inputs, function (input) {
+            return !input.valid;
+          })) {
+            var inputs = {};
+            for (var input in state.inputs) {
+              inputs[input] = state.inputs[input].value;
+            }
+            // proceed with the flow
+            props.onClick(_extends({}, inputs));
+          } else {
+            var _inputs = state.inputs;
+            for (var _input in _inputs) {
+              _inputs[_input] = _extends({}, _inputs[_input], { dirty: true });
+            }
+            _this3.setState(_extends({}, state, { forceDirty: true }));
+          }
+        }
+      };
+    }
+  }, {
+    key: 'getInputsCommonProps',
+    value: function getInputsCommonProps(props) {
+      var _this4 = this;
 
       var name = props.name,
           _validate = props.validate,
@@ -149,9 +204,9 @@ var Form = function (_Component) {
       return {
         value: value, valid: valid, dirty: dirty, errorMessage: errorMessage, forceDirty: forceDirty, resetValue: resetValue,
         onChange: function onChange(value) {
-          var state = _extends({}, _this2.state);
+          var state = _extends({}, _this4.state);
           state.inputs[name].value = value;
-          _this2.setState(state);
+          _this4.setState(state);
           if (_onChange) {
             _onChange(value);
           }
@@ -159,7 +214,7 @@ var Form = function (_Component) {
         validate: function validate(value) {
           var extra = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-          var state = _extends({}, _this2.state);
+          var state = _extends({}, _this4.state);
           if (_validate) {
             var validateObj = _validate(value, extra);
             state.inputs[name] = _extends({}, state.inputs[name], {
@@ -174,21 +229,21 @@ var Form = function (_Component) {
               dirty: true
             });
           }
-          _this2.setState({ state: state });
+          _this4.setState({ state: state });
         },
         valueWasResetted: function valueWasResetted() {
-          var state = _extends({}, _this2.state);
+          var state = _extends({}, _this4.state);
           state.inputs[name] = _extends({}, state.inputs[name], {
             resetValue: false
           });
-          _this2.setState({ state: state });
+          _this4.setState({ state: state });
         }
       };
     }
   }, {
     key: 'getComponent',
     value: function getComponent(children) {
-      var _this3 = this;
+      var _this5 = this;
 
       return _react2.default.Children.map(children, function (child) {
         var component = child;
@@ -197,55 +252,30 @@ var Form = function (_Component) {
             component = _react2.default.createElement(
               _wrapper2.default,
               child.props,
-              _this3.getComponent(child.props.children)
+              _this5.getComponent(child.props.children)
             );
             break;
           case 'SubmitButton':
-            component = _react2.default.cloneElement(child, {
-              disabled: child.props.disabledUntilFormIsValidated ? (0, _lodash.some)(_this3.state.inputs, function (input) {
-                return !input.valid;
-              }) : false,
-              onClick: function onClick(event) {
-                event.preventDefault();
-                var state = _extends({}, _this3.state);
-                //check if all the inputs are valid
-                if (!(0, _lodash.some)(state.inputs, function (input) {
-                  return !input.valid;
-                })) {
-                  var inputs = {};
-                  for (var input in state.inputs) {
-                    inputs[input] = state.inputs[input].value;
-                  }
-                  // proceed with the flow
-                  child.props.onClick(_extends({}, inputs));
-                } else {
-                  var _inputs = state.inputs;
-                  for (var _input in _inputs) {
-                    _inputs[_input] = _extends({}, _inputs[_input], { dirty: true });
-                  }
-                  _this3.setState(_extends({}, state, { forceDirty: true }));
-                }
-              }
-            });
+            component = _react2.default.cloneElement(child, _this5.getSubmitButtonProps(child.props));
             break;
           case 'ResetButton':
-            component = _react2.default.cloneElement(child, {
-              onClick: function onClick(event) {
-                event.preventDefault();
-                _this3.resetForm();
-                if (child.props.onClick) {
-                  child.props.onClick();
-                }
-              }
-            });
+            component = _react2.default.cloneElement(child, _this5.getResetButtonProps(child.porps));
             break;
           case 'Input':
           case 'DropdownWrapper':
-            component = _react2.default.cloneElement(child, _this3.getCommonMethods(child.props));
+            component = _react2.default.cloneElement(child, _this5.getInputsCommonProps(child.props));
             break;
           case 'CustomInput':
             var customInput = child.props.children;
-            component = _react2.default.cloneElement(customInput, _this3.getCommonMethods(customInput.props));
+            component = _react2.default.cloneElement(customInput, _this5.getInputsCommonProps(customInput.props));
+            break;
+          case 'CustomSubmitButton':
+            var customSubmitButton = child.props.children;
+            component = _react2.default.cloneElement(customSubmitButton, _this5.getSubmitButtonProps(child.props));
+            break;
+          case 'CustomResetButton':
+            var customResetButton = child.props.children;
+            component = _react2.default.cloneElement(customResetButton, _this5.getResetButtonProps(child.props));
             break;
         }
         return component;
@@ -289,8 +319,14 @@ Form.Dropdown.displayName = 'Dropdown';
 Form.SubmitButton = _submitButton2.default;
 Form.SubmitButton.displayName = 'SubmitButton';
 
+Form.CustomSubmitButton = _customSubmitButton2.default;
+Form.CustomSubmitButton.displayName = 'CustomSubmitButton';
+
 Form.ResetButton = _resetButton2.default;
 Form.ResetButton.displayName = 'ResetButton';
+
+Form.CustomResetButton = _customResetButton2.default;
+Form.CustomResetButton.displayName = 'CustomResetButton';
 
 Form.Wrapper = _wrapper2.default;
 Form.Wrapper.displayName = 'Wrapper';

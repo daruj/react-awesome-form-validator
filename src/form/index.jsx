@@ -5,6 +5,8 @@ import SubmitButton from './submit-button';
 import ResetButton from './reset-button';
 import Wrapper from './wrapper';
 import CustomInput from './custom-input';
+import CustomResetButton from './custom-reset-button';
+import CustomSubmitButton from './custom-submit-button';
 import { some } from 'lodash';
 
 class Form extends Component {
@@ -76,7 +78,46 @@ class Form extends Component {
     this.setState({ state, forceDirty: false });
   }
 
-  getCommonMethods(props) {
+  getResetButtonProps(props) {
+    return {
+      onClick: (event) => {
+        event.preventDefault();
+        this.resetForm();
+        if (props.onClick) {
+          props.onClick();
+        }
+      }
+    };
+  }
+
+  getSubmitButtonProps(props) {
+    return {
+      disabled: props.disabledUntilFormIsValidated
+        ? some(this.state.inputs, (input) => !input.valid)
+        : false,
+      onClick: (event) => {
+        event.preventDefault();
+        const state = { ...this.state };
+        //check if all the inputs are valid
+        if (!some(state.inputs, (input) => !input.valid)) {
+          const inputs = {};
+          for (const input in state.inputs) {
+            inputs[input] = state.inputs[input].value;
+          }
+          // proceed with the flow
+          props.onClick({ ...inputs });
+        } else {
+          const inputs = state.inputs;
+          for (const input in inputs) {
+            inputs[input] = { ...inputs[input], dirty: true };
+          }
+          this.setState({ ...state, forceDirty: true });
+        }
+      }
+    };
+  }
+
+  getInputsCommonProps(props) {
     const { name, validate, onChange } = props;
     const { inputs, forceDirty } = this.state;
     const { value, valid, dirty, errorMessage, resetValue } = inputs[name];
@@ -134,49 +175,26 @@ class Form extends Component {
             );
             break;
           case 'SubmitButton':
-            component = React.cloneElement(child, {
-              disabled: child.props.disabledUntilFormIsValidated
-                ? some(this.state.inputs, (input) => !input.valid)
-                : false,
-              onClick: (event) => {
-                event.preventDefault();
-                const state = { ...this.state };
-                //check if all the inputs are valid
-                if (!some(state.inputs, (input) => !input.valid)) {
-                  const inputs = {};
-                  for (const input in state.inputs) {
-                    inputs[input] = state.inputs[input].value;
-                  }
-                  // proceed with the flow
-                  child.props.onClick({ ...inputs });
-                } else {
-                  const inputs = state.inputs;
-                  for (const input in inputs) {
-                    inputs[input] = { ...inputs[input], dirty: true };
-                  }
-                  this.setState({ ...state, forceDirty: true });
-                }
-              }
-            });
+            component = React.cloneElement(child, this.getSubmitButtonProps(child.props));
             break;
           case 'ResetButton':
-            component = React.cloneElement(child, {
-              onClick: (event) => {
-                event.preventDefault();
-                this.resetForm();
-                if (child.props.onClick) {
-                  child.props.onClick();
-                }
-              }
-            });
+            component = React.cloneElement(child, this.getResetButtonProps(child.porps));
             break;
           case 'Input':
           case 'DropdownWrapper':
-            component = React.cloneElement(child, this.getCommonMethods(child.props));
+            component = React.cloneElement(child, this.getInputsCommonProps(child.props));
             break;
           case 'CustomInput':
             const customInput = child.props.children;
-            component = React.cloneElement(customInput, this.getCommonMethods(customInput.props));
+            component = React.cloneElement(customInput, this.getInputsCommonProps(customInput.props));
+            break;
+          case 'CustomSubmitButton':
+            const customSubmitButton = child.props.children;
+            component = React.cloneElement(customSubmitButton, this.getSubmitButtonProps(child.props));
+            break;
+          case 'CustomResetButton':
+            const customResetButton = child.props.children;
+            component = React.cloneElement(customResetButton, this.getResetButtonProps(child.props));
             break;
         }
         return component;
@@ -212,9 +230,14 @@ Form.Dropdown.displayName = 'Dropdown';
 Form.SubmitButton = SubmitButton;
 Form.SubmitButton.displayName = 'SubmitButton';
 
+Form.CustomSubmitButton = CustomSubmitButton;
+Form.CustomSubmitButton.displayName = 'CustomSubmitButton';
 
 Form.ResetButton = ResetButton;
 Form.ResetButton.displayName = 'ResetButton';
+
+Form.CustomResetButton = CustomResetButton;
+Form.CustomResetButton.displayName = 'CustomResetButton';
 
 Form.Wrapper = Wrapper;
 Form.Wrapper.displayName = 'Wrapper';

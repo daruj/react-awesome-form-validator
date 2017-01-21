@@ -30,11 +30,18 @@ var InputBaseComponent = function (_Component) {
   _createClass(InputBaseComponent, [{
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(_ref) {
-      var forceDirty = _ref.forceDirty;
+      var forceDirty = _ref.forceDirty,
+          resetValue = _ref.resetValue,
+          valueWasResetted = _ref.valueWasResetted;
 
       if (this.props.forceDirty != forceDirty && forceDirty) {
         var value = this.refs[this.props.name].value;
         this.props.validate(value);
+      }
+
+      if (this.props.resetValue != resetValue && resetValue) {
+        // do something
+        valueWasResetted();
       }
     }
   }, {
@@ -90,7 +97,8 @@ InputBaseComponent.propTypes = {
   label: _react2.default.PropTypes.string,
   valid: _react2.default.PropTypes.bool,
   dirty: _react2.default.PropTypes.bool,
-  errorMessage: _react2.default.PropTypes.string
+  errorMessage: _react2.default.PropTypes.string,
+  resetValue: _react2.default.PropTypes.bool
 };
 
 exports.default = InputBaseComponent;

@@ -68,7 +68,7 @@ var Form = function (_Component) {
           dirty: false,
           errorMessage: ''
         };
-        return _extends({}, defaults, { defaults: defaults });
+        return _extends({}, defaults, { defaults: defaults, resetValue: false });
       };
       switch (child.type.name) {
         case 'Wrapper':
@@ -121,7 +121,10 @@ var Form = function (_Component) {
             value = _state$inputs$input$d.value,
             dirty = _state$inputs$input$d.dirty;
 
-        inputs[input] = _extends({}, this.state.inputs[input], { valid: valid, value: value, dirty: dirty });
+        inputs[input] = _extends({}, this.state.inputs[input], {
+          resetValue: true,
+          valid: valid, value: value, dirty: dirty
+        });
       }
       this.setState({ state: state, forceDirty: false });
     }
@@ -140,10 +143,11 @@ var Form = function (_Component) {
           value = _inputs$name.value,
           valid = _inputs$name.valid,
           dirty = _inputs$name.dirty,
-          errorMessage = _inputs$name.errorMessage;
+          errorMessage = _inputs$name.errorMessage,
+          resetValue = _inputs$name.resetValue;
 
       return {
-        value: value, valid: valid, dirty: dirty, errorMessage: errorMessage, forceDirty: forceDirty,
+        value: value, valid: valid, dirty: dirty, errorMessage: errorMessage, forceDirty: forceDirty, resetValue: resetValue,
         onChange: function onChange(value) {
           var state = _extends({}, _this2.state);
           state.inputs[name].value = value;
@@ -170,6 +174,13 @@ var Form = function (_Component) {
               dirty: true
             });
           }
+          _this2.setState({ state: state });
+        },
+        valueWasResetted: function valueWasResetted() {
+          var state = _extends({}, _this2.state);
+          state.inputs[name] = _extends({}, state.inputs[name], {
+            resetValue: false
+          });
           _this2.setState({ state: state });
         }
       };

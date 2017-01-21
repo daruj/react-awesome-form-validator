@@ -25,7 +25,7 @@ class Form extends Component {
           dirty: false,
           errorMessage: ''
         };
-        return { ...defaults, defaults };
+        return { ...defaults, defaults, resetValue: false };
       };
       switch (child.type.name) {
         case 'Wrapper':
@@ -67,7 +67,11 @@ class Form extends Component {
     const inputs = state.inputs;
     for (const input in state.inputs) {
       const { valid, value, dirty } = this.state.inputs[input].defaults;
-      inputs[input] = { ...this.state.inputs[input], valid, value, dirty };
+      inputs[input] = {
+        ...this.state.inputs[input],
+        resetValue: true,
+        valid, value, dirty
+      };
     }
     this.setState({ state, forceDirty: false });
   }
@@ -75,9 +79,9 @@ class Form extends Component {
   getCommonMethods(props) {
     const { name, validate, onChange } = props;
     const { inputs, forceDirty } = this.state;
-    const { value, valid, dirty, errorMessage } = inputs[name];
+    const { value, valid, dirty, errorMessage, resetValue } = inputs[name];
     return {
-      value, valid, dirty, errorMessage, forceDirty,
+      value, valid, dirty, errorMessage, forceDirty, resetValue,
       onChange: (value) => {
         const state = { ...this.state };
         state.inputs[name].value = value;
@@ -104,6 +108,14 @@ class Form extends Component {
             dirty: true
           };
         }
+        this.setState({ state });
+      },
+      valueWasResetted: () => {
+        const state = { ...this.state };
+        state.inputs[name] = {
+          ...state.inputs[name],
+          resetValue: false
+        };
         this.setState({ state });
       }
     };

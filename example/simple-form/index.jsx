@@ -27,6 +27,8 @@ class Root extends Component {
       <Form
         resetForm={this.state.resetForm}
         formWasResetted={() => this.setState({ resetForm: false })}
+        onSubmit={(formData) => this._onSubmit(formData)}
+        onReset={() => this._onReset()}
       >
         <h2>Basic Form</h2>
         <Form.Wrapper className={styles.wrapper}>
@@ -134,14 +136,12 @@ class Root extends Component {
           />
         </Form.Wrapper>
         <Form.SubmitButton
-          onClick={(formData) => this._onSubmit(formData)}
           fieldClassName={styles.buttonField}
           className={styles.button}
         >
           Submit Form
         </Form.SubmitButton>
         <Form.ResetButton
-          onClick={() => this._onReset()}
           fieldClassName={styles.buttonField}
           className={styles.button}
         >

@@ -21,7 +21,8 @@ Then open a browser and type: `http://localhost:3000`
 |    className   |    string   |    ''   |                                                                                 Form className                                                                                | false    |
 |    resetForm   |    boolean   |    -   |                                                                                 if true will reset the form of default values. In order to use this prop you need to add formWasResetted too.                                                                                | false    |
 |    formWasResetted   |    function   |    -   |                                                                                 Function to be called right after we reset the form. The idea of this prop is to change the 'resetForm' prop to false again. example: formWasResetted={() => this.setState({ resetForm: false })}                                                                                | false    |
-
+|     onSubmit    |   function  |    -    | When the user clicks on the SubmitButton and all the validations pass, it will call this method and it will pass an object with all the form's inputs values. | true     |
+|     onReset    |   function  |    -    | When the user clicks on the ResetButton and all the validations pass, it will call this method and it will reset the form values. | false     |
 
 ### Input Props:
 
@@ -46,7 +47,6 @@ Then open a browser and type: `http://localhost:3000`
 |    children    | node/string |    -    |                                                                                   Button text                                                                                   | true     |
 |    className   |    string   |    ''   |                                                                                 Button className                                                                                | false    |
 | fieldClassName |    string   |    ''   |                                                         This Button comes wrapped with a div. This is the div className                                                         | false    |
-|     onClick    |   function  |    -    | When the user clicks on the SubmitButton and all the validations pass, it will call the onClick function provided and it will pass an object with all the form's inputs values. | true     |
 |     disabledUntilFormIsValidated    |   boolean  |    false    | It will disable the button until all fields are valid | false     |
 
 ### CustomSubmitButton Props:
@@ -54,7 +54,6 @@ Then open a browser and type: `http://localhost:3000`
 |      Name      |     Type    | Default |                                                                                   Description                                                                                   | Required |
 |:--------------:|:-----------:|:-------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|----------|
 |    children    | node/string |    -    |                                                                                   Submit Button                                                                                   | true     |
-|     onClick    |   function  |    -    | When the user clicks on the SubmitButton and all the validations pass, it will call the onClick function provided and it will pass an object with all the form's inputs values. | true     |
 
 ### ResetButton Props:
 
@@ -63,13 +62,12 @@ Then open a browser and type: `http://localhost:3000`
 |    children    | node/string |    -    |                                                                                   Button text                                                                                   | true     |
 |    className   |    string   |    ''   |                                                                                 Button className                                                                                | false    |
 | fieldClassName |    string   |    ''   |                                                         This Button comes wrapped with a div. This is the div className                                                         | false    |
-|     onClick    |   function  |    -    | If this prop is set it will call it immediately after the form is reset | false     |
+
 
 ### CustomResetButton Props:
 
 |      Name      |     Type    | Default |                                                                                   Description                                                                                   | Required |
 |:--------------:|:-----------:|:-------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|----------|
 |    children    | node/string |    -    |                                                                                   Reset Button                                                                                   | true     |
-|     onClick    |   function  |    -    | If this prop is set it will call it immediately after the form is reset | false     |
 
 Hope you enjoy it!

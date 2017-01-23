@@ -83,8 +83,9 @@ class Form extends Component {
       onClick: (event) => {
         event.preventDefault();
         this.resetForm();
-        if (props.onClick) {
-          props.onClick();
+        // proceed to call the onReset prop from the Form.
+        if (this.props.onReset) {
+          this.props.onReset();
         }
       }
     };
@@ -99,8 +100,8 @@ class Form extends Component {
         event.preventDefault();
         //check if all the inputs are valid
         if (!some(this.state.inputs, (input) => !input.valid)) {
-          // proceed with the flow
-          props.onClick({ ...this.getInputsAndTheirValues() });
+          // proceed to call the onSubmit prop from the Form.
+          this.props.onSubmit({ ...this.getInputsAndTheirValues() });
         } else {
           this.setInputsToDirty();
           this.setState({ forceDirty: true });
@@ -136,12 +137,13 @@ class Form extends Component {
 
   getInputsCommonProps(props) {
     const { name, validate, onChange } = props;
+    const input = name;
     const { inputs, forceDirty } = this.state;
-    const { value, valid, dirty, errorMessage, resetValue } = inputs[name];
+    const { value, valid, dirty, errorMessage, resetValue } = inputs[input];
     return {
       value, valid, dirty, errorMessage, forceDirty, resetValue,
       onChange: (value) => {
-        this.setInputValues(name, { value });
+        this.setInputValues(input, { value });
         if (onChange) {
           onChange(value);
         }
@@ -149,13 +151,13 @@ class Form extends Component {
       validate: (value, extra = {}) => {
         if (validate) {
           const validateObj = validate(value, extra);
-          this.setInputValues(name, {
+          this.setInputValues(input, {
             valid: validateObj.valid,
             errorMessage: validateObj.errorMessage,
             dirty: true
           });
         } else {
-          this.setInputValues(name, {
+          this.setInputValues(input, {
             valid: true,
             errorMessage: '',
             dirty: true
@@ -163,12 +165,12 @@ class Form extends Component {
         }
       },
       valueWasResetted: () => {
-        this.setInputValues(name, { resetValue: false });
+        this.setInputValues(input, { resetValue: false });
       }
     };
   }
 
-  getComponent(children) {
+  getChildrenComponents(children) {
     return React.Children.map(children,
       (child) => {
         let component = child;
@@ -176,7 +178,7 @@ class Form extends Component {
           case 'Wrapper':
             component = (
               <Wrapper {...child.props}>
-                {this.getComponent(child.props.children)}
+                {this.getChildrenComponents(child.props.children)}
               </Wrapper>
             );
             break;
@@ -209,10 +211,9 @@ class Form extends Component {
   }
 
   render() {
-    const childrenWithProps = this.getComponent(this.props.children);
     return (
       <form className={this.props.className}>
-        {childrenWithProps}
+        {this.getChildrenComponents(this.props.children)}
       </form>
     );
   }
@@ -221,7 +222,9 @@ class Form extends Component {
 Form.propTypes = {
   className: React.PropTypes.string,
   resetForm: React.PropTypes.bool,
-  formWasResetted: React.PropTypes.func
+  formWasResetted: React.PropTypes.func,
+  onSubmit: React.PropTypes.func.isRequired,
+  onReset: React.PropTypes.func
 };
 
 Form.CustomInput = CustomInput;

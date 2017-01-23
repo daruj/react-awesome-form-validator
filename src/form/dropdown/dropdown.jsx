@@ -70,7 +70,8 @@ class Dropdown extends Component {
       name,
       invalidClassName = styles.invalidField,
       className = styles.dropdown,
-      inputIsValid
+      inputIsValid,
+      disabled
     } = this.props;
 
     return (
@@ -87,6 +88,7 @@ class Dropdown extends Component {
         value={value}
         ref={name}
         name={name}
+        disabled={disabled}
         className={
           classnames(
             !inputIsValid() ? invalidClassName : '',
@@ -120,7 +122,8 @@ Dropdown.propTypes = {
   validate: React.PropTypes.func,
   forceDirty: React.PropTypes.bool,
   resetValue: React.PropTypes.bool,
-  inputIsValid: React.PropTypes.func
+  inputIsValid: React.PropTypes.func,
+  disabled: React.PropTypes.bool
 };
 
 export default enhanceWithClickOutside(Dropdown);

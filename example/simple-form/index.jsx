@@ -9,13 +9,18 @@ class Root extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      resetForm: false
+      resetForm: false,
+      disableInputs: false
     };
   }
 
   _onSubmit(formData) {
     console.log('Form ready to be submitted', formData);
-    this.setState({ resetForm: true });
+    this.setState({ disableInputs: true });
+    // Disable the inputs for 5 seconds emulating an async requests.
+    setTimeout(() => {
+      this.setState({ resetForm: true, disableInputs: false });
+    }, 5000);
   }
 
   _onReset() {
@@ -29,6 +34,7 @@ class Root extends Component {
         formWasResetted={() => this.setState({ resetForm: false })}
         onSubmit={(formData) => this._onSubmit(formData)}
         onReset={() => this._onReset()}
+        disableInputs={this.state.disableInputs}
       >
         <h2>Basic Form</h2>
         <Form.Wrapper className={styles.wrapper}>

@@ -23,6 +23,9 @@ Then open a browser and type: `http://localhost:3000`
 |    formWasResetted   |    function   |    -   |                                                                                 Function to be called right after we reset the form. The idea of this prop is to change the 'resetForm' prop to false again. example: formWasResetted={() => this.setState({ resetForm: false })}                                                                                | false    |
 |     onSubmit    |   function  |    -    | When the user clicks on the SubmitButton and all the validations pass, it will call this method and it will pass an object with all the form's inputs values. | true     |
 |     onReset    |   function  |    -    | When the user clicks on the ResetButton and all the validations pass, it will call this method and it will reset the form values. | false     |
+|     disableInputs    |   boolean  |    -    | If true it will disable all fields. This prop is very useful for when we call the onSubmit method. | false     |
+
+
 
 ### Input Props:
 

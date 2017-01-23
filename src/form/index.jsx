@@ -20,14 +20,14 @@ class Form extends Component {
     const inputs = {};
 
     const getInput = (child) => {
-      const getDefaultValues = ({ valid, value, validate }) => {
+      const getDefaultValues = ({ valid, value, validate, disabled = false }) => {
         const defaults = {
           valid: valid || !validate,
           value: value || '',
           dirty: false,
           errorMessage: ''
         };
-        return { ...defaults, defaults, resetValue: false };
+        return { ...defaults, defaults, resetValue: false, disabled };
       };
       switch (child.type.name) {
         case 'Wrapper':
@@ -57,10 +57,14 @@ class Form extends Component {
     this.state = { forceDirty: false, inputs };
   }
 
-  componentWillReceiveProps({ resetForm }) {
+  componentWillReceiveProps({ resetForm, disableInputs }) {
     if (this.props.resetForm != resetForm && resetForm) {
       this.resetForm();
       this.props.formWasResetted();
+    }
+
+    if (this.props.disableInputs != disableInputs) {
+      this.setInputsValues({ disabled: disableInputs });
     }
   }
 
@@ -80,6 +84,7 @@ class Form extends Component {
 
   getResetButtonProps(props) {
     return {
+      disabled: this.props.disableInputs,
       onClick: (event) => {
         event.preventDefault();
         this.resetForm();
@@ -93,9 +98,9 @@ class Form extends Component {
 
   getSubmitButtonProps(props) {
     return {
-      disabled: props.disabledUntilFormIsValidated
+      disabled: this.props.disableInputs || (props.disabledUntilFormIsValidated
         ? some(this.state.inputs, (input) => !input.valid)
-        : false,
+        : false),
       onClick: (event) => {
         event.preventDefault();
         //check if all the inputs are valid
@@ -103,19 +108,11 @@ class Form extends Component {
           // proceed to call the onSubmit prop from the Form.
           this.props.onSubmit({ ...this.getInputsAndTheirValues() });
         } else {
-          this.setInputsToDirty();
+          this.setInputsValues({ dirty: true });
           this.setState({ forceDirty: true });
         }
       }
     };
-  }
-
-  setInputsToDirty() {
-    const inputs = {};
-    for (const input in this.state.inputs) {
-      inputs[input] = { ...inputs[input], dirty: true };
-    }
-    this.setState({ ...inputs });
   }
 
   getInputsAndTheirValues() {
@@ -124,6 +121,15 @@ class Form extends Component {
       inputs[input] = this.state.inputs[input].value;
     }
     return inputs;
+  }
+
+  setInputsValues(newValues) {
+    const state = { ...this.state };
+    const inputs = state.inputs;
+    for (const input in state.inputs) {
+      inputs[input] = { ...state.inputs[input], ...newValues };
+    }
+    this.setState({ state });
   }
 
   setInputValues(inputName, newValues) {
@@ -139,9 +145,9 @@ class Form extends Component {
     const { name, validate, onChange } = props;
     const input = name;
     const { inputs, forceDirty } = this.state;
-    const { value, valid, dirty, errorMessage, resetValue } = inputs[input];
+    const { value, valid, dirty, errorMessage, resetValue, disabled } = inputs[input];
     return {
-      value, valid, dirty, errorMessage, forceDirty, resetValue,
+      value, valid, dirty, errorMessage, forceDirty, resetValue, disabled,
       onChange: (value) => {
         this.setInputValues(input, { value });
         if (onChange) {
@@ -224,7 +230,8 @@ Form.propTypes = {
   resetForm: React.PropTypes.bool,
   formWasResetted: React.PropTypes.func,
   onSubmit: React.PropTypes.func.isRequired,
-  onReset: React.PropTypes.func
+  onReset: React.PropTypes.func,
+  disableInputs: React.PropTypes.bool
 };
 
 Form.CustomInput = CustomInput;

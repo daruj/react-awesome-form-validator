@@ -17,7 +17,8 @@ class MyCustomInput extends InputBaseComponent {
       className = styles.input,
       invalidClassName = styles.invalidField,
       value,
-      startValidatingWhenIsPristine = false
+      startValidatingWhenIsPristine = false,
+      disabled
     } = this.props;
     return (
       <div className={fieldClassName}>
@@ -28,6 +29,7 @@ class MyCustomInput extends InputBaseComponent {
           value={value}
           autoComplete='off'
           placeholder={placeHolder}
+          disabled={disabled}
           className={
             classnames(
               !this.inputIsValid() ? invalidClassName : '',
@@ -69,7 +71,8 @@ MyCustomInput.propTypes = {
   invalidClassName: React.PropTypes.string,
   validate: React.PropTypes.func,
   onChange: React.PropTypes.func,
-  startValidatingWhenIsPristine: React.PropTypes.bool
+  startValidatingWhenIsPristine: React.PropTypes.bool,
+  disabled: React.PropTypes.bool
 };
 
 export default MyCustomInput;

@@ -68,9 +68,9 @@ class Form extends Component {
     const state = { ...this.state };
     const inputs = state.inputs;
     for (const input in state.inputs) {
-      const { valid, value, dirty } = this.state.inputs[input].defaults;
+      const { valid, value, dirty } = state.inputs[input].defaults;
       inputs[input] = {
-        ...this.state.inputs[input],
+        ...state.inputs[input],
         resetValue: true,
         valid, value, dirty
       };
@@ -97,24 +97,41 @@ class Form extends Component {
         : false,
       onClick: (event) => {
         event.preventDefault();
-        const state = { ...this.state };
         //check if all the inputs are valid
-        if (!some(state.inputs, (input) => !input.valid)) {
-          const inputs = {};
-          for (const input in state.inputs) {
-            inputs[input] = state.inputs[input].value;
-          }
+        if (!some(this.state.inputs, (input) => !input.valid)) {
           // proceed with the flow
-          props.onClick({ ...inputs });
+          props.onClick({ ...this.getInputsAndTheirValues() });
         } else {
-          const inputs = state.inputs;
-          for (const input in inputs) {
-            inputs[input] = { ...inputs[input], dirty: true };
-          }
-          this.setState({ ...state, forceDirty: true });
+          this.setInputsToDirty();
+          this.setState({ forceDirty: true });
         }
       }
     };
+  }
+
+  setInputsToDirty() {
+    const inputs = {};
+    for (const input in this.state.inputs) {
+      inputs[input] = { ...inputs[input], dirty: true };
+    }
+    this.setState({ ...inputs });
+  }
+
+  getInputsAndTheirValues() {
+    const inputs = {};
+    for (const input in this.state.inputs) {
+      inputs[input] = this.state.inputs[input].value;
+    }
+    return inputs;
+  }
+
+  setInputValues(inputName, newValues) {
+    const state = { ...this.state };
+    state.inputs[inputName] = {
+      ...state.inputs[inputName],
+      ...newValues
+    };
+    this.setState({ state });
   }
 
   getInputsCommonProps(props) {
@@ -124,40 +141,29 @@ class Form extends Component {
     return {
       value, valid, dirty, errorMessage, forceDirty, resetValue,
       onChange: (value) => {
-        const state = { ...this.state };
-        state.inputs[name].value = value;
-        this.setState(state);
+        this.setInputValues(name, { value });
         if (onChange) {
           onChange(value);
         }
       },
       validate: (value, extra = {}) => {
-        const state = { ...this.state };
         if (validate) {
           const validateObj = validate(value, extra);
-          state.inputs[name] = {
-            ...state.inputs[name],
+          this.setInputValues(name, {
             valid: validateObj.valid,
             errorMessage: validateObj.errorMessage,
             dirty: true
-          };
+          });
         } else {
-          state.inputs[name] = {
-            ...state.inputs[name],
+          this.setInputValues(name, {
             valid: true,
             errorMessage: '',
             dirty: true
-          };
+          });
         }
-        this.setState({ state });
       },
       valueWasResetted: () => {
-        const state = { ...this.state };
-        state.inputs[name] = {
-          ...state.inputs[name],
-          resetValue: false
-        };
-        this.setState({ state });
+        this.setInputValues(name, { resetValue: false });
       }
     };
   }
@@ -178,7 +184,7 @@ class Form extends Component {
             component = React.cloneElement(child, this.getSubmitButtonProps(child.props));
             break;
           case 'ResetButton':
-            component = React.cloneElement(child, this.getResetButtonProps(child.porps));
+            component = React.cloneElement(child, this.getResetButtonProps(child.props));
             break;
           case 'Input':
           case 'DropdownWrapper':

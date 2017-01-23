@@ -68,7 +68,7 @@ SubmitButton.propTypes = {
   children: _react2.default.PropTypes.string.isRequired,
   fieldClassName: _react2.default.PropTypes.string,
   className: _react2.default.PropTypes.string,
-  onClick: _react2.default.PropTypes.func.isRequired,
+  onClick: _react2.default.PropTypes.func,
   disabled: _react2.default.PropTypes.bool
 };
 

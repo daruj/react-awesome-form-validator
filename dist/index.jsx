@@ -12,9 +12,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _input2 = require('./input');
+var _input = require('./input');
 
-var _input3 = _interopRequireDefault(_input2);
+var _input2 = _interopRequireDefault(_input);
 
 var _dropdown = require('./dropdown');
 
@@ -68,7 +68,9 @@ var Form = function (_Component) {
       var getDefaultValues = function getDefaultValues(_ref) {
         var valid = _ref.valid,
             value = _ref.value,
-            validate = _ref.validate;
+            validate = _ref.validate,
+            _ref$disabled = _ref.disabled,
+            disabled = _ref$disabled === undefined ? false : _ref$disabled;
 
         var defaults = {
           valid: valid || !validate,
@@ -76,7 +78,7 @@ var Form = function (_Component) {
           dirty: false,
           errorMessage: ''
         };
-        return _extends({}, defaults, { defaults: defaults, resetValue: false });
+        return _extends({}, defaults, { defaults: defaults, resetValue: false, disabled: disabled });
       };
       switch (child.type.name) {
         case 'Wrapper':
@@ -111,11 +113,16 @@ var Form = function (_Component) {
   _createClass(Form, [{
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(_ref2) {
-      var resetForm = _ref2.resetForm;
+      var resetForm = _ref2.resetForm,
+          disableInputs = _ref2.disableInputs;
 
       if (this.props.resetForm != resetForm && resetForm) {
         this.resetForm();
         this.props.formWasResetted();
+      }
+
+      if (this.props.disableInputs != disableInputs) {
+        this.setInputsValues({ disabled: disableInputs });
       }
     }
   }, {
@@ -124,12 +131,12 @@ var Form = function (_Component) {
       var state = _extends({}, this.state);
       var inputs = state.inputs;
       for (var input in state.inputs) {
-        var _state$inputs$input$d = this.state.inputs[input].defaults,
+        var _state$inputs$input$d = state.inputs[input].defaults,
             valid = _state$inputs$input$d.valid,
             value = _state$inputs$input$d.value,
             dirty = _state$inputs$input$d.dirty;
 
-        inputs[input] = _extends({}, this.state.inputs[input], {
+        inputs[input] = _extends({}, state.inputs[input], {
           resetValue: true,
           valid: valid, value: value, dirty: dirty
         });
@@ -142,11 +149,13 @@ var Form = function (_Component) {
       var _this2 = this;
 
       return {
+        disabled: this.props.disableInputs,
         onClick: function onClick(event) {
           event.preventDefault();
           _this2.resetForm();
-          if (props.onClick) {
-            props.onClick();
+          // proceed to call the onReset prop from the Form.
+          if (_this2.props.onReset) {
+            _this2.props.onReset();
           }
         }
       };
@@ -157,31 +166,49 @@ var Form = function (_Component) {
       var _this3 = this;
 
       return {
-        disabled: props.disabledUntilFormIsValidated ? (0, _lodash.some)(this.state.inputs, function (input) {
+        disabled: this.props.disableInputs || (props.disabledUntilFormIsValidated ? (0, _lodash.some)(this.state.inputs, function (input) {
           return !input.valid;
-        }) : false,
+        }) : false),
         onClick: function onClick(event) {
           event.preventDefault();
-          var state = _extends({}, _this3.state);
           //check if all the inputs are valid
-          if (!(0, _lodash.some)(state.inputs, function (input) {
+          if (!(0, _lodash.some)(_this3.state.inputs, function (input) {
             return !input.valid;
           })) {
-            var inputs = {};
-            for (var input in state.inputs) {
-              inputs[input] = state.inputs[input].value;
-            }
-            // proceed with the flow
-            props.onClick(_extends({}, inputs));
+            // proceed to call the onSubmit prop from the Form.
+            _this3.props.onSubmit(_extends({}, _this3.getInputsAndTheirValues()));
           } else {
-            var _inputs = state.inputs;
-            for (var _input in _inputs) {
-              _inputs[_input] = _extends({}, _inputs[_input], { dirty: true });
-            }
-            _this3.setState(_extends({}, state, { forceDirty: true }));
+            _this3.setInputsValues({ dirty: true });
+            _this3.setState({ forceDirty: true });
           }
         }
       };
+    }
+  }, {
+    key: 'getInputsAndTheirValues',
+    value: function getInputsAndTheirValues() {
+      var inputs = {};
+      for (var input in this.state.inputs) {
+        inputs[input] = this.state.inputs[input].value;
+      }
+      return inputs;
+    }
+  }, {
+    key: 'setInputsValues',
+    value: function setInputsValues(newValues) {
+      var state = _extends({}, this.state);
+      var inputs = state.inputs;
+      for (var input in state.inputs) {
+        inputs[input] = _extends({}, state.inputs[input], newValues);
+      }
+      this.setState({ state: state });
+    }
+  }, {
+    key: 'setInputValues',
+    value: function setInputValues(inputName, newValues) {
+      var state = _extends({}, this.state);
+      state.inputs[inputName] = _extends({}, state.inputs[inputName], newValues);
+      this.setState({ state: state });
     }
   }, {
     key: 'getInputsCommonProps',
@@ -191,22 +218,23 @@ var Form = function (_Component) {
       var name = props.name,
           _validate = props.validate,
           _onChange = props.onChange;
+
+      var input = name;
       var _state = this.state,
           inputs = _state.inputs,
           forceDirty = _state.forceDirty;
-      var _inputs$name = inputs[name],
-          value = _inputs$name.value,
-          valid = _inputs$name.valid,
-          dirty = _inputs$name.dirty,
-          errorMessage = _inputs$name.errorMessage,
-          resetValue = _inputs$name.resetValue;
+      var _inputs$input = inputs[input],
+          value = _inputs$input.value,
+          valid = _inputs$input.valid,
+          dirty = _inputs$input.dirty,
+          errorMessage = _inputs$input.errorMessage,
+          resetValue = _inputs$input.resetValue,
+          disabled = _inputs$input.disabled;
 
       return {
-        value: value, valid: valid, dirty: dirty, errorMessage: errorMessage, forceDirty: forceDirty, resetValue: resetValue,
+        value: value, valid: valid, dirty: dirty, errorMessage: errorMessage, forceDirty: forceDirty, resetValue: resetValue, disabled: disabled,
         onChange: function onChange(value) {
-          var state = _extends({}, _this4.state);
-          state.inputs[name].value = value;
-          _this4.setState(state);
+          _this4.setInputValues(input, { value: value });
           if (_onChange) {
             _onChange(value);
           }
@@ -214,35 +242,29 @@ var Form = function (_Component) {
         validate: function validate(value) {
           var extra = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-          var state = _extends({}, _this4.state);
           if (_validate) {
             var validateObj = _validate(value, extra);
-            state.inputs[name] = _extends({}, state.inputs[name], {
+            _this4.setInputValues(input, {
               valid: validateObj.valid,
               errorMessage: validateObj.errorMessage,
               dirty: true
             });
           } else {
-            state.inputs[name] = _extends({}, state.inputs[name], {
+            _this4.setInputValues(input, {
               valid: true,
               errorMessage: '',
               dirty: true
             });
           }
-          _this4.setState({ state: state });
         },
         valueWasResetted: function valueWasResetted() {
-          var state = _extends({}, _this4.state);
-          state.inputs[name] = _extends({}, state.inputs[name], {
-            resetValue: false
-          });
-          _this4.setState({ state: state });
+          _this4.setInputValues(input, { resetValue: false });
         }
       };
     }
   }, {
-    key: 'getComponent',
-    value: function getComponent(children) {
+    key: 'getChildrenComponents',
+    value: function getChildrenComponents(children) {
       var _this5 = this;
 
       return _react2.default.Children.map(children, function (child) {
@@ -252,14 +274,14 @@ var Form = function (_Component) {
             component = _react2.default.createElement(
               _wrapper2.default,
               child.props,
-              _this5.getComponent(child.props.children)
+              _this5.getChildrenComponents(child.props.children)
             );
             break;
           case 'SubmitButton':
             component = _react2.default.cloneElement(child, _this5.getSubmitButtonProps(child.props));
             break;
           case 'ResetButton':
-            component = _react2.default.cloneElement(child, _this5.getResetButtonProps(child.porps));
+            component = _react2.default.cloneElement(child, _this5.getResetButtonProps(child.props));
             break;
           case 'Input':
           case 'DropdownWrapper':
@@ -284,11 +306,10 @@ var Form = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var childrenWithProps = this.getComponent(this.props.children);
       return _react2.default.createElement(
         'form',
         { className: this.props.className },
-        childrenWithProps
+        this.getChildrenComponents(this.props.children)
       );
     }
   }]);
@@ -304,13 +325,16 @@ Form.propTypes = {
 Form.propTypes = {
   className: _react2.default.PropTypes.string,
   resetForm: _react2.default.PropTypes.bool,
-  formWasResetted: _react2.default.PropTypes.func
+  formWasResetted: _react2.default.PropTypes.func,
+  onSubmit: _react2.default.PropTypes.func.isRequired,
+  onReset: _react2.default.PropTypes.func,
+  disableInputs: _react2.default.PropTypes.bool
 };
 
 Form.CustomInput = _customInput2.default;
 Form.CustomInput.displayName = 'CustomInput';
 
-Form.Input = _input3.default;
+Form.Input = _input2.default;
 Form.Input.displayName = 'Input';
 
 Form.Dropdown = _dropdown2.default;

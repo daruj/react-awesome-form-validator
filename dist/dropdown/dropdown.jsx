@@ -116,7 +116,8 @@ var Dropdown = function (_Component) {
           invalidClassName = _props$invalidClassNa === undefined ? _styles2.default.invalidField : _props$invalidClassNa,
           _props$className = _props.className,
           className = _props$className === undefined ? _styles2.default.dropdown : _props$className,
-          inputIsValid = _props.inputIsValid;
+          inputIsValid = _props.inputIsValid,
+          disabled = _props.disabled;
 
 
       return _react2.default.createElement(
@@ -140,6 +141,7 @@ var Dropdown = function (_Component) {
           value: value,
           ref: name,
           name: name,
+          disabled: disabled,
           className: (0, _classnames2.default)(!inputIsValid() ? invalidClassName : '', className)
         },
         this.renderDefaultOption(),
@@ -172,7 +174,8 @@ Dropdown.propTypes = {
   validate: _react2.default.PropTypes.func,
   forceDirty: _react2.default.PropTypes.bool,
   resetValue: _react2.default.PropTypes.bool,
-  inputIsValid: _react2.default.PropTypes.func
+  inputIsValid: _react2.default.PropTypes.func,
+  disabled: _react2.default.PropTypes.bool
 };
 
 exports.default = (0, _reactClickOutside2.default)(Dropdown);

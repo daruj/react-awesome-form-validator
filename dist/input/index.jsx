@@ -58,7 +58,8 @@ var Input = function (_InputBaseComponent) {
           invalidClassName = _props$invalidClassNa === undefined ? _styles2.default.invalidField : _props$invalidClassNa,
           value = _props.value,
           _props$startValidatin = _props.startValidatingWhenIsPristine,
-          startValidatingWhenIsPristine = _props$startValidatin === undefined ? false : _props$startValidatin;
+          startValidatingWhenIsPristine = _props$startValidatin === undefined ? false : _props$startValidatin,
+          disabled = _props.disabled;
 
       return _react2.default.createElement(
         'div',
@@ -70,6 +71,7 @@ var Input = function (_InputBaseComponent) {
           value: value,
           autoComplete: 'off',
           placeholder: placeHolder,
+          disabled: disabled,
           className: (0, _classnames2.default)(!this.inputIsValid() ? invalidClassName : '', className),
           ref: name,
           onChange: function onChange(evt) {
@@ -108,7 +110,8 @@ Input.propTypes = {
   invalidClassName: _react2.default.PropTypes.string,
   validate: _react2.default.PropTypes.func,
   onChange: _react2.default.PropTypes.func,
-  startValidatingWhenIsPristine: _react2.default.PropTypes.bool
+  startValidatingWhenIsPristine: _react2.default.PropTypes.bool,
+  disabled: _react2.default.PropTypes.bool
 };
 
 exports.default = Input;

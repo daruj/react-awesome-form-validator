@@ -50,8 +50,13 @@ class Form extends Component {
       }
     };
 
-    for (const x in this.props.children) {
-      getInput(this.props.children[x]);
+    const formElements = this.props.children;
+    for (const x in formElements) {
+      if (this.props.children.length) {
+        getInput(this.props.children[x]);
+      } else {
+        getInput(this.props.children);
+      }
     }
 
     this.state = { forceDirty: false, inputs };

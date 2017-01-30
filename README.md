@@ -25,8 +25,7 @@ Then open a browser and type: `http://localhost:3000`
 |     onReset    |   function  |    -    | When the user clicks on the ResetButton and all the validations pass, it will call this method and it will reset the form values. | false     |
 |     disableInputs    |   boolean  |    -    | If true it will disable all fields. This prop is very useful for when we call the onSubmit method. | false     |
 | clearValuesOnReset |    boolean   |    -   |                                                         If True it will reset and clear all values                                                         | false    |
-
-
+| serverErrors |    object   |    -   |                                                         Object to display errors from the server. example: serverErrors={{ email: 'This email exist, please use another one'  }}                                                         | false    |
 
 ### Input Props:
 

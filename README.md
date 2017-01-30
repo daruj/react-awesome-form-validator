@@ -24,6 +24,7 @@ Then open a browser and type: `http://localhost:3000`
 |     onSubmit    |   function  |    -    | When the user clicks on the SubmitButton and all the validations pass, it will call this method and it will pass an object with all the form's inputs values. | true     |
 |     onReset    |   function  |    -    | When the user clicks on the ResetButton and all the validations pass, it will call this method and it will reset the form values. | false     |
 |     disableInputs    |   boolean  |    -    | If true it will disable all fields. This prop is very useful for when we call the onSubmit method. | false     |
+| clearValuesOnReset |    boolean   |    -   |                                                         If True it will reset and clear all values                                                         | false    |
 
 
 
@@ -65,6 +66,7 @@ Then open a browser and type: `http://localhost:3000`
 |    children    | node/string |    -    |                                                                                   Button text                                                                                   | true     |
 |    className   |    string   |    ''   |                                                                                 Button className                                                                                | false    |
 | fieldClassName |    string   |    ''   |                                                         This Button comes wrapped with a div. This is the div className                                                         | false    |
+| clearValues |    boolean   |    -   |                                                         If True it will reset and clear all values                                                         | false    |
 
 
 ### CustomResetButton Props:
@@ -72,5 +74,6 @@ Then open a browser and type: `http://localhost:3000`
 |      Name      |     Type    | Default |                                                                                   Description                                                                                   | Required |
 |:--------------:|:-----------:|:-------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|----------|
 |    children    | node/string |    -    |                                                                                   Reset Button                                                                                   | true     |
+| clearValues |    boolean   |    -   |                                                         If True it will reset and clear all values                                                         | false    |
 
 Hope you enjoy it!

@@ -24,13 +24,35 @@ class Form extends Component {
 
     const getInput = (child) => {
       const getDefaultValues = ({ valid, value, validate, disabled = false }) => {
-        const defaults = {
-          valid: valid || !validate,
-          value: value || '',
+        // default values
+        let defaults = {
+          valid: !validate,
+          value: '',
           dirty: false,
           errorMessage: ''
         };
-        return { ...defaults, defaults, resetValue: false, disabled };
+        if (value) {
+          if (validate) {
+            // default values when the input has a value and a validate prop
+            const validateObj = validate(value);
+            defaults = {
+              value,
+              valid: validateObj.valid,
+              errorMessage: validateObj.errorMessage,
+              dirty: true
+            };
+          } else {
+            // default values when the input has a value but has not a validate prop
+            defaults = {
+              valid: true,
+              value,
+              dirty: true,
+              errorMessage: ''
+            };
+          }
+        }
+
+        return { ...defaults, defaults, resetValue: false, disabled, needToValidate: validate };
       };
       switch (child.type.displayName) {
         case 'Wrapper':
@@ -61,13 +83,12 @@ class Form extends Component {
         getInput(this.props.children);
       }
     }
-
     this.state = { forceDirty: false, inputs };
   }
 
-  componentWillReceiveProps({ resetForm, disableInputs }) {
+  componentWillReceiveProps({ resetForm, disableInputs, clearValuesOnReset }) {
     if (this.props.resetForm != resetForm && resetForm) {
-      this.resetForm();
+      this.resetForm({ clearValues: clearValuesOnReset });
       this.props.formWasResetted();
     }
 
@@ -76,7 +97,7 @@ class Form extends Component {
     }
   }
 
-  resetForm() {
+  resetForm({ clearValues }) {
     const state = { ...this.state };
     const inputs = state.inputs;
     for (const input in state.inputs) {
@@ -84,7 +105,9 @@ class Form extends Component {
       inputs[input] = {
         ...state.inputs[input],
         resetValue: true,
-        valid, value, dirty
+        valid: clearValues ? !state.inputs[input].needToValidate : valid,
+        dirty: clearValues ? false : dirty,
+        value: clearValues ? '' : value
       };
     }
     this.setState({ state, forceDirty: false });
@@ -95,7 +118,7 @@ class Form extends Component {
       disabled: this.props.disableInputs,
       onClick: (event) => {
         event.preventDefault();
-        this.resetForm();
+        this.resetForm({ clearValues: props.clearValues });
         // proceed to call the onReset prop from the Form.
         if (this.props.onReset) {
           this.props.onReset();
@@ -238,6 +261,7 @@ class Form extends Component {
 Form.propTypes = {
   className: React.PropTypes.string,
   resetForm: React.PropTypes.bool,
+  clearValuesOnReset: React.PropTypes.bool,
   formWasResetted: React.PropTypes.func,
   onSubmit: React.PropTypes.func.isRequired,
   onReset: React.PropTypes.func,

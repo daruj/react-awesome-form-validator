@@ -20,7 +20,7 @@ class Root extends Component {
     // Disable the inputs for 5 seconds emulating an async requests.
     setTimeout(() => {
       this.setState({ resetForm: true, disableInputs: false });
-    }, 5000);
+    }, 1000);
   }
 
   _onReset() {
@@ -34,17 +34,19 @@ class Root extends Component {
         formWasResetted={() => this.setState({ resetForm: false })}
         onSubmit={(formData) => this._onSubmit(formData)}
         onReset={() => this._onReset()}
+        clearValuesOnReset
         disableInputs={this.state.disableInputs}
       >
         <h2>Basic Form</h2>
         <Form.Wrapper className={styles.wrapper}>
-          <h3>Group 1</h3>
+          <h3>Basic Information</h3>
           <Form.Input
             name='name'
             placeHolder='Type your name here...'
             type='text'
             label='Name * (this field will will start beeing validated from the moment you start typing)'
             startValidatingWhenIsPristine
+            value='Damian'
             validate={(value) => {
               let valid = true;
               let errorMessage = '';
@@ -59,31 +61,12 @@ class Root extends Component {
             }}
             fieldClassName={styles.inputField}
           />
-          <Form.Dropdown
-            name='color'
-            placeHolder='Choose a color...'
-            label='Choose a fruit *'
-            options={[
-              { value: 'blue', text: 'Blue' },
-              { value: 'orange', text: 'Orange' },
-              { value: 'red', text: 'Red' }
-            ]}
-            validate={(value) => {
-              let valid = true;
-              let errorMessage = '';
-              if (!value.length) {
-                valid = false;
-                errorMessage = 'This field is required';
-              }
-              return { valid, errorMessage };
-            }}
-            fieldClassName={styles.inputField}
-          />
           <Form.Input
             name='lastName'
             placeHolder='Type your lastName here...'
             label='Last Name * (this field will will start beeing validated when the user leaves the input (onBlur))'
             type='text'
+            value='Aruj'
             validate={(value) => {
               let valid = true;
               let errorMessage = '';
@@ -100,33 +83,13 @@ class Root extends Component {
           />
         </Form.Wrapper>
         <Form.Wrapper className={styles.wrapper}>
-          <h3>Group 2</h3>
-          <Form.Dropdown
-            name='fruit'
-            placeHolder='Choose a fruit...'
-            label='Choose a fruit *'
-            options={[
-              { value: 'banana', text: 'Banana' },
-              { value: 'apple', text: 'Apple' },
-              { value: 'pinaple', text: 'Pinaple' }
-            ]}
-            validate={(value) => {
-              let valid = true;
-              let errorMessage = '';
-              if (!value.length) {
-                valid = false;
-                errorMessage = 'This field is required';
-              }
-              return { valid, errorMessage };
-            }}
-            fieldClassName={styles.inputField}
-          />
+          <h3>Advance Information</h3>
           <Form.Input
             name='email'
             placeHolder='Type your email here...'
             label='Email *'
             type='email'
-            value='test@react-awesome-from-validator.com'
+            value='aruj.damian@gmail.com'
             validate={(value) => {
               let valid = true;
               let errorMessage = '';
@@ -146,7 +109,7 @@ class Root extends Component {
           <a href='#'>Custom Submit Form</a>
         </Form.CustomSubmitButton>
         <span>  -  </span>
-        <Form.CustomResetButton>
+        <Form.CustomResetButton clearValues>
           <a href='#'>Custom Reset Form</a>
         </Form.CustomResetButton>
       </Form>

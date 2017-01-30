@@ -10,9 +10,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _styles = require('./styles.scss');
+var _button = require('../button');
 
-var _styles2 = _interopRequireDefault(_styles);
+var _button2 = _interopRequireDefault(_button);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34,29 +34,13 @@ var ResetButton = function (_Component) {
   _createClass(ResetButton, [{
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          _props$children = _props.children,
-          children = _props$children === undefined ? 'Reset Form' : _props$children,
-          _props$disabled = _props.disabled,
-          disabled = _props$disabled === undefined ? false : _props$disabled,
-          _props$fieldClassName = _props.fieldClassName,
-          fieldClassName = _props$fieldClassName === undefined ? _styles2.default.wrapperField : _props$fieldClassName,
-          _props$className = _props.className,
-          className = _props$className === undefined ? _styles2.default.button : _props$className,
-          onClick = _props.onClick;
+      var _props$children = this.props.children,
+          children = _props$children === undefined ? 'Reset Form' : _props$children;
 
       return _react2.default.createElement(
-        'div',
-        { className: fieldClassName },
-        _react2.default.createElement(
-          'button',
-          {
-            disabled: disabled,
-            className: className,
-            onClick: onClick
-          },
-          children
-        )
+        _button2.default,
+        this.props,
+        children
       );
     }
   }]);
@@ -65,11 +49,7 @@ var ResetButton = function (_Component) {
 }(_react.Component);
 
 ResetButton.propTypes = {
-  children: _react2.default.PropTypes.string.isRequired,
-  fieldClassName: _react2.default.PropTypes.string,
-  className: _react2.default.PropTypes.string,
-  onClick: _react2.default.PropTypes.func,
-  disabled: _react2.default.PropTypes.bool
+  children: _react2.default.PropTypes.string.isRequired
 };
 
 exports.default = ResetButton;

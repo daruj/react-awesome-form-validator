@@ -10,9 +10,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _button = require('../button');
+var _styles = require('./styles.scss');
 
-var _button2 = _interopRequireDefault(_button);
+var _styles2 = _interopRequireDefault(_styles);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,35 +22,55 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var SubmitButton = function (_Component) {
-  _inherits(SubmitButton, _Component);
+var Button = function (_Component) {
+  _inherits(Button, _Component);
 
-  function SubmitButton(props) {
-    _classCallCheck(this, SubmitButton);
+  function Button(props) {
+    _classCallCheck(this, Button);
 
-    return _possibleConstructorReturn(this, (SubmitButton.__proto__ || Object.getPrototypeOf(SubmitButton)).call(this, props));
+    return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, props));
   }
 
-  _createClass(SubmitButton, [{
+  _createClass(Button, [{
     key: 'render',
     value: function render() {
-      var _props$children = this.props.children,
-          children = _props$children === undefined ? 'Submit' : _props$children;
+      var _props = this.props,
+          _props$children = _props.children,
+          children = _props$children === undefined ? '' : _props$children,
+          _props$disabled = _props.disabled,
+          disabled = _props$disabled === undefined ? false : _props$disabled,
+          _props$fieldClassName = _props.fieldClassName,
+          fieldClassName = _props$fieldClassName === undefined ? _styles2.default.wrapperField : _props$fieldClassName,
+          _props$className = _props.className,
+          className = _props$className === undefined ? _styles2.default.button : _props$className,
+          onClick = _props.onClick;
 
       return _react2.default.createElement(
-        _button2.default,
-        this.props,
-        children
+        'div',
+        { className: fieldClassName },
+        _react2.default.createElement(
+          'button',
+          {
+            disabled: disabled,
+            className: className,
+            onClick: onClick
+          },
+          children
+        )
       );
     }
   }]);
 
-  return SubmitButton;
+  return Button;
 }(_react.Component);
 
-SubmitButton.propTypes = {
-  children: _react2.default.PropTypes.string.isRequired
+Button.propTypes = {
+  children: _react2.default.PropTypes.string.isRequired,
+  fieldClassName: _react2.default.PropTypes.string,
+  className: _react2.default.PropTypes.string,
+  onClick: _react2.default.PropTypes.func,
+  disabled: _react2.default.PropTypes.bool
 };
 
-exports.default = SubmitButton;
+exports.default = Button;
 //# sourceMappingURL=index.jsx.map

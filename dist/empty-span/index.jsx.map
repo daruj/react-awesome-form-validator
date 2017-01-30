@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "sources": [
+    "index.jsx"
+  ],
+  "names": [
+    "EmptySpan",
+    "children",
+    "propTypes",
+    "PropTypes",
+    "string",
+    "isRequired"
+  ],
+  "mappings": ";;;;;;AAAA;;;;;;AAEA,IAAMA,YAAY,SAAZA,SAAY,OAAkB;AAAA,MAAfC,QAAe,QAAfA,QAAe;;AAClC,SAAQ;AAAA;AAAA;AAAOA;AAAP,GAAR;AACD,CAFD;;AAIAD,UAAUE,SAAV,GAAsB;AACpBD,YAAU,gBAAME,SAAN,CAAgBC,MAAhB,CAAuBC;AADb,CAAtB;;kBAIeL,S",
+  "file": "index.jsx",
+  "sourceRoot": "../../src/form/empty-span",
+  "sourcesContent": [
+    "import React from 'react';\n\nconst EmptySpan = ({ children }) => {\n  return (<span>{children}</span>);\n};\n\nEmptySpan.propTypes = {\n  children: React.PropTypes.string.isRequired\n};\n\nexport default EmptySpan;\n"
+  ]
+}

@@ -44,6 +44,10 @@ var _customSubmitButton = require('./custom-submit-button');
 
 var _customSubmitButton2 = _interopRequireDefault(_customSubmitButton);
 
+var _emptySpan = require('./empty-span');
+
+var _emptySpan2 = _interopRequireDefault(_emptySpan);
+
 var _lodash = require('lodash');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -72,15 +76,37 @@ var Form = function (_Component) {
             _ref$disabled = _ref.disabled,
             disabled = _ref$disabled === undefined ? false : _ref$disabled;
 
+        // default values
         var defaults = {
-          valid: valid || !validate,
-          value: value || '',
+          valid: !validate,
+          value: '',
           dirty: false,
           errorMessage: ''
         };
-        return _extends({}, defaults, { defaults: defaults, resetValue: false, disabled: disabled });
+        if (value) {
+          if (validate) {
+            // default values when the input has a value and a validate prop
+            var validateObj = validate(value);
+            defaults = {
+              value: value,
+              valid: validateObj.valid,
+              errorMessage: validateObj.errorMessage,
+              dirty: true
+            };
+          } else {
+            // default values when the input has a value but has not a validate prop
+            defaults = {
+              valid: true,
+              value: value,
+              dirty: true,
+              errorMessage: ''
+            };
+          }
+        }
+
+        return _extends({}, defaults, { defaults: defaults, resetValue: false, disabled: disabled, needToValidate: validate });
       };
-      switch (child.type.name) {
+      switch (child.type.displayName) {
         case 'Wrapper':
           if (child.props.children) {
             if (child.props.children.length) {
@@ -93,7 +119,7 @@ var Form = function (_Component) {
           }
           break;
         case 'Input':
-        case 'DropdownWrapper':
+        case 'Dropdown':
           inputs[child.props.name] = getDefaultValues(child.props);break;
         case 'CustomInput':
           var customInput = child.props.children;
@@ -102,10 +128,14 @@ var Form = function (_Component) {
       }
     };
 
-    for (var x in _this.props.children) {
-      getInput(_this.props.children[x]);
+    var formElements = _this.props.children;
+    for (var x in formElements) {
+      if (_this.props.children.length) {
+        getInput(_this.props.children[x]);
+      } else {
+        getInput(_this.props.children);
+      }
     }
-
     _this.state = { forceDirty: false, inputs: inputs };
     return _this;
   }
@@ -114,10 +144,11 @@ var Form = function (_Component) {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(_ref2) {
       var resetForm = _ref2.resetForm,
-          disableInputs = _ref2.disableInputs;
+          disableInputs = _ref2.disableInputs,
+          clearValuesOnReset = _ref2.clearValuesOnReset;
 
       if (this.props.resetForm != resetForm && resetForm) {
-        this.resetForm();
+        this.resetForm({ clearValues: clearValuesOnReset });
         this.props.formWasResetted();
       }
 
@@ -127,7 +158,9 @@ var Form = function (_Component) {
     }
   }, {
     key: 'resetForm',
-    value: function resetForm() {
+    value: function resetForm(_ref3) {
+      var clearValues = _ref3.clearValues;
+
       var state = _extends({}, this.state);
       var inputs = state.inputs;
       for (var input in state.inputs) {
@@ -138,7 +171,9 @@ var Form = function (_Component) {
 
         inputs[input] = _extends({}, state.inputs[input], {
           resetValue: true,
-          valid: valid, value: value, dirty: dirty
+          valid: clearValues ? !state.inputs[input].needToValidate : valid,
+          dirty: clearValues ? false : dirty,
+          value: clearValues ? '' : value
         });
       }
       this.setState({ state: state, forceDirty: false });
@@ -152,7 +187,7 @@ var Form = function (_Component) {
         disabled: this.props.disableInputs,
         onClick: function onClick(event) {
           event.preventDefault();
-          _this2.resetForm();
+          _this2.resetForm({ clearValues: props.clearValues });
           // proceed to call the onReset prop from the Form.
           if (_this2.props.onReset) {
             _this2.props.onReset();
@@ -269,7 +304,7 @@ var Form = function (_Component) {
 
       return _react2.default.Children.map(children, function (child) {
         var component = child;
-        switch (child.type.name) {
+        switch (child.type.displayName) {
           case 'Wrapper':
             component = _react2.default.createElement(
               _wrapper2.default,
@@ -284,7 +319,7 @@ var Form = function (_Component) {
             component = _react2.default.cloneElement(child, _this5.getResetButtonProps(child.props));
             break;
           case 'Input':
-          case 'DropdownWrapper':
+          case 'Dropdown':
             component = _react2.default.cloneElement(child, _this5.getInputsCommonProps(child.props));
             break;
           case 'CustomInput':
@@ -292,11 +327,11 @@ var Form = function (_Component) {
             component = _react2.default.cloneElement(customInput, _this5.getInputsCommonProps(customInput.props));
             break;
           case 'CustomSubmitButton':
-            var customSubmitButton = child.props.children;
+            var customSubmitButton = child.props.children.props ? child.props.children : (0, _emptySpan2.default)({ children: child.props.children });
             component = _react2.default.cloneElement(customSubmitButton, _this5.getSubmitButtonProps(child.props));
             break;
           case 'CustomResetButton':
-            var customResetButton = child.props.children;
+            var customResetButton = child.props.children.props ? child.props.children : (0, _emptySpan2.default)({ children: child.props.children });
             component = _react2.default.cloneElement(customResetButton, _this5.getResetButtonProps(child.props));
             break;
         }
@@ -325,6 +360,7 @@ Form.propTypes = {
 Form.propTypes = {
   className: _react2.default.PropTypes.string,
   resetForm: _react2.default.PropTypes.bool,
+  clearValuesOnReset: _react2.default.PropTypes.bool,
   formWasResetted: _react2.default.PropTypes.func,
   onSubmit: _react2.default.PropTypes.func.isRequired,
   onReset: _react2.default.PropTypes.func,
@@ -343,11 +379,11 @@ Form.Dropdown.displayName = 'Dropdown';
 Form.SubmitButton = _submitButton2.default;
 Form.SubmitButton.displayName = 'SubmitButton';
 
-Form.CustomSubmitButton = _customSubmitButton2.default;
-Form.CustomSubmitButton.displayName = 'CustomSubmitButton';
-
 Form.ResetButton = _resetButton2.default;
 Form.ResetButton.displayName = 'ResetButton';
+
+Form.CustomSubmitButton = _customSubmitButton2.default;
+Form.CustomSubmitButton.displayName = 'CustomSubmitButton';
 
 Form.CustomResetButton = _customResetButton2.default;
 Form.CustomResetButton.displayName = 'CustomResetButton';

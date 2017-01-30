@@ -106,7 +106,10 @@ var Form = function (_Component) {
 
         return _extends({}, defaults, { defaults: defaults, resetValue: false, disabled: disabled, needToValidate: validate });
       };
-      switch (child.type.displayName) {
+
+      var displayName = child.props ? child.type.displayName : '';
+
+      switch (displayName) {
         case 'Wrapper':
           if (child.props.children) {
             if (child.props.children.length) {
@@ -145,7 +148,8 @@ var Form = function (_Component) {
     value: function componentWillReceiveProps(_ref2) {
       var resetForm = _ref2.resetForm,
           disableInputs = _ref2.disableInputs,
-          clearValuesOnReset = _ref2.clearValuesOnReset;
+          clearValuesOnReset = _ref2.clearValuesOnReset,
+          serverErrors = _ref2.serverErrors;
 
       if (this.props.resetForm != resetForm && resetForm) {
         this.resetForm({ clearValues: clearValuesOnReset });
@@ -155,6 +159,25 @@ var Form = function (_Component) {
       if (this.props.disableInputs != disableInputs) {
         this.setInputsValues({ disabled: disableInputs });
       }
+
+      if (this.props.serverErrors != serverErrors && Object.keys(serverErrors).length) {
+        this.setBackendErrors(serverErrors);
+      }
+    }
+  }, {
+    key: 'setBackendErrors',
+    value: function setBackendErrors() {
+      var errors = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      var state = _extends({}, this.state);
+      var inputs = state.inputs;
+      for (var input in errors) {
+        inputs[input] = _extends({}, state.inputs[input], {
+          valid: false,
+          errorMessage: errors[input]
+        });
+      }
+      this.setState({ state: state });
     }
   }, {
     key: 'resetForm',
@@ -304,7 +327,8 @@ var Form = function (_Component) {
 
       return _react2.default.Children.map(children, function (child) {
         var component = child;
-        switch (child.type.displayName) {
+        var displayName = child.props ? child.type.displayName : '';
+        switch (displayName) {
           case 'Wrapper':
             component = _react2.default.createElement(
               _wrapper2.default,
@@ -364,7 +388,8 @@ Form.propTypes = {
   formWasResetted: _react2.default.PropTypes.func,
   onSubmit: _react2.default.PropTypes.func.isRequired,
   onReset: _react2.default.PropTypes.func,
-  disableInputs: _react2.default.PropTypes.bool
+  disableInputs: _react2.default.PropTypes.bool,
+  serverErrors: _react2.default.PropTypes.shape({})
 };
 
 Form.CustomInput = _customInput2.default;

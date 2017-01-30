@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './styles.scss';
+import Button from '../button';
 
 class ResetButton extends Component {
   constructor(props) {
@@ -7,31 +7,15 @@ class ResetButton extends Component {
   }
 
   render() {
-    const {
-      children = 'Reset Form',
-      disabled = false,
-      fieldClassName = styles.wrapperField,
-      className = styles.button,
-      onClick
-    } = this.props;
+    const { children = 'Reset Form' } = this.props;
     return (
-      <div className={fieldClassName}>
-        <button
-          disabled={disabled}
-          className={className}
-          onClick={onClick}
-        >{children}</button>
-      </div>
+      <Button {...this.props}>{children}</Button>
     );
   }
 }
 
 ResetButton.propTypes = {
-  children: React.PropTypes.string.isRequired,
-  fieldClassName: React.PropTypes.string,
-  className: React.PropTypes.string,
-  onClick: React.PropTypes.func,
-  disabled: React.PropTypes.bool
+  children: React.PropTypes.string.isRequired
 };
 
 export default ResetButton;

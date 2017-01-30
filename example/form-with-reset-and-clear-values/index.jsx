@@ -126,6 +126,7 @@ class Root extends Component {
             placeHolder='Type your email here...'
             label='Email *'
             type='email'
+            value='test@react-awesome-from-validator.com'
             validate={(value) => {
               let valid = true;
               let errorMessage = '';
@@ -141,18 +142,13 @@ class Root extends Component {
             fieldClassName={styles.inputField}
           />
         </Form.Wrapper>
-        <Form.SubmitButton
-          fieldClassName={styles.buttonField}
-          className={styles.button}
-        >
-          Submit Form
-        </Form.SubmitButton>
-        <Form.ResetButton
-          fieldClassName={styles.buttonField}
-          className={styles.button}
-        >
-          Reset Form
-        </Form.ResetButton>
+        <Form.CustomSubmitButton>
+          <a href='#'>Custom Submit Form</a>
+        </Form.CustomSubmitButton>
+        <span>  -  </span>
+        <Form.CustomResetButton>
+          <a href='#'>Custom Reset Form</a>
+        </Form.CustomResetButton>
       </Form>
     );
   }

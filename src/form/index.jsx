@@ -7,7 +7,10 @@ import Wrapper from './wrapper';
 import CustomInput from './custom-input';
 import CustomResetButton from './custom-reset-button';
 import CustomSubmitButton from './custom-submit-button';
+import emptySpan from './empty-span';
+
 import { some } from 'lodash';
+
 
 class Form extends Component {
   static propTypes = {
@@ -29,7 +32,7 @@ class Form extends Component {
         };
         return { ...defaults, defaults, resetValue: false, disabled };
       };
-      switch (child.type.name) {
+      switch (child.type.displayName) {
         case 'Wrapper':
           if (child.props.children) {
             if (child.props.children.length) {
@@ -42,7 +45,7 @@ class Form extends Component {
           }
           break;
         case 'Input':
-        case 'DropdownWrapper': inputs[child.props.name] = getDefaultValues(child.props); break;
+        case 'Dropdown': inputs[child.props.name] = getDefaultValues(child.props); break;
         case 'CustomInput':
           const customInput = child.props.children;
           inputs[customInput.props.name] = getDefaultValues(customInput.props);
@@ -185,7 +188,7 @@ class Form extends Component {
     return React.Children.map(children,
       (child) => {
         let component = child;
-        switch (child.type.name) {
+        switch (child.type.displayName) {
           case 'Wrapper':
             component = (
               <Wrapper {...child.props}>
@@ -200,7 +203,7 @@ class Form extends Component {
             component = React.cloneElement(child, this.getResetButtonProps(child.props));
             break;
           case 'Input':
-          case 'DropdownWrapper':
+          case 'Dropdown':
             component = React.cloneElement(child, this.getInputsCommonProps(child.props));
             break;
           case 'CustomInput':
@@ -208,11 +211,13 @@ class Form extends Component {
             component = React.cloneElement(customInput, this.getInputsCommonProps(customInput.props));
             break;
           case 'CustomSubmitButton':
-            const customSubmitButton = child.props.children;
+            const customSubmitButton = child.props.children.props
+              ? child.props.children : emptySpan({ children: child.props.children });
             component = React.cloneElement(customSubmitButton, this.getSubmitButtonProps(child.props));
             break;
           case 'CustomResetButton':
-            const customResetButton = child.props.children;
+            const customResetButton = child.props.children.props
+              ? child.props.children : emptySpan({ children: child.props.children });
             component = React.cloneElement(customResetButton, this.getResetButtonProps(child.props));
             break;
         }
@@ -251,11 +256,11 @@ Form.Dropdown.displayName = 'Dropdown';
 Form.SubmitButton = SubmitButton;
 Form.SubmitButton.displayName = 'SubmitButton';
 
-Form.CustomSubmitButton = CustomSubmitButton;
-Form.CustomSubmitButton.displayName = 'CustomSubmitButton';
-
 Form.ResetButton = ResetButton;
 Form.ResetButton.displayName = 'ResetButton';
+
+Form.CustomSubmitButton = CustomSubmitButton;
+Form.CustomSubmitButton.displayName = 'CustomSubmitButton';
 
 Form.CustomResetButton = CustomResetButton;
 Form.CustomResetButton.displayName = 'CustomResetButton';

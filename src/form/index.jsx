@@ -54,7 +54,10 @@ class Form extends Component {
 
         return { ...defaults, defaults, resetValue: false, disabled, needToValidate: validate };
       };
-      switch (child.type.displayName) {
+
+      const displayName = child.props ? child.type.displayName : '';
+
+      switch (displayName) {
         case 'Wrapper':
           if (child.props.children) {
             if (child.props.children.length) {
@@ -86,7 +89,7 @@ class Form extends Component {
     this.state = { forceDirty: false, inputs };
   }
 
-  componentWillReceiveProps({ resetForm, disableInputs, clearValuesOnReset }) {
+  componentWillReceiveProps({ resetForm, disableInputs, clearValuesOnReset, serverErrors }) {
     if (this.props.resetForm != resetForm && resetForm) {
       this.resetForm({ clearValues: clearValuesOnReset });
       this.props.formWasResetted();
@@ -95,6 +98,23 @@ class Form extends Component {
     if (this.props.disableInputs != disableInputs) {
       this.setInputsValues({ disabled: disableInputs });
     }
+
+    if (this.props.serverErrors != serverErrors && Object.keys(serverErrors).length) {
+      this.setBackendErrors(serverErrors);
+    }
+  }
+
+  setBackendErrors(errors = {}) {
+    const state = { ...this.state };
+    const inputs = state.inputs;
+    for (const input in errors) {
+      inputs[input] = {
+        ...state.inputs[input],
+        valid: false,
+        errorMessage: errors[input]
+      };
+    }
+    this.setState({ state });
   }
 
   resetForm({ clearValues }) {
@@ -211,7 +231,8 @@ class Form extends Component {
     return React.Children.map(children,
       (child) => {
         let component = child;
-        switch (child.type.displayName) {
+        const displayName = child.props ? child.type.displayName : '';
+        switch (displayName) {
           case 'Wrapper':
             component = (
               <Wrapper {...child.props}>
@@ -265,7 +286,8 @@ Form.propTypes = {
   formWasResetted: React.PropTypes.func,
   onSubmit: React.PropTypes.func.isRequired,
   onReset: React.PropTypes.func,
-  disableInputs: React.PropTypes.bool
+  disableInputs: React.PropTypes.bool,
+  serverErrors: React.PropTypes.shape({})
 };
 
 Form.CustomInput = CustomInput;

@@ -10,21 +10,39 @@ class Root extends Component {
     super(props);
     this.state = {
       resetForm: false,
-      disableInputs: false
+      disableInputs: false,
+      serverErrors: {}
     };
   }
 
   _onSubmit(formData) {
     console.log('Form ready to be submitted', formData);
-    this.setState({ disableInputs: true });
+    this.setState({ disableInputs: true, serverErrors: {} });
     // Disable the inputs for 5 seconds emulating an async requests.
     setTimeout(() => {
-      this.setState({ resetForm: true, disableInputs: false });
+      const serverErrors = {};
+      if (formData.email == 'aruj.damian@gmail.com') {
+        serverErrors.email = 'This email exist, please use another one';
+      }
+      this.setState({
+        disableInputs: false,
+        serverErrors
+      });
     }, 1000);
   }
 
   _onReset() {
     alert('The form was resetted');
+  }
+
+  _renderServerError() {
+    if (Object.keys(this.state.serverErrors).length) {
+      return (
+        <div className={styles.errorWrapper}>We found Errors!!</div>
+      );
+    } else {
+      return '';
+    }
   }
 
   render() {
@@ -35,8 +53,10 @@ class Root extends Component {
         onSubmit={(formData) => this._onSubmit(formData)}
         onReset={() => this._onReset()}
         clearValuesOnReset
+        serverErrors={this.state.serverErrors}
         disableInputs={this.state.disableInputs}
       >
+        {this._renderServerError()}
         <h2>Basic Form</h2>
         <Form.Wrapper className={styles.wrapper}>
           <h3>Basic Information</h3>
@@ -109,8 +129,12 @@ class Root extends Component {
           <a href='#'>Custom Submit Form</a>
         </Form.CustomSubmitButton>
         <span>  -  </span>
-        <Form.CustomResetButton clearValues>
+        <Form.CustomResetButton>
           <a href='#'>Custom Reset Form</a>
+        </Form.CustomResetButton>
+        <span>  -  </span>
+        <Form.CustomResetButton clearValues>
+          <a href='#'>Custom Clear All Values Form</a>
         </Form.CustomResetButton>
       </Form>
     );

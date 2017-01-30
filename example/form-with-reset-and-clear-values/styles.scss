@@ -31,15 +31,9 @@
   }
 }
 
-.buttonField {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.button {
-  padding: 8px;
-  cursor: pointer;
-  &:disabled {
-    cursor: default;
-  }
+.errorWrapper {
+  padding: 20px;
+  border: 1px solid red;
+  background: rgba(255, 0, 0, 0.52);
+  color: white;
 }

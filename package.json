@@ -9,9 +9,12 @@
     "react form validation"
   ],
   "scripts": {
-    "compile": "babel-compile -p es2015 -p react -p stage-0 src/form:dist",
-    "pretest": "npm run compile",
-    "prepublish": "npm run compile"
+    "build": "babel-compile -p es2015 -p react -p stage-0 src/form:dist",
+    "compile": "npm run build",
+    "postinstall": "npm run build",
+    "test": "NODE_ENV=test gulp test",
+    "lint": "eslint . --fix",
+    "start": "exampleFolder=simple-form node ./node_modules/webpack-dev-server/bin/webpack-dev-server --port 3000 --host 0.0.0.0 --config webpack.config.dev.js --hot --progress --inline"
   },
   "author": "Damian Aruj <aruj.damian@gmail.com>",
   "repository": {
@@ -23,7 +26,10 @@
   },
   "license": "ISC",
   "dependencies": {
+    "chai": "^3.5.0",
     "classnames": "^2.2.5",
+    "enzyme": "^2.7.1",
+    "jsdom": "^9.9.1",
     "lodash": "^4.16.4",
     "react-click-outside": "^2.2.0",
     "validator": "^6.2.0"
@@ -44,6 +50,7 @@
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
     "css-loader": "^0.25.0",
+    "css-modules-require-hook": "^4.0.5",
     "debug": "^2.2.0",
     "eslint": "^3.8.1",
     "eslint-loader": "^1.6.0",
@@ -51,6 +58,8 @@
     "eslint-plugin-react": "^6.4.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^3.0.1",
     "history": "^4.3.0",
     "html-webpack-plugin": "^2.24.0",
     "json-loader": "^0.5.4",
@@ -60,6 +69,7 @@
     "react-addons-test-utils": "^15.3.2",
     "react-dom": "15.4.1",
     "react-hot-loader": "^3.0.0-beta.6",
+    "require-dir": "^0.3.1",
     "sass-loader": "^4.0.2",
     "script-loader": "^0.7.0",
     "style-loader": "^0.13.1",

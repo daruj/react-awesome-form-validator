@@ -47,7 +47,6 @@ class DropdownWrapper extends InputBaseComponent {
 
 DropdownWrapper.propTypes = {
   fieldClassName: React.PropTypes.string,
-  name: React.PropTypes.string.isRequired,
   onChange: React.PropTypes.func,
   validate: React.PropTypes.func
 };

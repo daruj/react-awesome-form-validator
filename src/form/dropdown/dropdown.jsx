@@ -56,11 +56,11 @@ class Dropdown extends Component {
   }
 
   renderDefaultOption() {
-    if (this.state.defaultOptionVisible) {
-      return (
-        <option value=''>{this.props.defaultOptionText || 'Select'}</option>
-      );
-    }
+    return this.state.defaultOptionVisible && (
+      <option value='' data-default={true}>
+        {this.props.defaultOptionText || 'Select'}
+      </option>
+    );
   }
 
   render() {

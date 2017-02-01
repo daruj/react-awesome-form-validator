@@ -7,10 +7,15 @@ import Wrapper from './wrapper';
 import CustomInput from './custom-input';
 import CustomResetButton from './custom-reset-button';
 import CustomSubmitButton from './custom-submit-button';
-import emptySpan from './empty-span';
 
+import {
+  getInitialState,
+  getStateOnBackendErrors,
+  getStateOnResetForm,
+  getStateWithNewInputValues,
+  getInputsValues
+} from './form';
 import { some } from 'lodash';
-
 
 class Form extends Component {
   static propTypes = {
@@ -23,38 +28,6 @@ class Form extends Component {
     const inputs = {};
 
     const getInput = (child) => {
-      const getDefaultValues = ({ valid, value, validate, disabled = false }) => {
-        // default values
-        let defaults = {
-          valid: !validate,
-          value: '',
-          dirty: false,
-          errorMessage: ''
-        };
-        if (value) {
-          if (validate) {
-            // default values when the input has a value and a validate prop
-            const validateObj = validate(value);
-            defaults = {
-              value,
-              valid: validateObj.valid,
-              errorMessage: validateObj.errorMessage,
-              dirty: true
-            };
-          } else {
-            // default values when the input has a value but has not a validate prop
-            defaults = {
-              valid: true,
-              value,
-              dirty: true,
-              errorMessage: ''
-            };
-          }
-        }
-
-        return { ...defaults, defaults, resetValue: false, disabled, needToValidate: validate };
-      };
-
       const displayName = child.props ? child.type.displayName : '';
 
       switch (displayName) {
@@ -70,10 +43,10 @@ class Form extends Component {
           }
           break;
         case 'Input':
-        case 'Dropdown': inputs[child.props.name] = getDefaultValues(child.props); break;
+        case 'Dropdown': inputs[child.props.name] = getInitialState(child.props); break;
         case 'CustomInput':
           const customInput = child.props.children;
-          inputs[customInput.props.name] = getDefaultValues(customInput.props);
+          inputs[customInput.props.name] = getInitialState(customInput.props);
           break;
       }
     };
@@ -105,32 +78,11 @@ class Form extends Component {
   }
 
   setBackendErrors(errors = {}) {
-    const state = { ...this.state };
-    const inputs = state.inputs;
-    for (const input in errors) {
-      inputs[input] = {
-        ...state.inputs[input],
-        valid: false,
-        errorMessage: errors[input]
-      };
-    }
-    this.setState({ state });
+    this.setState({ ...getStateOnBackendErrors({ ...this.state }, errors) });
   }
 
   resetForm({ clearValues }) {
-    const state = { ...this.state };
-    const inputs = state.inputs;
-    for (const input in state.inputs) {
-      const { valid, value, dirty } = state.inputs[input].defaults;
-      inputs[input] = {
-        ...state.inputs[input],
-        resetValue: true,
-        valid: clearValues ? !state.inputs[input].needToValidate : valid,
-        dirty: clearValues ? false : dirty,
-        value: clearValues ? '' : value
-      };
-    }
-    this.setState({ state, forceDirty: false });
+    this.setState({ ...getStateOnResetForm({ ...this.state }, clearValues) });
   }
 
   getResetButtonProps(props) {
@@ -154,10 +106,11 @@ class Form extends Component {
         : false),
       onClick: (event) => {
         event.preventDefault();
+        const inputs = { ...this.state.inputs };
         //check if all the inputs are valid
-        if (!some(this.state.inputs, (input) => !input.valid)) {
+        if (!some(inputs, (input) => !input.valid)) {
           // proceed to call the onSubmit prop from the Form.
-          this.props.onSubmit({ ...this.getInputsAndTheirValues() });
+          this.props.onSubmit({ ...getInputsValues(inputs) });
         } else {
           this.setInputsValues({ dirty: true });
           this.setState({ forceDirty: true });
@@ -166,30 +119,9 @@ class Form extends Component {
     };
   }
 
-  getInputsAndTheirValues() {
-    const inputs = {};
-    for (const input in this.state.inputs) {
-      inputs[input] = this.state.inputs[input].value;
-    }
-    return inputs;
-  }
 
-  setInputsValues(newValues) {
-    const state = { ...this.state };
-    const inputs = state.inputs;
-    for (const input in state.inputs) {
-      inputs[input] = { ...state.inputs[input], ...newValues };
-    }
-    this.setState({ state });
-  }
-
-  setInputValues(inputName, newValues) {
-    const state = { ...this.state };
-    state.inputs[inputName] = {
-      ...state.inputs[inputName],
-      ...newValues
-    };
-    this.setState({ state });
+  setInputsValues(newValues = {}, input) {
+    this.setState({ ...getStateWithNewInputValues({ ...this.state }, newValues, input) });
   }
 
   getInputsCommonProps(props) {
@@ -200,7 +132,7 @@ class Form extends Component {
     return {
       value, valid, dirty, errorMessage, forceDirty, resetValue, disabled,
       onChange: (value) => {
-        this.setInputValues(input, { value });
+        this.setInputsValues({ value }, input);
         if (onChange) {
           onChange(value);
         }
@@ -208,21 +140,21 @@ class Form extends Component {
       validate: (value, extra = {}) => {
         if (validate) {
           const validateObj = validate(value, extra);
-          this.setInputValues(input, {
+          this.setInputsValues({
             valid: validateObj.valid,
             errorMessage: validateObj.errorMessage,
             dirty: true
-          });
+          }, input);
         } else {
-          this.setInputValues(input, {
+          this.setInputsValues({
             valid: true,
             errorMessage: '',
             dirty: true
-          });
+          }, input);
         }
       },
       valueWasResetted: () => {
-        this.setInputValues(input, { resetValue: false });
+        this.setInputsValues({ resetValue: false }, input);
       }
     };
   }
@@ -256,12 +188,12 @@ class Form extends Component {
             break;
           case 'CustomSubmitButton':
             const customSubmitButton = child.props.children.props
-              ? child.props.children : emptySpan({ children: child.props.children });
+              ? child.props.children : (<span>{child.props.children}</span>);
             component = React.cloneElement(customSubmitButton, this.getSubmitButtonProps(child.props));
             break;
           case 'CustomResetButton':
             const customResetButton = child.props.children.props
-              ? child.props.children : emptySpan({ children: child.props.children });
+              ? child.props.children : (<span>{child.props.children}</span>);
             component = React.cloneElement(customResetButton, this.getResetButtonProps(child.props));
             break;
         }

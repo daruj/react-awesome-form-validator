@@ -36,11 +36,11 @@
     "jsdom": "^9.9.1",
     "lodash": "^4.16.4",
     "react-click-outside": "^2.2.0",
-    "validator": "^6.2.0"
+    "validator": "^6.2.0",
+    "babel-compile": "^2.0.0"
   },
   "devDependencies": {
     "babel": "^6.5.2",
-    "babel-compile": "^2.0.0",
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.5",

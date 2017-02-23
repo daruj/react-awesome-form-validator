@@ -1,6 +1,6 @@
 {
   "name": "react-awesome-form-validator",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "This is a very nice form with validations using ReactJs",
   "main": "./dist/index.jsx",
   "keywords": [
@@ -9,7 +9,7 @@
     "react form validation"
   ],
   "scripts": {
-    "build": "babel-compile -p es2015 -p react -p stage-0 src/form:dist",
+    "build": "babel-compile -p latest -p stage-0 -p react src/form:dist",
     "compile": "npm run build",
     "postinstall": "npm run build",
     "test": "NODE_ENV=test gulp test",
@@ -37,7 +37,10 @@
     "lodash": "^4.16.4",
     "react-click-outside": "^2.2.0",
     "validator": "^6.2.0",
-    "babel-compile": "^2.0.0"
+    "babel-compile": "^2.0.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0"
   },
   "devDependencies": {
     "babel": "^6.5.2",
@@ -47,9 +50,6 @@
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-polyfill": "^6.16.0",
     "babel-preset-airbnb": "^2.1.1",
-    "babel-preset-es2015": "^6.16.0",
-    "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-0": "^6.16.0",
     "babel-runtime": "^6.11.6",
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",

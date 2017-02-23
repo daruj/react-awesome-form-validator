@@ -18,10 +18,6 @@ import {
 import { some } from 'lodash';
 
 class Form extends Component {
-  static propTypes = {
-    children: PropTypes.node
-  }
-
   constructor(props) {
     super(props);
 
@@ -212,6 +208,7 @@ class Form extends Component {
 }
 
 Form.propTypes = {
+  children: React.PropTypes.node,
   className: React.PropTypes.string,
   resetForm: React.PropTypes.bool,
   clearValuesOnReset: React.PropTypes.bool,

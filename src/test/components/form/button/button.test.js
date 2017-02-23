@@ -1,10 +1,8 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import styles from '../../../../form/button/styles.scss';
+import { shallow } from 'enzyme';
 import Button from '../../../../form/button';
 
 describe('Testing Button Component', () => {
-
   let wrapper;
 
   beforeEach(() => {
@@ -15,8 +13,8 @@ describe('Testing Button Component', () => {
         onClick={() => {}}
         disabled={false}
       >Submit Button</Button>
-    )
-  })
+    );
+  });
   it('properly renders the button', () => {
     expect(wrapper.find('button')).to.have.length(1);
   });
@@ -38,5 +36,5 @@ describe('Testing Button Component', () => {
       wrapper.find('button').simulate('click');
       expect(wrapper.find('button').props().disabled).to.be.equal(true);
     });
-  })
+  });
 });

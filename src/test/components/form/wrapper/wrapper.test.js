@@ -3,7 +3,6 @@ import { mount } from 'enzyme';
 import Wrapper from '../../../../form/wrapper';
 
 describe('Testing Wrapper Component', () => {
-
   let wrapper;
 
   beforeEach(() => {
@@ -11,8 +10,8 @@ describe('Testing Wrapper Component', () => {
       <Wrapper className='wrapper'>
         <h1>Form</h1>
       </Wrapper>
-    )
-  })
+    );
+  });
   it('properly renders the div wrapper', () => {
     expect(wrapper.find('div')).to.have.length(1);
   });

@@ -3,7 +3,6 @@ import { mount } from 'enzyme';
 import SubmitButton from '../../../../form/submit-button';
 
 describe('Testing SubmitButton Component', () => {
-
   let wrapper;
 
   beforeEach(() => {
@@ -14,8 +13,8 @@ describe('Testing SubmitButton Component', () => {
         onClick={() => {}}
         disabled={false}
       >Submit Form</SubmitButton>
-    )
-  })
+    );
+  });
   it('properly renders the button', () => {
     expect(wrapper.find('button')).to.have.length(1);
   });
@@ -37,5 +36,5 @@ describe('Testing SubmitButton Component', () => {
       wrapper.find('button').simulate('click');
       expect(wrapper.find('button').props().disabled).to.be.equal(true);
     });
-  })
+  });
 });

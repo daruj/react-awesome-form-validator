@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import CustomInput from '../../../../form/custom-input';
 
 describe('Testing CustomInput Component', () => {

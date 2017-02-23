@@ -4,7 +4,6 @@ import DropdownWrapper from '../../../../form/dropdown';
 import Dropdown from '../../../../form/dropdown/dropdown.jsx';
 
 describe('Testing DropdownWrapper Component', () => {
-
   let wrapper;
 
   const validate = (value, extra = {}) => {
@@ -15,7 +14,7 @@ describe('Testing DropdownWrapper Component', () => {
       errorMessage = 'This field is required';
     }
     return { valid, errorMessage };
-  }
+  };
 
   beforeEach(() => {
     wrapper = mount(

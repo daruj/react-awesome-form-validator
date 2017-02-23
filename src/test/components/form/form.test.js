@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { mount } from 'enzyme';
 import Form from '../../../form/';
 import { isAlpha }    from 'validator';
@@ -17,7 +17,7 @@ const MyForm = (props) => {
       onSubmit={() => {}}
       onReset={() => {}}
       disableInputs={false}
-      { ...props }
+      {...props}
     >
       <h2>Basic Form</h2>
       <Form.Wrapper className='formWrapper'>
@@ -99,8 +99,8 @@ const MyForm = (props) => {
         Reset Form
       </Form.ResetButton>
     </Form>
-  )
-}
+  );
+};
 
 const state = {
   forceDirty: false,
@@ -180,7 +180,7 @@ describe('Testing Form Component', () => {
       expect(newState.inputs.email.value).to.be.equal('');
       expect(newState.forceDirty).to.be.equal(false);
     });
-  })
+  });
   describe('Testing Form Actions', () => {
     it('should get an object with all the form inputs and their values', () => {
       const inputs = { ...state.inputs };
@@ -212,19 +212,19 @@ describe('Testing Form Component', () => {
       const wrapper = mount(<MyForm />);
       wrapper.find('.inputNameWrapper').find('input')
         .simulate('change', { target: { value: '132' } });
-      expect(wrapper.find('.inputNameWrapper').find('.invalidField')).to.have.length(1)
+      expect(wrapper.find('.inputNameWrapper').find('.invalidField')).to.have.length(1);
     });
     it('should show error when the value for the input \'color\' is empty', () => {
       const wrapper = mount(<MyForm />);
       wrapper.find('.inputColorWrapper').find('select')
         .simulate('change', { target: { value: '' } });
-      expect(wrapper.find('.inputColorWrapper').find('.invalidField')).to.have.length(1)
+      expect(wrapper.find('.inputColorWrapper').find('.invalidField')).to.have.length(1);
     });
     it('should show error when the value for the input \'lastName\' is empty', () => {
       const wrapper = mount(<MyForm />);
       wrapper.find('.inputLastNameWrapper').find('input')
         .simulate('change', { target: { value: '132' } });
-      expect(wrapper.find('.inputLastNameWrapper').find('.invalidField')).to.have.length(1)
+      expect(wrapper.find('.inputLastNameWrapper').find('.invalidField')).to.have.length(1);
     });
     it('should disable all inputs when we set disableInputs as true', () => {
       const wrapper = mount(<MyForm />);

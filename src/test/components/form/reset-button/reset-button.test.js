@@ -3,7 +3,6 @@ import { mount } from 'enzyme';
 import ResetButton from '../../../../form/reset-button';
 
 describe('Testing ResetButton Component', () => {
-
   let wrapper;
 
   beforeEach(() => {
@@ -14,8 +13,8 @@ describe('Testing ResetButton Component', () => {
         onClick={() => {}}
         disabled={false}
       >Submit Form</ResetButton>
-    )
-  })
+    );
+  });
   it('properly renders the button', () => {
     expect(wrapper.find('button')).to.have.length(1);
   });
@@ -37,5 +36,5 @@ describe('Testing ResetButton Component', () => {
       wrapper.find('button').simulate('click');
       expect(wrapper.find('button').props().disabled).to.be.equal(true);
     });
-  })
+  });
 });

@@ -4,7 +4,6 @@ import styles from '../../../../form/input/styles.scss';
 import Input from '../../../../form/input';
 
 describe('Testing Input Component', () => {
-
   let wrapper;
   const validate = (value, extra = {}) => {
     let valid = true;
@@ -14,7 +13,7 @@ describe('Testing Input Component', () => {
       errorMessage = 'This field is required';
     }
     return { valid, errorMessage };
-  }
+  };
 
   beforeEach(() => {
     wrapper = mount(
@@ -58,8 +57,7 @@ describe('Testing Input Component', () => {
     it('should receive type as a prop', () => {
       expect(wrapper.find('input').props().type).to.be.equal('text');
     });
-
-  })
+  });
 
   describe('Testing Input Actions', () => {
     it('should change its value when we trigger its onChange prop', () => {
@@ -147,5 +145,4 @@ describe('Testing Input Component', () => {
       expect(wrapper.find('input').props().className).to.contain(styles.invalidField);
     });
   });
-
 });

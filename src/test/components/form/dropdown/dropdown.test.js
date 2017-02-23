@@ -3,7 +3,6 @@ import { mount } from 'enzyme';
 import Dropdown from '../../../../form/dropdown/dropdown.jsx';
 
 describe('Testing Dropdown Component', () => {
-
   let wrapper;
 
   const options = [
@@ -32,8 +31,8 @@ describe('Testing Dropdown Component', () => {
 
   options.forEach((option) => {
     it(`should render the option ${option.value} with the text ${option.text}`, () => {
-      const optionElement = wrapper.find('select').find('option').filterWhere(opt => {
-        return opt.props().value == option.value && opt.props().children == option.text
+      const optionElement = wrapper.find('select').find('option').filterWhere((opt) => {
+        return opt.props().value == option.value && opt.props().children == option.text;
       });
       expect(optionElement).to.have.length(1);
     });
@@ -65,7 +64,7 @@ describe('Testing Dropdown Component', () => {
         />
       );
       const dropdown = wrapper.find('select');
-      const firstOption = wrapper.find('select').find('option[data-default=true]');
+      const firstOption = dropdown.find('option[data-default=true]');
       expect(firstOption).to.have.length(0);
     });
   });
@@ -85,5 +84,4 @@ describe('Testing Dropdown Component', () => {
       expect(firstOption).to.have.length(0);
     });
   });
-
 });

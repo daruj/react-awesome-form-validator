@@ -104,7 +104,7 @@
     "react/no-unknown-property": [2],
     "react/prop-types": 2,
     "react/prefer-es6-class": 2,
-    "react/wrap-multilines": 2,
+    "react/jsx-wrap-multilines": 2,
     "react/sort-comp": [2, {
       "order": [
         "lifecycle",

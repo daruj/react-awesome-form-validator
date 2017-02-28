@@ -1,3 +1,5 @@
+# [Damian Aruj](https://github.com/daruj/) &middot; [![CircleCI Status](https://circleci.com/gh/daruj/react-awesome-form-validator.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/daruj/react-awesome-form-validator) [![Build Status](https://travis-ci.org/daruj/react-awesome-form-validator.svg?branch=master)](https://travis-ci.org/daruj/react-awesome-form-validator) [![npm version](https://img.shields.io/npm/v/react.svg?style=flat)](https://www.npmjs.com/package/react-awesome-form-validator)
+
 # React Awesome Form Validation
 
 This library is a simple solution of a common issue with forms with custom validations using ReactJs. It lets you use a pre-defined Input or even create your custom one with all it needs to be part of the same form.

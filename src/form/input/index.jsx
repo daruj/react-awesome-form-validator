@@ -9,7 +9,7 @@ class Input extends InputBaseComponent {
 
   render() {
     const {
-      fieldClassName = styles.wrapperField,
+      fieldClassName = '',
       type = 'text',
       placeHolder = '',
       name,

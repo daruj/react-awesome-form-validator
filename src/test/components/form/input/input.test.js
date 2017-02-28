@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import styles from '../../../../form/input/styles.scss';
 import Input from '../../../../form/input';
 
 describe('Testing Input Component', () => {
@@ -24,6 +23,7 @@ describe('Testing Input Component', () => {
         name='myInput'
         className='input'
         fieldClassName='InputWrapper'
+        invalidClassName='invalid'
         value=''
         valid={false}
         dirty={false}
@@ -93,7 +93,7 @@ describe('Testing Input Component', () => {
         }
       });
       wrapper.find('input').simulate('blur', { target: { value: '' } });
-      expect(wrapper.find('input').props().className).to.contain(styles.invalidField);
+      expect(wrapper.find('input').props().className).to.contain('invalid');
     });
     it('should display an error text when the user leaves the input empty', () => {
       wrapper.setProps({
@@ -140,9 +140,9 @@ describe('Testing Input Component', () => {
         }
       });
       wrapper.find('input').simulate('change', { target: { value: '' } });
-      expect(wrapper.find('input').props().className).to.not.contain(styles.invalidField);
+      expect(wrapper.find('input').props().className).to.not.contain('invalid');
       wrapper.find('input').simulate('blur');
-      expect(wrapper.find('input').props().className).to.contain(styles.invalidField);
+      expect(wrapper.find('input').props().className).to.contain('invalid');
     });
   });
 });

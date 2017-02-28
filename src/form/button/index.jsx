@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styles from './styles.scss';
 
 class Button extends Component {
   constructor(props) {
@@ -10,8 +9,8 @@ class Button extends Component {
     const {
       children = '',
       disabled = false,
-      fieldClassName = styles.wrapperField,
-      className = styles.button,
+      fieldClassName = '',
+      className = '',
       onClick
     } = this.props;
     return (

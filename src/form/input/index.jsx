@@ -1,7 +1,6 @@
 import React from 'react';
 import InputBaseComponent from '../inputBaseComponent';
 import classnames from 'classnames';
-import styles from './styles.scss';
 
 class Input extends InputBaseComponent {
   constructor(props) {
@@ -14,8 +13,8 @@ class Input extends InputBaseComponent {
       type = 'text',
       placeHolder = '',
       name,
-      className = styles.input,
-      invalidClassName = styles.invalidField,
+      className = '',
+      invalidClassName = '',
       value,
       startValidatingWhenIsPristine = false,
       disabled

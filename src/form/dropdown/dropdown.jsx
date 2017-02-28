@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import styles from './styles.scss';
 import enhanceWithClickOutside from 'react-click-outside';
 
 /**
@@ -68,8 +67,8 @@ class Dropdown extends Component {
       options,
       value,
       name,
-      invalidClassName = styles.invalidField,
-      className = styles.dropdown,
+      invalidClassName = '',
+      className = '',
       inputIsValid,
       disabled
     } = this.props;

@@ -5,11 +5,15 @@ This library is a simple solution of a common issue with forms with custom valid
 ### Examples
 Simple Form: [Code Here](https://github.com/daruj/react-awesome-form-validator/blob/master/example/simple-form/index.jsx)
 
-    - run: `make run-simple-form`
+    - run: ```npm run simple-form```
 
 Form with custom Input: [Code Here](https://github.com/daruj/react-awesome-form-validator/blob/master/example/form-with-custom-input/index.jsx), [Custom Input](https://github.com/daruj/react-awesome-form-validator/blob/master/example/form-with-custom-input/my-custom-input/index.jsx)
 
-    - run: `run-form-with-custom-input`
+- run: ```npm run form-with-custom-input```
+
+Form with reset and clear values: [Code Here](https://github.com/daruj/react-awesome-form-validator/blob/master/example/form-with-reset-and-clear-values/index.jsx)
+
+    - run: ```npm run form-with-reset-and-clear-values```
 
 Then open a browser and type: `http://localhost:3000`
 

@@ -1,4 +1,4 @@
-# [Damian Aruj](https://github.com/daruj/) &middot; [![CircleCI Status](https://circleci.com/gh/daruj/react-awesome-form-validator.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/daruj/react-awesome-form-validator) [![Build Status](https://travis-ci.org/daruj/react-awesome-form-validator.svg?branch=master)](https://travis-ci.org/daruj/react-awesome-form-validator) [![npm version](https://img.shields.io/npm/v/react.svg?style=flat)](https://www.npmjs.com/package/react-awesome-form-validator)
+# [Damian Aruj](https://github.com/daruj/) &middot; [![CircleCI Status](https://circleci.com/gh/daruj/react-awesome-form-validator.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/daruj/react-awesome-form-validator) [![Build Status](https://travis-ci.org/daruj/react-awesome-form-validator.svg?branch=master)](https://travis-ci.org/daruj/react-awesome-form-validator) [![npm version](https://img.shields.io/npm/v/react-awesome-form-validator.svg?style=flat)](https://www.npmjs.com/package/react-awesome-form-validator)
 
 # React Awesome Form Validation
 

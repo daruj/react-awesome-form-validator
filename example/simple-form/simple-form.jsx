@@ -58,6 +58,21 @@ class SimpleForm extends Component {
             }}
             fieldClassName={styles.inputField}
           />
+          <Form.TextArea
+            name='description'
+            placeHolder='Insert your Description...'
+            label='Description'
+            validate={(value) => {
+              let valid = true;
+              let errorMessage = '';
+              if (!value.length) {
+                valid = false;
+                errorMessage = 'This field is required';
+              }
+              return { valid, errorMessage };
+            }}
+            fieldClassName={styles.inputField}
+          />
           <Form.Dropdown
             name='color'
             placeHolder='Choose a color...'

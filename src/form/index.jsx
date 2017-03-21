@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Input from './input';
+import TextArea from './textarea';
 import Dropdown from './dropdown';
 import SubmitButton from './submit-button';
 import ResetButton from './reset-button';
@@ -38,6 +39,7 @@ class Form extends Component {
             }
           }
           break;
+        case 'TextArea':
         case 'Input':
         case 'Dropdown': inputs[child.props.name] = getInitialState(child.props); break;
         case 'CustomInput':
@@ -174,6 +176,7 @@ class Form extends Component {
           case 'ResetButton':
             component = React.cloneElement(child, this.getResetButtonProps(child.props));
             break;
+          case 'TextArea':
           case 'Input':
           case 'Dropdown':
             component = React.cloneElement(child, this.getInputsCommonProps(child.props));
@@ -224,6 +227,9 @@ Form.CustomInput.displayName = 'CustomInput';
 
 Form.Input = Input;
 Form.Input.displayName = 'Input';
+
+Form.TextArea = TextArea;
+Form.TextArea.displayName = 'TextArea';
 
 Form.Dropdown = Dropdown;
 Form.Dropdown.displayName = 'Dropdown';

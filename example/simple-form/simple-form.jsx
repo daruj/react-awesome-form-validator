@@ -30,7 +30,7 @@ class SimpleForm extends Component {
     return (
       <Form
         resetForm={this.state.resetForm}
-        formWasResetted={() => this.setState({ resetForm: false })}
+        formWasReset={() => this.setState({ resetForm: false })}
         onSubmit={(formData) => this._onSubmit(formData)}
         onReset={() => this._onReset()}
         disableInputs={this.state.disableInputs}
@@ -44,6 +44,7 @@ class SimpleForm extends Component {
             type='text'
             label='Name * (this field will will start beeing validated from the moment you start typing)'
             startValidatingWhenIsPristine
+            onBlur={(value) => console.log(`On Blur value: ${value}`)}
             validate={(value) => {
               let valid = true;
               let errorMessage = '';
@@ -62,6 +63,7 @@ class SimpleForm extends Component {
             name='description'
             placeHolder='Insert your Description...'
             label='Description'
+            onBlur={(value) => console.log(`On Blur value: ${value}`)}
             validate={(value) => {
               let valid = true;
               let errorMessage = '';
@@ -77,6 +79,7 @@ class SimpleForm extends Component {
             name='color'
             placeHolder='Choose a color...'
             label='Choose a color *'
+            onBlur={(value) => console.log(`On Blur value: ${value}`)}
             options={[
               { value: 'blue', text: 'Blue' },
               { value: 'orange', text: 'Orange' },

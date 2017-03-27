@@ -1,4 +1,4 @@
-import requireDir from 'require-dir';
+const requireDir = require('require-dir');
 
 require('babel-register')({
   extensions: ['.js', '.jsx']

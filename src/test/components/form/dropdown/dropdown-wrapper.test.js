@@ -28,6 +28,7 @@ describe('Testing DropdownWrapper Component', () => {
           { value: 'red', text: 'Red' }
         ]}
         onChange={() => {}}
+        onBlur={() => {}}
         validate={(value, extra = {}) => {}}
         fieldClassName='dropdown-wrapper'
       />

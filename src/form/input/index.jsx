@@ -49,7 +49,7 @@ class Input extends InputBaseComponent {
           }}
           onBlur={(evt) => {
             const value = evt.target.value;
-            this.props.onChange(value);
+            this.props.onBlur(value);
             this.props.validate(value);
           }}
         />
@@ -70,6 +70,7 @@ Input.propTypes = {
   invalidClassName: React.PropTypes.string,
   validate: React.PropTypes.func,
   onChange: React.PropTypes.func,
+  onBlur: React.PropTypes.func,
   startValidatingWhenIsPristine: React.PropTypes.bool,
   disabled: React.PropTypes.bool
 };

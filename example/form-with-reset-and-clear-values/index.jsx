@@ -49,7 +49,7 @@ class Root extends Component {
     return (
       <Form
         resetForm={this.state.resetForm}
-        formWasResetted={() => this.setState({ resetForm: false })}
+        formWasReset={() => this.setState({ resetForm: false })}
         onSubmit={(formData) => this._onSubmit(formData)}
         onReset={() => this._onReset()}
         clearValuesOnReset

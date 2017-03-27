@@ -1,15 +1,15 @@
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import path from 'path';
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
 const exampleFolder = process.env.exampleFolder;
 
 const webpackConfig = {
   entry: {
     app: [
       'babel-polyfill', // Set up an ES6-ish environment
+      'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:3000/', // WebpackDevServer host and port
-      'webpack/hot/only-dev-server',
       `./example/${exampleFolder}/index.jsx`
     ],
     vendor: './src/vendors/index.js'
@@ -19,7 +19,12 @@ const webpackConfig = {
     filename: 'bundle-[name]-[hash].js',
     publicPath: '/'
   },
-  devtool: '#cheap-module-eval-source-map',
+  devtool: 'eval',
+  devServer: {
+    historyApiFallback: true,
+    contentBase: './',
+    hot: true
+  },
   module: {
     rules: [
       {
@@ -76,7 +81,9 @@ const webpackConfig = {
       filename: 'bundle-[hash].css',
       disable: false,
       allChunks: true
-    })
+    }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ]
 };
 

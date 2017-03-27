@@ -41,7 +41,7 @@ class Form extends Component {
           break;
         case 'TextArea':
         case 'Input':
-        case 'Dropdown': inputs[child.props.name] = getInitialState(child.props); break;
+        case 'DropdownWrapper': inputs[child.props.name] = getInitialState(child.props); break;
         case 'CustomInput':
           const customInput = child.props.children;
           inputs[customInput.props.name] = getInitialState(customInput.props);
@@ -63,7 +63,7 @@ class Form extends Component {
   componentWillReceiveProps({ resetForm, disableInputs, clearValuesOnReset, serverErrors }) {
     if (this.props.resetForm != resetForm && resetForm) {
       this.resetForm({ clearValues: clearValuesOnReset });
-      this.props.formWasResetted();
+      this.props.formWasReset();
     }
 
     if (this.props.disableInputs != disableInputs) {
@@ -123,7 +123,7 @@ class Form extends Component {
   }
 
   getInputsCommonProps(props) {
-    const { name, validate, onChange } = props;
+    const { name, validate, onChange, onBlur } = props;
     const input = name;
     const { inputs, forceDirty } = this.state;
     const { value, valid, dirty, errorMessage, resetValue, disabled } = inputs[input];
@@ -133,6 +133,12 @@ class Form extends Component {
         this.setInputsValues({ value }, input);
         if (onChange) {
           onChange(value);
+        }
+      },
+      onBlur: (value) => {
+        this.setInputsValues({ value }, input);
+        if (onBlur) {
+          onBlur(value);
         }
       },
       validate: (value, extra = {}) => {
@@ -178,7 +184,7 @@ class Form extends Component {
             break;
           case 'TextArea':
           case 'Input':
-          case 'Dropdown':
+          case 'DropdownWrapper':
             component = React.cloneElement(child, this.getInputsCommonProps(child.props));
             break;
           case 'CustomInput':
@@ -215,7 +221,7 @@ Form.propTypes = {
   className: React.PropTypes.string,
   resetForm: React.PropTypes.bool,
   clearValuesOnReset: React.PropTypes.bool,
-  formWasResetted: React.PropTypes.func,
+  formWasReset: React.PropTypes.func,
   onSubmit: React.PropTypes.func.isRequired,
   onReset: React.PropTypes.func,
   disableInputs: React.PropTypes.bool,
@@ -232,7 +238,7 @@ Form.TextArea = TextArea;
 Form.TextArea.displayName = 'TextArea';
 
 Form.Dropdown = Dropdown;
-Form.Dropdown.displayName = 'Dropdown';
+Form.Dropdown.displayName = 'DropdownWrapper';
 
 Form.SubmitButton = SubmitButton;
 Form.SubmitButton.displayName = 'SubmitButton';

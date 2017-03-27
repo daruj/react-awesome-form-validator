@@ -28,6 +28,7 @@ class DropdownWrapper extends InputBaseComponent {
     this.props.validate(value);
     this.setState({ value });
     this.props.onChange(value);
+    this.props.onBlur(value);
   }
 
   render() {
@@ -48,6 +49,7 @@ class DropdownWrapper extends InputBaseComponent {
 DropdownWrapper.propTypes = {
   fieldClassName: React.PropTypes.string,
   onChange: React.PropTypes.func,
+  onBlur: React.PropTypes.func,
   validate: React.PropTypes.func
 };
 

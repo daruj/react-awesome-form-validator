@@ -31,6 +31,7 @@ describe('Testing Input Component', () => {
         forceDirty={false}
         startValidatingWhenIsPristine
         onChange={(value) => {}}
+        onBlur={(value) => {}}
         validate={(value, extra = {}) => {}}
       />
     );
@@ -68,7 +69,7 @@ describe('Testing Input Component', () => {
     });
     it('should change its value when we trigger its onBlur prop', () => {
       const value = 'test';
-      wrapper.setProps({ onChange: (value) => wrapper.setProps({ value }) });
+      wrapper.setProps({ onBlur: (value) => wrapper.setProps({ value }) });
       wrapper.find('input').simulate('blur', { target: { value } });
       expect(wrapper.find('input').props().value).to.be.equal(value);
     });

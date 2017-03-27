@@ -1,6 +1,6 @@
 {
   "name": "react-awesome-form-validator",
-  "version": "1.3.8",
+  "version": "1.3.9",
   "description": "This is a very nice form with validations using ReactJs",
   "main": "./dist/index.js",
   "keywords": [
@@ -9,14 +9,14 @@
     "react form validation"
   ],
   "scripts": {
-    "compile": "babel ./src/form --out-dir dist --copy-files --source-maps --presets=latest,stage-0,react",
+    "compile": "babel ./src/form --out-dir dist --copy-files --source-maps --presets=es2015,stage-0,react",
     "test": "NODE_ENV=test gulp test",
     "lint": "eslint . --fix",
     "start": "npm run simple-form",
     "prepublish": "npm run lint && npm run test && npm run compile",
-    "simple-form": "exampleFolder=simple-form node ./node_modules/webpack-dev-server/bin/webpack-dev-server --port 3000 --host 0.0.0.0 --config webpack.config.babel.js --hot --progress --inline",
-    "form-with-reset-and-clear-values": "exampleFolder=form-with-reset-and-clear-values node ./node_modules/webpack-dev-server/bin/webpack-dev-server --port 3000 --host 0.0.0.0 --config webpack.config.babel.js --hot --progress --inline",
-    "form-with-custom-input": "exampleFolder=form-with-custom-input node ./node_modules/webpack-dev-server/bin/webpack-dev-server --port 3000 --host 0.0.0.0 --config webpack.config.babel.js --hot --progress --inline"
+    "simple-form": "exampleFolder=simple-form node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 3000 --host 0.0.0.0 --config webpack.config.js --progress",
+    "form-with-reset-and-clear-values": "exampleFolder=form-with-reset-and-clear-values node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 3000 --host 0.0.0.0 --config webpack.config.js --progress",
+    "form-with-custom-input": "exampleFolder=form-with-custom-input node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 3000 --host 0.0.0.0 --config webpack.config.js --progress"
   },
   "pre-push": [
     "lint",
@@ -46,12 +46,12 @@
     "babel-eslint": "7.0.0",
     "babel-loader": "6.2.5",
     "babel-plugin-transform-decorators-legacy": "1.3.4",
-    "babel-polyfill": "6.16.0",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-airbnb": "2.1.1",
-    "babel-preset-latest": "6.16.0",
+    "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "6.16.0",
     "babel-preset-stage-0": "6.16.0",
-    "babel-register": "6.23.0",
+    "babel-register": "^6.23.0",
     "chai": "3.5.0",
     "css-loader": "0.25.0",
     "css-modules-require-hook": "4.0.5",

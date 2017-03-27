@@ -13,7 +13,7 @@ const MyForm = (props) => {
   return (
     <Form
       resetForm={false}
-      formWasResetted={() => {}}
+      formWasReset={() => {}}
       onSubmit={() => {}}
       onReset={() => {}}
       disableInputs={false}

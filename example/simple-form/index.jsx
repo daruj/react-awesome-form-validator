@@ -1,19 +1,20 @@
-import React, { Component }    from 'react';
-import ReactDOM                from 'react-dom';
-import SimpleForm              from './simple-form';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { AppContainer } from 'react-hot-loader'
 
-class Root extends Component {
+import SimpleForm from './simple-form';
 
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <SimpleForm />
-    );
-  }
+const render = Component => {
+  ReactDOM.render(
+    <AppContainer>
+      <Component />
+    </AppContainer>,
+    document.getElementById('reactApplication')
+  )
 }
 
+render(SimpleForm)
 
-ReactDOM.render(<Root/>, document.getElementById('reactApplication'));
+if (module.hot) {
+  module.hot.accept('./simple-form', () => { render(SimpleForm) })
+}

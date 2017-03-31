@@ -1,48 +1,20 @@
-import React, { Component }    from 'react';
-import ReactDOM                from 'react-dom';
-import Form                    from '../../src/form';
-import { isAlpha }             from 'validator';
-import MyCustomInput           from './my-custom-input';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { AppContainer } from 'react-hot-loader'
 
-class Root extends Component {
+import FormWithCustomInput from './form-with-custom-input';
 
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <Form>
-        <h2>Form with custom input</h2>
-        <Form.CustomInput>
-          <MyCustomInput
-            name='name'
-            placeHolder='Type your name here...'
-            type='text'
-            validate={(value) => {
-              let valid = true;
-              let errorMessage = '';
-              if (!value.length) {
-                valid = false;
-                errorMessage = 'This field is required';
-              } else if (!isAlpha(value.replace(/\s/g, ''))) {
-                valid = false;
-                errorMessage = 'You must enter only characters';
-              }
-              return { valid, errorMessage };
-            }}
-          />
-        </Form.CustomInput>
-        <Form.SubmitButton onClick={(formData) => console.log('Form Data', formData)}>
-          Submit Form
-        </Form.SubmitButton>
-        <Form.ResetButton>
-          Reset Form
-        </Form.ResetButton>
-      </Form>
-    );
-  }
+const render = Component => {
+  ReactDOM.render(
+    <AppContainer>
+      <Component />
+    </AppContainer>,
+    document.getElementById('reactApplication')
+  )
 }
 
+render(FormWithCustomInput)
 
-ReactDOM.render(<Root/>, document.getElementById('reactApplication'));
+if (module.hot) {
+  module.hot.accept('./form-with-custom-input', () => { render(FormWithCustomInput) })
+}

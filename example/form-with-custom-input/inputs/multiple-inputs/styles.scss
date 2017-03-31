@@ -1,0 +1,15 @@
+.wrapperField {
+  margin-bottom: 10px;
+  label {
+    display: block;
+  }
+}
+
+.input {
+  border: 1px solid #ccc9c9;
+  padding: 6px;
+}
+
+.invalidField {
+  border-bottom: 1px solid red;
+}

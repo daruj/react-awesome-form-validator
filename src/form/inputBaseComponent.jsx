@@ -32,7 +32,10 @@ class InputBaseComponent extends Component {
 
   renderLabel() {
     if (this.props.label) {
-      return (<label dangerouslySetInnerHTML={{__html: this.props.label}} />);
+      return (<label>{this.props.label}</label>);
+    }
+    if (this.props.customLabel) {
+      return (<this.props.customLabel />);
     }
   }
 
@@ -49,6 +52,7 @@ InputBaseComponent.propTypes = {
   name: React.PropTypes.string.isRequired,
   validate: React.PropTypes.func,
   label: React.PropTypes.string,
+  customLabel: React.PropTypes.node,
   valid: React.PropTypes.bool,
   dirty: React.PropTypes.bool,
   errorMessage: React.PropTypes.string,

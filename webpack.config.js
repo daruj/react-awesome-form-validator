@@ -6,13 +6,12 @@ const exampleFolder = process.env.exampleFolder;
 
 const webpackConfig = {
   entry: {
-    app: [
+    main: [
       'babel-polyfill', // Set up an ES6-ish environment
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:3000/', // WebpackDevServer host and port
       `./example/${exampleFolder}/index.jsx`
-    ],
-    vendor: './src/vendors/index.js'
+    ]
   },
   output: {
     path: path.resolve(__dirname, './build/dev_build'),
@@ -66,8 +65,7 @@ const webpackConfig = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      filename: 'bundle-[name]-[hash].js',
-      minChunks: Infinity
+      minChunks: module => module.context && module.context.indexOf('node_modules') !== -1
     }),
     new HtmlWebpackPlugin({
       template: `./example/${exampleFolder}/index.template.html`

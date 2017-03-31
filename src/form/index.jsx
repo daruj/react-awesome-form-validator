@@ -16,7 +16,6 @@ import {
   getStateWithNewInputValues,
   getInputsValues
 } from './form';
-import { some } from 'lodash';
 
 class Form extends Component {
   constructor(props) {
@@ -98,15 +97,18 @@ class Form extends Component {
   }
 
   getSubmitButtonProps(props) {
+    const amountOfInvalidFields = Object.keys(this.state.inputs).filter(
+      key => !this.state.inputs[key].valid
+    ).length;
     return {
       disabled: this.props.disableInputs || (props.disabledUntilFormIsValidated
-        ? some(this.state.inputs, (input) => !input.valid)
+        ? amountOfInvalidFields > 0
         : false),
       onClick: (event) => {
         event.preventDefault();
         const inputs = { ...this.state.inputs };
         //check if all the inputs are valid
-        if (!some(inputs, (input) => !input.valid)) {
+        if (!amountOfInvalidFields) {
           // proceed to call the onSubmit prop from the Form.
           this.props.onSubmit({ ...getInputsValues(inputs) });
         } else {

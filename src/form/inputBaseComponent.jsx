@@ -32,7 +32,7 @@ class InputBaseComponent extends Component {
 
   renderLabel() {
     if (this.props.label) {
-      return (<label>{this.props.label}</label>);
+      return (<label dangerouslySetInnerHTML={{__html: this.props.label}} />);
     }
   }
 

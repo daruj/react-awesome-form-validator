@@ -62,7 +62,7 @@ class SimpleForm extends Component {
           <Form.TextArea
             name='description'
             placeHolder='Insert your Description...'
-            label='Description'
+            customLabel={() => (<label>Description!</label>)}
             onBlur={(value) => console.log(`On Blur value: ${value}`)}
             validate={(value) => {
               let valid = true;

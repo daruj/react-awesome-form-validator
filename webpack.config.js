@@ -65,7 +65,7 @@ const webpackConfig = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: module => module.context && module.context.indexOf('node_modules') !== -1
+      minChunks: (module) => module.context && module.context.indexOf('node_modules') !== -1
     }),
     new HtmlWebpackPlugin({
       template: `./example/${exampleFolder}/index.template.html`

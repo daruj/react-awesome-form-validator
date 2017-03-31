@@ -8,6 +8,7 @@ import Wrapper from './wrapper';
 import CustomInput from './custom-input';
 import CustomResetButton from './custom-reset-button';
 import CustomSubmitButton from './custom-submit-button';
+import InputBaseComponent from './inputBaseComponent';
 
 import {
   getInitialState,
@@ -256,5 +257,7 @@ Form.CustomResetButton.displayName = 'CustomResetButton';
 
 Form.Wrapper = Wrapper;
 Form.Wrapper.displayName = 'Wrapper';
+
+export { InputBaseComponent };
 
 export default Form;

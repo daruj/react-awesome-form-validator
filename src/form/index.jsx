@@ -98,8 +98,8 @@ class Form extends Component {
   }
 
   getSubmitButtonProps(props) {
-    const amountOfInvalidFields = Object.keys(this.state.inputs).filter(
-      key => !this.state.inputs[key].valid
+    const amountOfInvalidFields = Object.keys({ ...this.state.inputs }).filter(
+      (key) => !this.state.inputs[key].valid
     ).length;
     return {
       disabled: this.props.disableInputs || (props.disabledUntilFormIsValidated

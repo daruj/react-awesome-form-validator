@@ -28,7 +28,7 @@ class Root extends Component {
         disableInputs: false,
         serverErrors
       });
-    }, 1000);
+    }, 100);
   }
 
   _onReset() {
@@ -109,7 +109,7 @@ class Root extends Component {
             placeHolder='Type your email here...'
             label='Email *'
             type='email'
-            value='aruj.damian@gmail.com'
+            value=''
             validate={(value) => {
               let valid = true;
               let errorMessage = '';

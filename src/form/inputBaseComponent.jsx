@@ -6,7 +6,7 @@ class InputBaseComponent extends Component {
   }
 
   componentWillReceiveProps({ forceDirty, resetValue, valueWasResetted }) {
-    if (this.props.forceDirty != forceDirty && forceDirty) {
+    if (!this.isDirty() && this.props.forceDirty != forceDirty && forceDirty) {
       const value = this.refs[this.props.name].value;
       this.props.validate(value);
     }

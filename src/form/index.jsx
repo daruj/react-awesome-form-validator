@@ -228,7 +228,7 @@ class Form extends Component {
           this.submitForm();
         }}
       >
-        <input type="image" style={{ width: '1px' }} />
+        <input type="image" style={{ width: '1px !important', display: 'none !important' }} />
         {this.getChildrenComponents(this.props.children)}
       </form>
     );

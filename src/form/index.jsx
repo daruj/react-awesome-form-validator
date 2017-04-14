@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Input from './input';
 import TextArea from './textarea';
 import Dropdown from './dropdown';
@@ -212,7 +212,10 @@ class Form extends Component {
 
   render() {
     return (
-      <form className={this.props.className}>
+      <form
+        className={this.props.className}
+        onSubmit={(evt) => evt.preventDefault()}
+      >
         {this.getChildrenComponents(this.props.children)}
       </form>
     );

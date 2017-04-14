@@ -228,7 +228,11 @@ class Form extends Component {
           this.submitForm();
         }}
       >
-        <input type="image" style={{ width: '1px !important', display: 'none !important' }} />
+        <input
+          type="image"
+          className='react-awesome-form-validator-image'
+          style={{ width: '0px', display: 'none' }}
+        />
         {this.getChildrenComponents(this.props.children)}
       </form>
     );

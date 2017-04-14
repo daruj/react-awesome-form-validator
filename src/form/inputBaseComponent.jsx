@@ -5,10 +5,15 @@ class InputBaseComponent extends Component {
     super(props);
   }
 
-  componentWillReceiveProps({ forceDirty, resetValue, valueWasResetted }) {
+  componentWillReceiveProps({ forceDirty, resetValue, valueWasResetted, serverValue }) {
     if (!this.isDirty() && this.props.forceDirty != forceDirty && forceDirty) {
       const value = this.refs[this.props.name].value;
       this.props.validate(value);
+    }
+
+    if (this.props.serverValue !== serverValue) {
+      this.props.onChange(serverValue);
+      this.props.validate(serverValue);
     }
 
     if (this.props.resetValue != resetValue && resetValue) {
@@ -56,7 +61,9 @@ InputBaseComponent.propTypes = {
   valid: React.PropTypes.bool,
   dirty: React.PropTypes.bool,
   errorMessage: React.PropTypes.string,
-  resetValue: React.PropTypes.bool
+  resetValue: React.PropTypes.bool,
+  serverValue: React.PropTypes.string,
+  onChange: React.PropTypes.func
 };
 
 export default InputBaseComponent;

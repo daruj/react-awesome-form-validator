@@ -49,6 +49,7 @@ Then open a browser and type: `http://localhost:3000`
 |     onChange     | function |    -    | We store internally on this library every input value and when you click on the SubmitButton and you pass all the validations it will call the method provided on the SubmitButton and it will pass an object with all the input values. Let's say you need to do something with the input value before the user clicks on SubmitButton, then you can get the its value with this prop. | false    |
 |     onBlur     | function |    -    | Same as onChange | false    |
 |     validate     | function |    -    |                                                                                                                        You have to return an object with the following structure: { valid, errorMessage } where valid is a boolean and errorMessage is a string.                                                                                                                        | false    |
+|  serverValue  |  string  |    ''   |                                                                                                                                                             Value coming from the server                                                                                                                                                             | false    |
 
 
 ### SubmitButton Props:

@@ -9,10 +9,15 @@ class Root extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      defaultValue: '',
       resetForm: false,
       disableInputs: false,
       serverErrors: {}
     };
+  }
+
+  componentDidMount() {
+    setTimeout(() => this.setState({ defaultValue: 'aruj.damian@gmail.com' }), 500);
   }
 
   _onSubmit(formData) {
@@ -109,7 +114,7 @@ class Root extends Component {
             placeHolder='Type your email here...'
             label='Email *'
             type='email'
-            value=''
+            serverValue={this.state.defaultValue}
             validate={(value) => {
               let valid = true;
               let errorMessage = '';

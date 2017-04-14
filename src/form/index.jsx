@@ -107,17 +107,25 @@ class Form extends Component {
         : false),
       onClick: (event) => {
         event.preventDefault();
-        const inputs = { ...this.state.inputs };
-        //check if all the inputs are valid
-        if (!amountOfInvalidFields) {
-          // proceed to call the onSubmit prop from the Form.
-          this.props.onSubmit({ ...getInputsValues(inputs) });
-        } else {
-          this.setInputsValues({ dirty: true });
-          this.setState({ forceDirty: true });
-        }
+        this.submitForm();
       }
     };
+  }
+
+  submitForm() {
+    const amountOfInvalidFields = Object.keys({ ...this.state.inputs }).filter(
+      (key) => !this.state.inputs[key].valid
+    ).length;
+
+    const inputs = { ...this.state.inputs };
+    //check if all the inputs are valid
+    if (!amountOfInvalidFields) {
+      // proceed to call the onSubmit prop from the Form.
+      this.props.onSubmit({ ...getInputsValues(inputs) });
+    } else {
+      this.setInputsValues({ dirty: true });
+      this.setState({ forceDirty: true });
+    }
   }
 
 
@@ -213,9 +221,14 @@ class Form extends Component {
   render() {
     return (
       <form
+        action='/'
         className={this.props.className}
-        onSubmit={(evt) => evt.preventDefault()}
+        onSubmit={(evt) => {
+          evt.preventDefault();
+          this.submitForm();
+        }}
       >
+        <input type="image" style={{ width: '1px' }} />
         {this.getChildrenComponents(this.props.children)}
       </form>
     );

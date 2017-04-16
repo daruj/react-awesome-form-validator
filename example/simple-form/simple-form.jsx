@@ -9,8 +9,14 @@ class SimpleForm extends Component {
     super(props);
     this.state = {
       resetForm: false,
-      disableInputs: false
+      disableInputs: false,
+      defaultValue: '',
+      dropdownServerValue: ''
     };
+  }
+
+  componentDidMount() {
+    setTimeout(() => this.setState({ defaultValue: 'Damian', dropdownServerValue: 'orange' }), 500);
   }
 
   _onSubmit(formData) {
@@ -41,6 +47,7 @@ class SimpleForm extends Component {
           <Form.Input
             name='name'
             placeHolder='Type your name here...'
+            serverValue={this.state.defaultValue}
             type='text'
             label='Name * (this field will will start beeing validated from the moment you start typing)'
             startValidatingWhenIsPristine
@@ -80,6 +87,7 @@ class SimpleForm extends Component {
             placeHolder='Choose a color...'
             label='Choose a color *'
             onBlur={(value) => console.log(`On Blur value: ${value}`)}
+            serverValue={this.state.dropdownServerValue}
             options={[
               { value: 'blue', text: 'Blue' },
               { value: 'orange', text: 'Orange' },

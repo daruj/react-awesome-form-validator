@@ -18,9 +18,13 @@ class DropdownWrapper extends InputBaseComponent {
     };
   }
 
-  componentWillReceiveProps({ forceDirty }) {
+  componentWillReceiveProps({ forceDirty, serverValue }) {
     if (this.props.forceDirty != forceDirty && forceDirty) {
       this.props.validate(this.props.value);
+    }
+    if (this.props.serverValue !== serverValue) {
+      this.props.onChange(serverValue);
+      this.props.validate(serverValue);
     }
   }
 

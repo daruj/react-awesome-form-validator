@@ -36,20 +36,20 @@ describe('Testing DropdownWrapper Component', () => {
   });
 
   it('properly renders the div that wraps the dropdown', () => {
-    expect(wrapper.find('div')).to.have.length(1);
+    expect(wrapper.find('.form-select-wrapper')).to.have.length(1);
   });
   it('properly renders the dropdown', () => {
     expect(wrapper.find(Dropdown)).to.have.length(1);
   });
   describe('Testing DropdownWrapper Props', () => {
-    it('should set a className to the div that wraps the button', () => {
-      expect(wrapper.find('div').props().className).to.be.equal('dropdown-wrapper');
+    it('should set a className to the div that wraps the dropdown', () => {
+      expect(wrapper.find('div').first().props().className).to.be.equal('dropdown-wrapper');
     });
   });
   describe('Testing DropdownWrapper Actions', () => {
     it('should change the dropdown value when trigger onChange function from Dropdown', () => {
       wrapper.setProps({ onChange: (value) => wrapper.setProps({ value }) });
-      wrapper.find(Dropdown).simulate('change', { target: { value: 'banana' } });
+      wrapper.find(Dropdown).find('select').simulate('change', { target: { value: 'banana' } });
       expect(wrapper.props().value).to.be.equal('banana');
     });
     it('should return \'This field is required\' when trigger onChange and the value is empty', () => {
@@ -73,7 +73,7 @@ describe('Testing DropdownWrapper Component', () => {
           }
         }
       });
-      wrapper.find(Dropdown).simulate('change', { target: { value: '' } });
+      wrapper.find(Dropdown).find('select').simulate('change', { target: { value: '' } });
       expect(wrapper.props().valid).to.be.equal(false);
       expect(wrapper.props().errorMessage).to.be.equal('This field is required');
     });

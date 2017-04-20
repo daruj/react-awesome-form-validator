@@ -68,7 +68,7 @@ class Dropdown extends Component {
       value,
       name,
       invalidClassName = '',
-      className = '',
+      className = 'form-select',
       inputIsValid,
       disabled
     } = this.props;

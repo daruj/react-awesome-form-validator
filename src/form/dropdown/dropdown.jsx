@@ -74,7 +74,7 @@ class Dropdown extends Component {
     } = this.props;
 
     return (
-      <div className={'${className}-wrapper'}>
+      <div className={`${className}-wrapper`}>
         <select
           onChange={(event) => this._onChange(event.target.value)}
           onClick={() => this.clickInsideOfTheDropdown()}

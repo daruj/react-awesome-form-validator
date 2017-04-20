@@ -74,34 +74,36 @@ class Dropdown extends Component {
     } = this.props;
 
     return (
-      <select
-        onChange={(event) => this._onChange(event.target.value)}
-        onClick={() => this.clickInsideOfTheDropdown()}
-        onKeyDown={(event) => {
-          // if the user press the tab key
-          if (event.which == 9) {
-            this._onChange(event.target.value);
+      <div className={'${className}-wrapper'}>
+        <select
+          onChange={(event) => this._onChange(event.target.value)}
+          onClick={() => this.clickInsideOfTheDropdown()}
+          onKeyDown={(event) => {
+            // if the user press the tab key
+            if (event.which == 9) {
+              this._onChange(event.target.value);
+            }
+          }}
+          onFocus={() => this.clickInsideOfTheDropdown()}
+          value={value}
+          ref={name}
+          name={name}
+          disabled={disabled}
+          className={
+            classnames(
+              !inputIsValid() ? invalidClassName : '',
+              className
+            )
           }
-        }}
-        onFocus={() => this.clickInsideOfTheDropdown()}
-        value={value}
-        ref={name}
-        name={name}
-        disabled={disabled}
-        className={
-          classnames(
-            !inputIsValid() ? invalidClassName : '',
-            className
-          )
-        }
-      >
-        {this.renderDefaultOption()}
-        {options.map((opt, index) => {
-          return (
-            <option value={opt.value} key={index}>{opt.text}</option>
-          );
-        })}
-      </select>
+        >
+          {this.renderDefaultOption()}
+          {options.map((opt, index) => {
+            return (
+              <option value={opt.value} key={index}>{opt.text}</option>
+            );
+          })}
+        </select>
+      </div>
     );
   }
 }

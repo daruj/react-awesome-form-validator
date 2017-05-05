@@ -30,7 +30,7 @@ class Input extends InputBaseComponent {
           autoComplete='off'
           placeholder={placeHolder}
           disabled={disabled}
-          readonly={readonly}
+          readOnly={readonly}
           className={
             classnames(
               !this.inputIsValid() ? invalidClassName : '',

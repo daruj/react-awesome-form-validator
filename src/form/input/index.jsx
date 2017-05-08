@@ -18,7 +18,7 @@ class Input extends InputBaseComponent {
       value,
       startValidatingWhenIsPristine = false,
       disabled,
-      readonly
+      readOnly
     } = this.props;
     return (
       <div className={fieldClassName}>
@@ -30,7 +30,7 @@ class Input extends InputBaseComponent {
           autoComplete='off'
           placeholder={placeHolder}
           disabled={disabled}
-          readOnly={readonly}
+          readOnly={readOnly}
           className={
             classnames(
               !this.inputIsValid() ? invalidClassName : '',
@@ -75,7 +75,7 @@ Input.propTypes = {
   onBlur: React.PropTypes.func,
   startValidatingWhenIsPristine: React.PropTypes.bool,
   disabled: React.PropTypes.bool,
-  readonly: React.PropTypes.bool
+  readOnly: React.PropTypes.bool
 };
 
 export default Input;

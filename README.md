@@ -50,6 +50,7 @@ Then open a browser and type: `http://localhost:3000`
 |     onBlur     | function |    -    | Same as onChange | false    |
 |     validate     | function |    -    |                                                                                                                        You have to return an object with the following structure: { valid, errorMessage } where valid is a boolean and errorMessage is a string.                                                                                                                        | false    |
 |  serverValue  |  string  |    ''   |                                                                                                                                                             Value coming from the server                                                                                                                                                             | false    |
+|  readOnly  |  bool  |    false   |                                                                                                                                                             if true will set the input as read only                                                                                                                                                             | false    |
 
 
 ### SubmitButton Props:

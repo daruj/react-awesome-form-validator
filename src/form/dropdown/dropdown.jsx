@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import enhanceWithClickOutside from 'react-click-outside';
 
@@ -109,22 +110,22 @@ class Dropdown extends Component {
 }
 
 Dropdown.propTypes = {
-  options: React.PropTypes.arrayOf(React.PropTypes.shape({
-    value: React.PropTypes.string.isRequired,
-    text: React.PropTypes.string.isRequired
+  options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired
   })).isRequired,
-  name: React.PropTypes.string.isRequired,
-  className: React.PropTypes.string,
-  invalidClassName: React.PropTypes.string,
-  value: React.PropTypes.string,
-  defaultOptionVisible: React.PropTypes.bool,
-  defaultOptionText: React.PropTypes.string,
-  onChange: React.PropTypes.func,
-  validate: React.PropTypes.func,
-  forceDirty: React.PropTypes.bool,
-  resetValue: React.PropTypes.bool,
-  inputIsValid: React.PropTypes.func,
-  disabled: React.PropTypes.bool
+  name: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  invalidClassName: PropTypes.string,
+  value: PropTypes.string,
+  defaultOptionVisible: PropTypes.bool,
+  defaultOptionText: PropTypes.string,
+  onChange: PropTypes.func,
+  validate: PropTypes.func,
+  forceDirty: PropTypes.bool,
+  resetValue: PropTypes.bool,
+  inputIsValid: PropTypes.func,
+  disabled: PropTypes.bool
 };
 
 export default enhanceWithClickOutside(Dropdown);

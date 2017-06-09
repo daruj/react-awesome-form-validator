@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import InputBaseComponent from '../inputBaseComponent';
 import classnames from 'classnames';
 
@@ -64,20 +65,20 @@ class TextArea extends InputBaseComponent {
 }
 
 TextArea.propTypes = {
-  fieldClassName: React.PropTypes.string,
-  placeHolder: React.PropTypes.string,
-  label: React.PropTypes.string,
-  name: React.PropTypes.string.isRequired,
-  rows: React.PropTypes.string,
-  cols: React.PropTypes.string,
-  value: React.PropTypes.string,
-  className: React.PropTypes.string,
-  invalidClassName: React.PropTypes.string,
-  validate: React.PropTypes.func,
-  onChange: React.PropTypes.func,
-  onBlur: React.PropTypes.func,
-  startValidatingWhenIsPristine: React.PropTypes.bool,
-  disabled: React.PropTypes.bool
+  fieldClassName: PropTypes.string,
+  placeHolder: PropTypes.string,
+  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  rows: PropTypes.string,
+  cols: PropTypes.string,
+  value: PropTypes.string,
+  className: PropTypes.string,
+  invalidClassName: PropTypes.string,
+  validate: PropTypes.func,
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  startValidatingWhenIsPristine: PropTypes.bool,
+  disabled: PropTypes.bool
 };
 
 export default TextArea;

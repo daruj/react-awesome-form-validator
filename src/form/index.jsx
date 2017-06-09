@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Input from './input';
 import TextArea from './textarea';
 import Dropdown from './dropdown';
@@ -240,15 +241,15 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.string,
-  resetForm: React.PropTypes.bool,
-  clearValuesOnReset: React.PropTypes.bool,
-  formWasReset: React.PropTypes.func,
-  onSubmit: React.PropTypes.func.isRequired,
-  onReset: React.PropTypes.func,
-  disableInputs: React.PropTypes.bool,
-  serverErrors: React.PropTypes.shape({})
+  children: PropTypes.node,
+  className: PropTypes.string,
+  resetForm: PropTypes.bool,
+  clearValuesOnReset: PropTypes.bool,
+  formWasReset: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
+  onReset: PropTypes.func,
+  disableInputs: PropTypes.bool,
+  serverErrors: PropTypes.shape({})
 };
 
 Form.CustomInput = CustomInput;

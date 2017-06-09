@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class InputBaseComponent extends Component {
   constructor(props) {
@@ -45,14 +46,14 @@ class InputBaseComponent extends Component {
 }
 
 InputBaseComponent.propTypes = {
-  forceDirty: React.PropTypes.bool.isRequired,
-  name: React.PropTypes.string.isRequired,
-  validate: React.PropTypes.func,
-  label: React.PropTypes.string,
-  valid: React.PropTypes.bool,
-  dirty: React.PropTypes.bool,
-  errorMessage: React.PropTypes.string,
-  resetValue: React.PropTypes.bool
+  forceDirty: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  validate: PropTypes.func,
+  label: PropTypes.string,
+  valid: PropTypes.bool,
+  dirty: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  resetValue: PropTypes.bool
 };
 
 export default InputBaseComponent;

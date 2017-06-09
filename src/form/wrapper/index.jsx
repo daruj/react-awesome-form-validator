@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Wrapper extends Component {
   constructor(props) {
@@ -17,8 +18,8 @@ class Wrapper extends Component {
 }
 
 Wrapper.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.string
+  children: PropTypes.node,
+  className: PropTypes.string
 };
 
 export default Wrapper;

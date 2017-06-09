@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import InputBaseComponent from '../inputBaseComponent';
 import Dropdown from './dropdown';
 
@@ -51,10 +52,10 @@ class DropdownWrapper extends InputBaseComponent {
 }
 
 DropdownWrapper.propTypes = {
-  fieldClassName: React.PropTypes.string,
-  onChange: React.PropTypes.func,
-  onBlur: React.PropTypes.func,
-  validate: React.PropTypes.func
+  fieldClassName: PropTypes.string,
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  validate: PropTypes.func
 };
 
 export default DropdownWrapper;

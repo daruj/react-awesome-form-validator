@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Button from '../button';
 
 class SubmitButton extends Component {
@@ -15,7 +16,7 @@ class SubmitButton extends Component {
 }
 
 SubmitButton.propTypes = {
-  children: React.PropTypes.string.isRequired
+  children: PropTypes.string.isRequired
 };
 
 export default SubmitButton;

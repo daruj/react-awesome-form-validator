@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Cannot use ReactTestUtils for stateless functional components.
 // https://github.com/facebook/react/issues/5901
@@ -7,7 +8,7 @@ class Wrapper extends React.Component {
 
   static get propTypes() {
     return {
-      children: React.PropTypes.array.isRequired
+      children: PropTypes.array.isRequired
     };
   }
 

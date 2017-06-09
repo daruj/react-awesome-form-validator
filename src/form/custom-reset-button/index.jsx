@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class CustomResetButton extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class CustomResetButton extends Component {
 }
 
 CustomResetButton.propTypes = {
-  children: React.PropTypes.node.isRequired
+  children: PropTypes.node.isRequired
 };
 
 export default CustomResetButton;

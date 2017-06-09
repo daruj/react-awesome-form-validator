@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import InputBaseComponent from '../inputBaseComponent';
 import classnames from 'classnames';
 
@@ -62,20 +63,20 @@ class Input extends InputBaseComponent {
 }
 
 Input.propTypes = {
-  fieldClassName: React.PropTypes.string,
-  type: React.PropTypes.string.isRequired,
-  placeHolder: React.PropTypes.string,
-  label: React.PropTypes.string,
-  name: React.PropTypes.string.isRequired,
-  value: React.PropTypes.string,
-  className: React.PropTypes.string,
-  invalidClassName: React.PropTypes.string,
-  validate: React.PropTypes.func,
-  onChange: React.PropTypes.func,
-  onBlur: React.PropTypes.func,
-  startValidatingWhenIsPristine: React.PropTypes.bool,
-  disabled: React.PropTypes.bool,
-  readOnly: React.PropTypes.bool
+  fieldClassName: PropTypes.string,
+  type: PropTypes.string.isRequired,
+  placeHolder: PropTypes.string,
+  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  className: PropTypes.string,
+  invalidClassName: PropTypes.string,
+  validate: PropTypes.func,
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  startValidatingWhenIsPristine: PropTypes.bool,
+  disabled: PropTypes.bool,
+  readOnly: PropTypes.bool
 };
 
 export default Input;

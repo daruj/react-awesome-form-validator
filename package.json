@@ -1,6 +1,6 @@
 {
   "name": "react-awesome-form-validator",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "This is a very nice form with validations using ReactJs",
   "main": "./dist/index.js",
   "keywords": [

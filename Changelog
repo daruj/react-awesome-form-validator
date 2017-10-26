@@ -1,0 +1,18 @@
+## Latest (not released yet) ##
+
+* Updated "readonly" property to "readOnly"
+
+  https://github.com/daruj/react-awesome-form-validator/pull/22
+
+* Added readonly input support
+
+  https://github.com/daruj/react-awesome-form-validator/pull/21
+
+* Add wrapper to select elements
+
+  https://github.com/daruj/react-awesome-form-validator/pull/20
+
+* Added HTML support on labels
+
+  https://github.com/daruj/react-awesome-form-validator/pull/19
+
